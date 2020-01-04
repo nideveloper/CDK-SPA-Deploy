@@ -48,6 +48,10 @@ export class SPADeploy extends cdk.Construct {
         return cfConfig;
     }
     
+    /**
+     * This will create an s3 deployment fronted by a cloudfront distribution
+     * It will also setup error forwarding and unauth forwarding back to indexDoc
+     */
     public createSiteWithCloudfront(config:SPADeployConfig) {
         const websiteBucket = new s3.Bucket(this, 'WebsiteBucket', {
           websiteIndexDocument: config.indexDoc,
@@ -61,7 +65,22 @@ export class SPADeploy extends cdk.Construct {
           destinationBucket: websiteBucket,
           //Invalidate the cache for / and index.html when we deploy so that cloudfront serves latest site
           distribution: distribution,
-          distributionPaths: ['/', '/index.html']
+          distributionPaths: ['/', config.indexDoc]
+        });
+    }
+    
+    /**
+     * Basic setup needed for a non-ssl, non vanity url, non cached s3 website
+     */
+    public createBasicSite(config:SPADeployConfig) {
+        const websiteBucket = new s3.Bucket(this, 'WebsiteBucket', {
+          websiteIndexDocument: config.indexDoc,
+          publicReadAccess: true
+        });
+        
+        new s3deploy.BucketDeployment(this, 'BucketDeployment', {
+          sources: [s3deploy.Source.asset(config.websiteFolder)], 
+          destinationBucket: websiteBucket,
         });
     }
     
