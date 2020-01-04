@@ -1,6 +1,5 @@
 import { expect as expectCDK, matchTemplate, MatchStyle, haveResource } from '@aws-cdk/assert';
 import { App, Stack } from '@aws-cdk/core';
-import CdkSpaDeploy = require('../src/cdk-spa-deploy-stack');
 import { SPADeploy } from '../src/spa-deploy-construct';
 
 test('Empty Stack', () => {
