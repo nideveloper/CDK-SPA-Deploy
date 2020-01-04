@@ -1,6 +1,10 @@
 {
   "name": "cdk-spa-deploy",
   "version": "0.1.1",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
   "bin": {
     "cdk-spa-deploy": "bin/cdk-spa-deploy.js"
   },
