@@ -13,7 +13,7 @@
   "scripts": {
     "build": "rm -rf lib/ && tsc",
     "watch": "tsc -w",
-    "test": "jest",
+    "test": "npm run build && jest",
     "cdk": "cdk"
   },
   "devDependencies": {
