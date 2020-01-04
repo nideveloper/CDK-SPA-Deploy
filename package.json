@@ -1,10 +1,13 @@
 {
   "name": "cdk-spa-deploy",
   "version": "0.1.2",
+  "main":"lib/index.js",
+  "types":"lib/index.d.ts",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
+  "files": ["lib/"],
   "bin": {
     "cdk-spa-deploy": "bin/cdk-spa-deploy.js"
   },
