@@ -82,6 +82,11 @@ export class SPADeploy extends cdk.Construct {
           sources: [s3deploy.Source.asset(config.websiteFolder)], 
           destinationBucket: websiteBucket,
         });
+        
+        new cdk.CfnOutput(this, 'URL', {
+          description: 'The url of the website',
+          value: websiteBucket.bucketWebsiteUrl
+        })
     }
     
 }
