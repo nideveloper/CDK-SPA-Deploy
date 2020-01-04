@@ -10,9 +10,6 @@
   "files": [
     "lib/"
   ],
-  "bin": {
-    "cdk-spa-deploy": "bin/cdk-spa-deploy.js"
-  },
   "scripts": {
     "build": "rm -rf lib/ && tsc",
     "watch": "tsc -w",
@@ -37,5 +34,15 @@
     "jest-extended": "^0.11.2",
     "jest-junit": "^10.0.0",
     "source-map-support": "^0.5.16"
-  }
+  },
+  "keywords": [
+    "aws",
+    "cdk",
+    "spa",
+    "website",
+    "deploy",
+    "cloudfront"
+  ],
+  "author": "matt@vs-software.co.uk",
+  "license": "MIT"
 }
