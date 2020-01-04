@@ -2,7 +2,6 @@
 
 This is an AWS CDK Construct to make deploying a website to S3 behind SSL/Cloudfront easier
 
-
 ## Useful commands
 
  * `npm run build`   compile typescript to js
