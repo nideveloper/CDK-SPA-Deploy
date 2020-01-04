@@ -67,6 +67,11 @@ export class SPADeploy extends cdk.Construct {
           distribution: distribution,
           distributionPaths: ['/', '/'+config.indexDoc]
         });
+        
+        new cdk.CfnOutput(this, 'cloudfront domain', {
+          description: 'The domain of the website',
+          value: distribution.domainName
+        })
     }
     
     /**
