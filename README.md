@@ -13,3 +13,7 @@ npm install --save cdk-spa-deploy
 You can also pass the ARN for an SSL certification and your alias routes to cloudfront
 
 <img src="https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/cdkdeploy-alias.png">
+
+## Issues / Feature Requests
+
+https://github.com/nideveloper/CDK-SPA-Deploy
