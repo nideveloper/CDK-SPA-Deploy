@@ -2,11 +2,5 @@
 
 This is an AWS CDK Construct to make deploying a website to S3 behind SSL/Cloudfront easier
 
-## Useful commands
+<img src="https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/spadeploy.png?sanitize=true">
 
- * `npm run build`   compile typescript to js
- * `npm run watch`   watch for changes and compile
- * `npm run test`    perform the jest unit tests
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk synth`       emits the synthesized CloudFormation template
