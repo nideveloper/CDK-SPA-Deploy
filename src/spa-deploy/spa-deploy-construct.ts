@@ -28,12 +28,12 @@ export class SPADeploy extends cdk.Construct {
           //We need to redirect all unknown routes back to index.html for angular routing to work
           errorConfigurations: [{
             errorCode: 403,
-            responsePagePath: config.indexDoc,
+            responsePagePath: '/'+config.indexDoc,
             responseCode: 200
           },
           {
             errorCode: 404,
-            responsePagePath: config.indexDoc,
+            responsePagePath: '/'+config.indexDoc,
             responseCode: 200
           }]
         }
@@ -65,7 +65,7 @@ export class SPADeploy extends cdk.Construct {
           destinationBucket: websiteBucket,
           //Invalidate the cache for / and index.html when we deploy so that cloudfront serves latest site
           distribution: distribution,
-          distributionPaths: ['/', config.indexDoc]
+          distributionPaths: ['/', '/'+config.indexDoc]
         });
     }
     
