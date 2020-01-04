@@ -1,13 +1,18 @@
-import { expect as expectCDK, matchTemplate, MatchStyle } from '@aws-cdk/assert';
-import cdk = require('@aws-cdk/core');
-import CdkSpaDeploy = require('../lib/cdk-spa-deploy-stack');
+import { expect as expectCDK, matchTemplate, MatchStyle, haveResource } from '@aws-cdk/assert';
+import { App, Stack } from '@aws-cdk/core';
+import CdkSpaDeploy = require('../src/cdk-spa-deploy-stack');
+import { SPADeploy } from '../src/spa-deploy-construct';
 
 test('Empty Stack', () => {
-    const app = new cdk.App();
+    const app = new App();
+    let stack = new Stack();
     // WHEN
-    const stack = new CdkSpaDeploy.CdkSpaDeployStack(app, 'MyTestStack');
+    let deploy = new SPADeploy(stack, 'spaDeploy');
+    
+    deploy.createSiteWithCloudfront({
+      indexDoc: 'index.html',
+      websiteFolder: 'website'
+    })
     // THEN
-    expectCDK(stack).to(matchTemplate({
-      "Resources": {}
-    }, MatchStyle.EXACT))
+    expectCDK(stack).to(haveResource('AWS::S3::Bucket'));
 });
