@@ -1,6 +1,6 @@
 {
   "name": "cdk-spa-deploy",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "publishConfig": {
@@ -54,7 +54,6 @@
     "@aws-cdk/aws-s3-deployment": "^1.19.0",
     "@aws-cdk/aws-certificatemanager": "^1.19.0",
     "@aws-cdk/core": "^1.19.0"
-    
   },
   "keywords": [
     "aws",
