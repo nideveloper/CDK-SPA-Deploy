@@ -4,10 +4,10 @@ import s3 = require('@aws-cdk/aws-s3');
 import { CloudFrontWebDistribution } from '@aws-cdk/aws-cloudfront'
 
 export interface SPADeployConfig {
-  indexDoc:string,
-  websiteFolder: string,
-  certificateARN?: string,
-  cfAliases?: string[]
+  readonly indexDoc:string,
+  readonly websiteFolder: string,
+  readonly certificateARN?: string,
+  readonly cfAliases?: string[]
 }
 
 export class SPADeploy extends cdk.Construct {

@@ -1,9 +1,8 @@
-import { expect as expectCDK, matchTemplate, MatchStyle, haveResource } from '@aws-cdk/assert';
-import { App, Stack } from '@aws-cdk/core';
-import { SPADeploy } from '../src/';
+import { expect as expectCDK, haveResource } from '@aws-cdk/assert';
+import { Stack } from '@aws-cdk/core';
+import { SPADeploy } from '../lib/';
 
 test('Cloudfront Distribution Included', () => {
-    const app = new App();
     let stack = new Stack();
     // WHEN
     let deploy = new SPADeploy(stack, 'spaDeploy');
@@ -17,7 +16,6 @@ test('Cloudfront Distribution Included', () => {
 });
 
 test('Basic Site Setup', () => {
-    const app = new App();
     let stack = new Stack();
     // WHEN
     let deploy = new SPADeploy(stack, 'spaDeploy');

@@ -1,0 +1,647 @@
+{
+  "author": {
+    "name": "matt@vs-software.co.uk",
+    "roles": [
+      "author"
+    ]
+  },
+  "dependencies": {
+    "@aws-cdk/aws-certificatemanager": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.CertificateManager",
+          "packageId": "Amazon.CDK.AWS.CertificateManager",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "certificatemanager",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.certificatemanager"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-certificatemanager"
+        },
+        "python": {
+          "distName": "aws-cdk.aws-certificatemanager",
+          "module": "aws_cdk.aws_certificatemanager"
+        }
+      },
+      "version": "1.19.0"
+    },
+    "@aws-cdk/aws-cloudfront": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.CloudFront",
+          "packageId": "Amazon.CDK.AWS.CloudFront",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "cloudfront",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.cloudfront"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-cloudfront"
+        },
+        "python": {
+          "distName": "aws-cdk.aws-cloudfront",
+          "module": "aws_cdk.aws_cloudfront"
+        }
+      },
+      "version": "1.19.0"
+    },
+    "@aws-cdk/aws-s3": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.S3",
+          "packageId": "Amazon.CDK.AWS.S3",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "s3",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.s3"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-s3"
+        },
+        "python": {
+          "distName": "aws-cdk.aws-s3",
+          "module": "aws_cdk.aws_s3"
+        }
+      },
+      "version": "1.19.0"
+    },
+    "@aws-cdk/aws-s3-deployment": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.S3.Deployment",
+          "packageId": "Amazon.CDK.AWS.S3.Deployment",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "s3-deployment",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.s3.deployment"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-s3-deployment"
+        },
+        "python": {
+          "distName": "aws-cdk.aws-s3-deployment",
+          "module": "aws_cdk.aws_s3_deployment"
+        }
+      },
+      "version": "1.19.0"
+    },
+    "@aws-cdk/core": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK",
+          "packageId": "Amazon.CDK",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "core",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.core"
+        },
+        "js": {
+          "npm": "@aws-cdk/core"
+        },
+        "python": {
+          "distName": "aws-cdk.core",
+          "module": "aws_cdk.core"
+        }
+      },
+      "version": "1.19.0"
+    }
+  },
+  "dependencyClosure": {
+    "@aws-cdk/aws-certificatemanager": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.CertificateManager",
+          "packageId": "Amazon.CDK.AWS.CertificateManager",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "certificatemanager",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.certificatemanager"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-certificatemanager"
+        },
+        "python": {
+          "distName": "aws-cdk.aws-certificatemanager",
+          "module": "aws_cdk.aws_certificatemanager"
+        }
+      },
+      "version": "1.19.0"
+    },
+    "@aws-cdk/aws-cloudformation": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.CloudFormation",
+          "packageId": "Amazon.CDK.AWS.CloudFormation",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "cloudformation",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.cloudformation"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-cloudformation"
+        },
+        "python": {
+          "distName": "aws-cdk.aws-cloudformation",
+          "module": "aws_cdk.aws_cloudformation"
+        }
+      },
+      "version": "1.19.0"
+    },
+    "@aws-cdk/aws-cloudfront": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.CloudFront",
+          "packageId": "Amazon.CDK.AWS.CloudFront",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "cloudfront",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.cloudfront"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-cloudfront"
+        },
+        "python": {
+          "distName": "aws-cdk.aws-cloudfront",
+          "module": "aws_cdk.aws_cloudfront"
+        }
+      },
+      "version": "1.19.0"
+    },
+    "@aws-cdk/aws-events": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.Events",
+          "packageId": "Amazon.CDK.AWS.Events",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "events",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.events"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-events"
+        },
+        "python": {
+          "distName": "aws-cdk.aws-events",
+          "module": "aws_cdk.aws_events"
+        }
+      },
+      "version": "1.19.0"
+    },
+    "@aws-cdk/aws-iam": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.IAM",
+          "packageId": "Amazon.CDK.AWS.IAM",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "iam",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.iam"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-iam"
+        },
+        "python": {
+          "distName": "aws-cdk.aws-iam",
+          "module": "aws_cdk.aws_iam"
+        }
+      },
+      "version": "1.19.0"
+    },
+    "@aws-cdk/aws-kms": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.KMS",
+          "packageId": "Amazon.CDK.AWS.KMS",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "kms",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.kms"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-kms"
+        },
+        "python": {
+          "distName": "aws-cdk.aws-kms",
+          "module": "aws_cdk.aws_kms"
+        }
+      },
+      "version": "1.19.0"
+    },
+    "@aws-cdk/aws-lambda": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.Lambda",
+          "packageId": "Amazon.CDK.AWS.Lambda",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "lambda",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.lambda"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-lambda"
+        },
+        "python": {
+          "distName": "aws-cdk.aws-lambda",
+          "module": "aws_cdk.aws_lambda"
+        }
+      },
+      "version": "1.19.0"
+    },
+    "@aws-cdk/aws-route53": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.Route53",
+          "packageId": "Amazon.CDK.AWS.Route53",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "route53",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.route53"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-route53"
+        },
+        "python": {
+          "distName": "aws-cdk.aws-route53",
+          "module": "aws_cdk.aws_route53"
+        }
+      },
+      "version": "1.19.0"
+    },
+    "@aws-cdk/aws-s3": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.S3",
+          "packageId": "Amazon.CDK.AWS.S3",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "s3",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.s3"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-s3"
+        },
+        "python": {
+          "distName": "aws-cdk.aws-s3",
+          "module": "aws_cdk.aws_s3"
+        }
+      },
+      "version": "1.19.0"
+    },
+    "@aws-cdk/aws-s3-assets": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.S3.Assets",
+          "packageId": "Amazon.CDK.AWS.S3.Assets",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "s3-assets",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.s3.assets"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-s3-assets"
+        },
+        "python": {
+          "distName": "aws-cdk.aws-s3-assets",
+          "module": "aws_cdk.aws_s3_assets"
+        }
+      },
+      "version": "1.19.0"
+    },
+    "@aws-cdk/aws-s3-deployment": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.S3.Deployment",
+          "packageId": "Amazon.CDK.AWS.S3.Deployment",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "s3-deployment",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.s3.deployment"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-s3-deployment"
+        },
+        "python": {
+          "distName": "aws-cdk.aws-s3-deployment",
+          "module": "aws_cdk.aws_s3_deployment"
+        }
+      },
+      "version": "1.19.0"
+    },
+    "@aws-cdk/core": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK",
+          "packageId": "Amazon.CDK",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "core",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.core"
+        },
+        "js": {
+          "npm": "@aws-cdk/core"
+        },
+        "python": {
+          "distName": "aws-cdk.core",
+          "module": "aws_cdk.core"
+        }
+      },
+      "version": "1.19.0"
+    },
+    "@aws-cdk/cx-api": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.CXAPI",
+          "packageId": "Amazon.CDK.CXAPI",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "cdk-cx-api",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.cxapi"
+        },
+        "js": {
+          "npm": "@aws-cdk/cx-api"
+        },
+        "python": {
+          "distName": "aws-cdk.cx-api",
+          "module": "aws_cdk.cx_api"
+        }
+      },
+      "version": "1.19.0"
+    }
+  },
+  "description": "cdk-spa-deploy",
+  "homepage": "https://github.com/nideveloper/CDK-SPA-Deploy.git",
+  "jsiiVersion": "0.20.11 (build d4fd44f)",
+  "keywords": [
+    "aws",
+    "cdk",
+    "spa",
+    "website",
+    "deploy",
+    "cloudfront"
+  ],
+  "license": "MIT",
+  "name": "cdk-spa-deploy",
+  "readme": {
+    "markdown": "# CDK-SPA-Deploy\n\nThis is an AWS CDK Construct to make deploying a website to S3 behind SSL/Cloudfront easier\n\n<img src=\"https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/spadeploy.png?sanitize=true\">\n\n## Installation\n\nnpm install --save cdk-spa-deploy\n\n## Advanced Usage\n\nYou can also pass the ARN for an SSL certification and your alias routes to cloudfront\n\n<img src=\"https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/cdkdeploy-alias.png\">\n\n## Issues / Feature Requests\n\nhttps://github.com/nideveloper/CDK-SPA-Deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nideveloper/CDK-SPA-Deploy.git"
+  },
+  "schema": "jsii/0.10.0",
+  "targets": {
+    "js": {
+      "npm": "cdk-spa-deploy"
+    },
+    "python": {
+      "distName": "cdk-spa-deploy",
+      "module": "spa_deploy"
+    }
+  },
+  "types": {
+    "cdk-spa-deploy.SPADeploy": {
+      "assembly": "cdk-spa-deploy",
+      "base": "@aws-cdk/core.Construct",
+      "fqn": "cdk-spa-deploy.SPADeploy",
+      "initializer": {
+        "parameters": [
+          {
+            "name": "scope",
+            "type": {
+              "fqn": "@aws-cdk/core.Construct"
+            }
+          },
+          {
+            "name": "id",
+            "type": {
+              "primitive": "string"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+        "line": 13
+      },
+      "methods": [
+        {
+          "docs": {
+            "summary": "Basic setup needed for a non-ssl, non vanity url, non cached s3 website."
+          },
+          "locationInModule": {
+            "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+            "line": 80
+          },
+          "name": "createBasicSite",
+          "parameters": [
+            {
+              "name": "config",
+              "type": {
+                "fqn": "cdk-spa-deploy.SPADeployConfig"
+              }
+            }
+          ]
+        },
+        {
+          "docs": {
+            "summary": "This will create an s3 deployment fronted by a cloudfront distribution It will also setup error forwarding and unauth forwarding back to indexDoc."
+          },
+          "locationInModule": {
+            "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+            "line": 55
+          },
+          "name": "createSiteWithCloudfront",
+          "parameters": [
+            {
+              "name": "config",
+              "type": {
+                "fqn": "cdk-spa-deploy.SPADeployConfig"
+              }
+            }
+          ]
+        }
+      ],
+      "name": "SPADeploy"
+    },
+    "cdk-spa-deploy.SPADeployConfig": {
+      "assembly": "cdk-spa-deploy",
+      "datatype": true,
+      "fqn": "cdk-spa-deploy.SPADeployConfig",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+        "line": 6
+      },
+      "name": "SPADeployConfig",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+            "line": 7
+          },
+          "name": "indexDoc",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+            "line": 8
+          },
+          "name": "websiteFolder",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+            "line": 9
+          },
+          "name": "certificateARN",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+            "line": 10
+          },
+          "name": "cfAliases",
+          "optional": true,
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "string"
+              },
+              "kind": "array"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "version": "0.1.10",
+  "fingerprint": "WdiA/9dLYVFhbccvV7O4ZY0u3yGTnaD+4Jqu3ATinAE="
+}
