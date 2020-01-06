@@ -13,7 +13,7 @@
   "scripts": {
     "build": "jsii",
     "watch": "tsc -w",
-    "test": "npm run build && npm run publish && jest",
+    "test": "npm run build && npm run package && jest",
     "cdk": "cdk",
     "package": "jsii-pacmak"
   },
