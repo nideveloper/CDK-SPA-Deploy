@@ -1,6 +1,6 @@
 {
   "name": "cdk-spa-deploy",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "stability": "experimental",
@@ -11,7 +11,8 @@
   "scripts": {
     "build": "jsii",
     "build:watch": "jsii -w",
-    "test": "npm run build && npm run package && jest",
+    "test": "jest",
+    "prepare": "npm run build && npm run package",
     "cdk": "cdk",
     "package": "jsii-pacmak"
   },
