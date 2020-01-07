@@ -478,9 +478,6 @@
     }
   },
   "description": "cdk-spa-deploy",
-  "docs": {
-    "stability": "experimental"
-  },
   "homepage": "https://github.com/nideveloper/CDK-SPA-Deploy.git",
   "jsiiVersion": "0.20.11 (build d4fd44f)",
   "keywords": [
@@ -514,14 +511,8 @@
     "cdk-spa-deploy.SPADeploy": {
       "assembly": "cdk-spa-deploy",
       "base": "@aws-cdk/core.Construct",
-      "docs": {
-        "stability": "experimental"
-      },
       "fqn": "cdk-spa-deploy.SPADeploy",
       "initializer": {
-        "docs": {
-          "stability": "experimental"
-        },
         "parameters": [
           {
             "name": "scope",
@@ -545,7 +536,6 @@
       "methods": [
         {
           "docs": {
-            "stability": "experimental",
             "summary": "Basic setup needed for a non-ssl, non vanity url, non cached s3 website."
           },
           "locationInModule": {
@@ -564,7 +554,6 @@
         },
         {
           "docs": {
-            "stability": "experimental",
             "summary": "This will create an s3 deployment fronted by a cloudfront distribution It will also setup error forwarding and unauth forwarding back to indexDoc."
           },
           "locationInModule": {
@@ -587,9 +576,6 @@
     "cdk-spa-deploy.SPADeployConfig": {
       "assembly": "cdk-spa-deploy",
       "datatype": true,
-      "docs": {
-        "stability": "experimental"
-      },
       "fqn": "cdk-spa-deploy.SPADeployConfig",
       "kind": "interface",
       "locationInModule": {
@@ -600,9 +586,6 @@
       "properties": [
         {
           "abstract": true,
-          "docs": {
-            "stability": "experimental"
-          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
@@ -615,9 +598,6 @@
         },
         {
           "abstract": true,
-          "docs": {
-            "stability": "experimental"
-          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
@@ -630,9 +610,6 @@
         },
         {
           "abstract": true,
-          "docs": {
-            "stability": "experimental"
-          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
@@ -646,9 +623,6 @@
         },
         {
           "abstract": true,
-          "docs": {
-            "stability": "experimental"
-          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
@@ -668,6 +642,6 @@
       ]
     }
   },
-  "version": "0.1.19",
-  "fingerprint": "cjTDt7mCCtSfwCmm2E17ZJNzFiRCI/P0a4MnelilVao="
+  "version": "0.1.20",
+  "fingerprint": "IHinO8QkVtdOA0ZlI+pPCe0VzllKD2yMe46FQrlqW4M="
 }
