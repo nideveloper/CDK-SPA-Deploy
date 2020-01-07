@@ -12,12 +12,8 @@
     "build": "jsii",
     "build:watch": "jsii -w",
     "test": "jest",
-    "prepare": "npm run build && npm run package",
     "cdk": "cdk",
     "package": "jsii-pacmak"
-  },
-  "np": {
-        "contents": "dist/js"
   },
   "jsii": {
     "outdir": "dist",
