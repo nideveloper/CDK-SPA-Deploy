@@ -3,7 +3,6 @@
   "version": "0.1.19",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "stability": "experimental",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
