@@ -15,7 +15,7 @@ pip install cdk-spa-deploy
 
 You can also pass the ARN for an SSL certification and your alias routes to cloudfront
 
-![cdk-spa-deploy alias](img/cdkdeploy-alias.png)
+![cdk-spa-deploy alias](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/cdkdeploy-alias.png)
 
 ## Issues / Feature Requests
 
