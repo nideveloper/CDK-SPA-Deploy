@@ -1,6 +1,6 @@
 # CDK-SPA-Deploy
 
-This is an AWS CDK Construct to make deploying a website to S3 behind SSL/Cloudfront easier
+This is an AWS CDK Construct to make deploying a single page website (Angular/React/Vue) to AWS S3 behind SSL/Cloudfront easier
 
 
 ## Installation and Usage
