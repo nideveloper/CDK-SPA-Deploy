@@ -1,15 +1,19 @@
 # CDK-SPA-Deploy
 
 This is an AWS CDK Construct to make deploying a website to S3 behind SSL/Cloudfront easier
-![cdk-spa-deploy example](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/spadeploy.png)
 
-## Installation
+
+## Installation and Usage
 
 ### Typescript
 npm install --save cdk-spa-deploy
 
+![cdk-spa-deploy example](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/spadeploy.png)
+
 ### Python
 pip install cdk-spa-deploy
+
+![cdk-spa-deploy python example](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/python.png)
 
 ## Advanced Usage
 
