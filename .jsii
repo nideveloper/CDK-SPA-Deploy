@@ -494,7 +494,7 @@
   "license": "MIT",
   "name": "cdk-spa-deploy",
   "readme": {
-    "markdown": "# CDK-SPA-Deploy\n\nThis is an AWS CDK Construct to make deploying a website to S3 behind SSL/Cloudfront easier\n\n\n## Installation and Usage\n\n### Typescript\nnpm install --save cdk-spa-deploy\n\n![cdk-spa-deploy example](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/spadeploy.png)\n\n### Python\npip install cdk-spa-deploy\n\n![cdk-spa-deploy python example](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/python.png)\n\n## Advanced Usage\n\nYou can also pass the ARN for an SSL certification and your alias routes to cloudfront\n\n![cdk-spa-deploy alias](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/cdkdeploy-alias.png)\n\n## Issues / Feature Requests\n\nhttps://github.com/nideveloper/CDK-SPA-Deploy"
+    "markdown": "# CDK-SPA-Deploy\n\nThis is an AWS CDK Construct to make deploying a single page website (Angular/React/Vue) to AWS S3 behind SSL/Cloudfront easier\n\n\n## Installation and Usage\n\n### Typescript\nnpm install --save cdk-spa-deploy\n\n![cdk-spa-deploy example](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/spadeploy.png)\n\n### Python\npip install cdk-spa-deploy\n\n![cdk-spa-deploy python example](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/python.png)\n\n## Advanced Usage\n\nYou can also pass the ARN for an SSL certification and your alias routes to cloudfront\n\n![cdk-spa-deploy alias](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/cdkdeploy-alias.png)\n\n## Issues / Feature Requests\n\nhttps://github.com/nideveloper/CDK-SPA-Deploy"
   },
   "repository": {
     "type": "git",
@@ -668,6 +668,6 @@
       ]
     }
   },
-  "version": "0.1.17",
-  "fingerprint": "9etCr2s1qXUTznolQYpUsBhNBLdmiQCGMlHoPuKIvdY="
+  "version": "0.1.18",
+  "fingerprint": "aaIP19u0tY0Wy+I7ahAgTaHt7OQQXVpZqos7X0e5kN4="
 }
