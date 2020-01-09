@@ -10,7 +10,7 @@
   "scripts": {
     "build": "jsii",
     "build:watch": "jsii -w",
-    "test": "jest",
+    "test": "tsc && jest",
     "cdk": "cdk",
     "package": "jsii-pacmak"
   },
