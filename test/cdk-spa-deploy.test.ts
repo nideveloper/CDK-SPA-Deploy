@@ -59,6 +59,40 @@ test('Cloudfront Distribution Included', () => {
     }));
 });
 
+test('Cloudfront With Custom Cert and Aliases', () => {
+    let stack = new Stack();
+    // WHEN
+    let deploy = new SPADeploy(stack, 'spaDeploy');
+    
+    deploy.createSiteWithCloudfront({
+      indexDoc: 'index.html',
+      websiteFolder: 'website',
+      certificateARN: 'arn:1234',
+      cfAliases: ['www.test.com']
+    })
+
+    // THEN
+    expectCDK(stack).to(haveResource('AWS::S3::Bucket', {
+      WebsiteConfiguration: {
+        IndexDocument: 'index.html'
+      }
+    }));
+    
+    expectCDK(stack).to(haveResource('Custom::CDKBucketDeployment'));
+    
+    expectCDK(stack).to(haveResourceLike('AWS::CloudFront::Distribution', {
+      "DistributionConfig": {
+          "Aliases": [
+                "www.test.com"
+          ],
+          "ViewerCertificate": {
+            "AcmCertificateArn": "arn:1234",
+            "SslSupportMethod": "sni-only"
+          }
+      }
+    }));
+});
+
 test('Basic Site Setup', () => {
     let stack = new Stack();
     
