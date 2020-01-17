@@ -3,9 +3,10 @@ import s3deploy= require('@aws-cdk/aws-s3-deployment');
 import s3 = require('@aws-cdk/aws-s3');
 import { CloudFrontWebDistribution, ViewerCertificate } from '@aws-cdk/aws-cloudfront'
 import { PolicyStatement } from '@aws-cdk/aws-iam';
-import { HostedZone, CnameRecord } from '@aws-cdk/aws-route53';
+import { HostedZone, ARecord, RecordTarget } from '@aws-cdk/aws-route53';
 import { DnsValidatedCertificate } from '@aws-cdk/aws-certificatemanager';
 import { HttpsRedirect } from '@aws-cdk/aws-route53-patterns';
+import { CloudFrontTarget } from '@aws-cdk/aws-route53-targets';
 
 export interface SPADeployConfig {
   readonly indexDoc:string,
@@ -161,7 +162,7 @@ export class SPADeploy extends cdk.Construct {
      * configured by using the details in the hosted zone provided
      */
     public createSiteFromHostedZone(config:HostedZoneConfig) {
-      const websiteBucket = this.getS3Bucket(config);
+       const websiteBucket = this.getS3Bucket(config);
        let zone = HostedZone.fromLookup(this, 'HostedZone', { domainName: config.zoneName });
        let cert = new DnsValidatedCertificate(this, 'Certificate', {
                 hostedZone: zone,
@@ -179,10 +180,10 @@ export class SPADeploy extends cdk.Construct {
           distributionPaths: ['/', '/'+config.indexDoc]
         });
         
-        new CnameRecord(this, 'CNameRecord', {
-          domainName: distribution.domainName,
+        new ARecord(this, 'Alias', {
           zone,
-          recordName: '*.'+config.zoneName
+          recordName: config.zoneName,
+          target: RecordTarget.fromAlias(new CloudFrontTarget(distribution))
         })
 
         new HttpsRedirect(this, 'Redirect', {
