@@ -124,3 +124,194 @@ test('Basic Site Setup', () => {
             }
     }));
 });
+
+test('Basic Site Setup, Encrypted Bucket', () => {
+    let stack = new Stack();
+    
+    // WHEN
+    new SPADeploy(stack, 'spaDeploy', {encryptBucket:true})
+      .createBasicSite({
+        indexDoc: 'index.html',
+        websiteFolder: 'website'
+      })
+    
+    // THEN
+    expectCDK(stack).to(haveResource('AWS::S3::Bucket', {
+      BucketEncryption: {
+        ServerSideEncryptionConfiguration: [
+          {
+            ServerSideEncryptionByDefault: {
+              SSEAlgorithm: "AES256"
+            }
+          }
+        ]
+      },
+      WebsiteConfiguration: {
+        IndexDocument: 'index.html'
+      }
+    }));
+    
+    expectCDK(stack).to(haveResource('Custom::CDKBucketDeployment'));
+    
+    expectCDK(stack).to(haveResourceLike('AWS::S3::BucketPolicy',  {
+            PolicyDocument: {
+                Statement: [
+                    {
+                        "Action": "s3:GetObject",
+                        "Effect": "Allow",
+                        "Principal": "*"
+                    }]
+            }
+    }));
+});
+
+test('Cloudfront With Encrypted Bucket', () => {
+    let stack = new Stack();
+    // WHEN
+    let deploy = new SPADeploy(stack, 'spaDeploy', {encryptBucket:true});
+    
+    deploy.createSiteWithCloudfront({
+      indexDoc: 'index.html',
+      websiteFolder: 'website',
+      certificateARN: 'arn:1234',
+      cfAliases: ['www.test.com']
+    })
+
+    // THEN
+    expectCDK(stack).to(haveResource('AWS::S3::Bucket', {
+      BucketEncryption: {
+        ServerSideEncryptionConfiguration: [
+          {
+            ServerSideEncryptionByDefault: {
+              SSEAlgorithm: "AES256"
+            }
+          }
+        ]
+      },
+      WebsiteConfiguration: {
+        IndexDocument: 'index.html'
+      }
+    }));
+    
+    expectCDK(stack).to(haveResource('Custom::CDKBucketDeployment'));
+    
+    expectCDK(stack).to(haveResourceLike('AWS::CloudFront::Distribution', {
+      "DistributionConfig": {
+          "Aliases": [
+                "www.test.com"
+          ],
+          "ViewerCertificate": {
+            "AcmCertificateArn": "arn:1234",
+            "SslSupportMethod": "sni-only"
+          }
+      }
+    }));
+});
+
+test('Basic Site Setup, IP Filter', () => {
+    let stack = new Stack();
+    
+    // WHEN
+    new SPADeploy(stack, 'spaDeploy', {encryptBucket:true, ipFilter:true, ipList: ['1.1.1.1']})
+      .createBasicSite({
+        indexDoc: 'index.html',
+        websiteFolder: 'website'
+      })
+    
+    // THEN
+    expectCDK(stack).to(haveResource('AWS::S3::Bucket', {
+      BucketEncryption: {
+        ServerSideEncryptionConfiguration: [
+          {
+            ServerSideEncryptionByDefault: {
+              SSEAlgorithm: "AES256"
+            }
+          }
+        ]
+      },
+      WebsiteConfiguration: {
+        IndexDocument: 'index.html'
+      }
+    }));
+    
+    expectCDK(stack).to(haveResource('Custom::CDKBucketDeployment'));
+    
+    expectCDK(stack).to(haveResourceLike('AWS::S3::BucketPolicy',  {
+            PolicyDocument: {
+                Statement: [
+                    {
+                        "Action": "s3:GetObject",
+                        "Condition": {
+                          "IpAddress": {
+                            "aws:SourceIp": [
+                              "1.1.1.1"
+                            ]
+                          }
+                        },
+                        "Effect": "Allow",
+                        "Principal": "*"
+                    }]
+            }
+    }));
+});
+
+test('Cloudfront With IP Filter', () => {
+    let stack = new Stack();
+    // WHEN
+    let deploy = new SPADeploy(stack, 'spaDeploy', {encryptBucket:true, ipFilter:true, ipList: ['1.1.1.1']});
+    
+    deploy.createSiteWithCloudfront({
+      indexDoc: 'index.html',
+      websiteFolder: 'website',
+      certificateARN: 'arn:1234',
+      cfAliases: ['www.test.com']
+    })
+
+    // THEN
+    expectCDK(stack).to(haveResource('AWS::S3::Bucket', {
+      BucketEncryption: {
+        ServerSideEncryptionConfiguration: [
+          {
+            ServerSideEncryptionByDefault: {
+              SSEAlgorithm: "AES256"
+            }
+          }
+        ]
+      },
+      WebsiteConfiguration: {
+        IndexDocument: 'index.html'
+      }
+    }));
+    
+    expectCDK(stack).to(haveResource('Custom::CDKBucketDeployment'));
+    
+    expectCDK(stack).to(haveResourceLike('AWS::S3::BucketPolicy',  {
+            PolicyDocument: {
+                Statement: [
+                    {
+                        "Action": "s3:GetObject",
+                        "Condition": {
+                          "IpAddress": {
+                            "aws:SourceIp": [
+                              "1.1.1.1"
+                            ]
+                          }
+                        },
+                        "Effect": "Allow",
+                        "Principal": "*"
+                    }]
+            }
+    }));
+    
+    expectCDK(stack).to(haveResourceLike('AWS::CloudFront::Distribution', {
+      "DistributionConfig": {
+          "Aliases": [
+                "www.test.com"
+          ],
+          "ViewerCertificate": {
+            "AcmCertificateArn": "arn:1234",
+            "SslSupportMethod": "sni-only"
+          }
+      }
+    }));
+});

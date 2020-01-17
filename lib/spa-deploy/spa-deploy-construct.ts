@@ -2,6 +2,7 @@ import cdk = require('@aws-cdk/core');
 import s3deploy= require('@aws-cdk/aws-s3-deployment');
 import s3 = require('@aws-cdk/aws-s3');
 import { CloudFrontWebDistribution } from '@aws-cdk/aws-cloudfront'
+import { PolicyStatement } from '@aws-cdk/aws-iam';
 
 export interface SPADeployConfig {
   readonly indexDoc:string,
@@ -10,9 +11,62 @@ export interface SPADeployConfig {
   readonly cfAliases?: string[]
 }
 
+export interface SPAGlobalConfig {
+  readonly encryptBucket?:boolean,
+  readonly ipFilter?:boolean,
+  readonly ipList?:string[]
+}
+
 export class SPADeploy extends cdk.Construct {
-    constructor(scope: cdk.Construct, id:string){
+    globalConfig: SPAGlobalConfig;
+    
+    constructor(scope: cdk.Construct, id:string, config?:SPAGlobalConfig){
         super(scope, id);
+        
+        if(typeof config != 'undefined'){
+          this.globalConfig = config;
+        } else {
+          this.globalConfig = {
+            encryptBucket:false,
+            ipFilter: false
+          }
+        }
+    }
+    
+    private getS3Bucket(config:SPADeployConfig) {
+      
+      let bucketConfig:any = {
+          websiteIndexDocument: config.indexDoc,
+          publicReadAccess: true
+        };
+        
+      if(this.globalConfig.encryptBucket === true){
+        bucketConfig.encryption = s3.BucketEncryption.S3_MANAGED
+      }
+      
+      if(this.globalConfig.ipFilter === true){
+        bucketConfig.publicReadAccess = false;
+      }
+        
+      let bucket = new s3.Bucket(this, 'WebsiteBucket', bucketConfig);
+      
+      if(this.globalConfig.ipFilter === true){
+        if(typeof this.globalConfig.ipList == 'undefined') {
+          this.node.addError('When IP Filter is true then the IP List is required');
+        }
+        
+        const bucketPolicy = new PolicyStatement();
+        bucketPolicy.addAnyPrincipal();
+        bucketPolicy.addActions('s3:GetObject');
+        bucketPolicy.addResources(bucket.bucketArn + '/*');
+        bucketPolicy.addCondition('IpAddress', {
+          'aws:SourceIp': this.globalConfig.ipList
+        });
+        
+        bucket.addToResourcePolicy(bucketPolicy);
+      }
+      
+      return bucket;
     }
     
     private getCFConfig(websiteBucket:s3.Bucket, config:SPADeployConfig) {
@@ -53,11 +107,7 @@ export class SPADeploy extends cdk.Construct {
      * It will also setup error forwarding and unauth forwarding back to indexDoc
      */
     public createSiteWithCloudfront(config:SPADeployConfig) {
-        const websiteBucket = new s3.Bucket(this, 'WebsiteBucket', {
-          websiteIndexDocument: config.indexDoc,
-          publicReadAccess: true
-        });
-        
+        const websiteBucket = this.getS3Bucket(config);
         const distribution = new CloudFrontWebDistribution(this, 'cloudfrontDistribution', this.getCFConfig(websiteBucket, config));
         
         new s3deploy.BucketDeployment(this, 'BucketDeployment', {
@@ -78,10 +128,7 @@ export class SPADeploy extends cdk.Construct {
      * Basic setup needed for a non-ssl, non vanity url, non cached s3 website
      */
     public createBasicSite(config:SPADeployConfig) {
-        const websiteBucket = new s3.Bucket(this, 'WebsiteBucket', {
-          websiteIndexDocument: config.indexDoc,
-          publicReadAccess: true
-        });
+        const websiteBucket = this.getS3Bucket(config);
         
         new s3deploy.BucketDeployment(this, 'BucketDeployment', {
           sources: [s3deploy.Source.asset(config.websiteFolder)], 
