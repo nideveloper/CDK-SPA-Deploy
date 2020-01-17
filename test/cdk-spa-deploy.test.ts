@@ -1,5 +1,5 @@
 import { expect as expectCDK, haveResource, haveResourceLike } from '@aws-cdk/assert';
-import { Stack } from '@aws-cdk/core';
+import { Stack, App } from '@aws-cdk/core';
 import { SPADeploy } from '../lib/';
 
 test('Cloudfront Distribution Included', () => {
@@ -310,6 +310,52 @@ test('Cloudfront With IP Filter', () => {
           ],
           "ViewerCertificate": {
             "AcmCertificateArn": "arn:1234",
+            "SslSupportMethod": "sni-only"
+          }
+      }
+    }));
+});
+
+test('Create From Hosted Zone', () => {
+    let app = new App();
+    let stack = new Stack(app, 'testStack', {
+      env: {
+        region: 'us-east-1',
+        account: '1234'
+        }
+    });
+    // WHEN
+    new SPADeploy(stack, 'spaDeploy', {encryptBucket:true})
+      .createSiteFromHostedZone({
+        zoneName: 'cdkspadeploy.com',
+        indexDoc: 'index.html',
+        websiteFolder: 'website'
+      });
+
+    // THEN
+    expectCDK(stack).to(haveResource('AWS::S3::Bucket', {
+      BucketEncryption: {
+        ServerSideEncryptionConfiguration: [
+          {
+            ServerSideEncryptionByDefault: {
+              SSEAlgorithm: "AES256"
+            }
+          }
+        ]
+      },
+      WebsiteConfiguration: {
+        IndexDocument: 'index.html'
+      }
+    }));
+    
+    expectCDK(stack).to(haveResource('Custom::CDKBucketDeployment'));
+    
+    expectCDK(stack).to(haveResourceLike('AWS::CloudFront::Distribution', {
+      "DistributionConfig": {
+          "Aliases": [
+                "www.cdkspadeploy.com"
+          ],
+          "ViewerCertificate": {
             "SslSupportMethod": "sni-only"
           }
       }
