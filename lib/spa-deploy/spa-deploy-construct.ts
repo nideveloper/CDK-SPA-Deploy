@@ -1,14 +1,23 @@
 import cdk = require('@aws-cdk/core');
 import s3deploy= require('@aws-cdk/aws-s3-deployment');
 import s3 = require('@aws-cdk/aws-s3');
-import { CloudFrontWebDistribution } from '@aws-cdk/aws-cloudfront'
+import { CloudFrontWebDistribution, ViewerCertificate } from '@aws-cdk/aws-cloudfront'
 import { PolicyStatement } from '@aws-cdk/aws-iam';
+import { HostedZone, CnameRecord } from '@aws-cdk/aws-route53';
+import { DnsValidatedCertificate } from '@aws-cdk/aws-certificatemanager';
+import { HttpsRedirect } from '@aws-cdk/aws-route53-patterns';
 
 export interface SPADeployConfig {
   readonly indexDoc:string,
   readonly websiteFolder: string,
   readonly certificateARN?: string,
   readonly cfAliases?: string[]
+}
+
+export interface HostedZoneConfig {
+  readonly indexDoc:string,
+  readonly websiteFolder: string,
+  readonly zoneName: string
 }
 
 export interface SPAGlobalConfig {
@@ -69,7 +78,7 @@ export class SPADeploy extends cdk.Construct {
       return bucket;
     }
     
-    private getCFConfig(websiteBucket:s3.Bucket, config:SPADeployConfig) {
+    private getCFConfig(websiteBucket:s3.Bucket, config:any, cert?:DnsValidatedCertificate) {
          let cfConfig:any = {
           originConfigs: [
             {
@@ -97,6 +106,12 @@ export class SPADeploy extends cdk.Construct {
                 acmCertRef: config.certificateARN,
                 names: config.cfAliases
             }
+        }
+        
+        if(typeof config.zoneName !='undefined' && typeof cert != 'undefined'){
+          cfConfig.viewerCertificate = ViewerCertificate.fromAcmCertificate(cert, {
+            aliases: [config.zoneName],
+          })
         }
         
         return cfConfig;
@@ -139,6 +154,42 @@ export class SPADeploy extends cdk.Construct {
           description: 'The url of the website',
           value: websiteBucket.bucketWebsiteUrl
         })
+    }
+    
+    /**
+     * S3 Deployment, cloudfront distribution, ssl cert and error forwarding auto
+     * configured by using the details in the hosted zone provided
+     */
+    public createSiteFromHostedZone(config:HostedZoneConfig) {
+      const websiteBucket = this.getS3Bucket(config);
+       let zone = HostedZone.fromLookup(this, 'HostedZone', { domainName: config.zoneName });
+       let cert = new DnsValidatedCertificate(this, 'Certificate', {
+                hostedZone: zone,
+                domainName: config.zoneName,
+                region: 'us-east-1',
+            });
+            
+        const distribution = new CloudFrontWebDistribution(this, 'cloudfrontDistribution', this.getCFConfig(websiteBucket, config, cert));
+        
+        new s3deploy.BucketDeployment(this, 'BucketDeployment', {
+          sources: [s3deploy.Source.asset(config.websiteFolder)], 
+          destinationBucket: websiteBucket,
+          //Invalidate the cache for / and index.html when we deploy so that cloudfront serves latest site
+          distribution: distribution,
+          distributionPaths: ['/', '/'+config.indexDoc]
+        });
+        
+        new CnameRecord(this, 'CNameRecord', {
+          domainName: distribution.domainName,
+          zone,
+          recordName: '*.'+config.zoneName
+        })
+
+        new HttpsRedirect(this, 'Redirect', {
+            zone,
+            recordNames: ['www.'+config.zoneName],
+            targetDomain: config.zoneName,
+        });
     }
     
 }

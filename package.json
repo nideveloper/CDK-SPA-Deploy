@@ -41,6 +41,8 @@
   "dependencies": {
     "@aws-cdk/aws-certificatemanager": "^1.21.1",
     "@aws-cdk/aws-cloudfront": "^1.21.1",
+    "@aws-cdk/aws-route53-patterns": "^1.21.1",
+    "@aws-cdk/aws-route53-targets": "^1.21.1",
     "@aws-cdk/aws-s3": "^1.21.1",
     "@aws-cdk/aws-s3-deployment": "^1.21.1",
     "@aws-cdk/core": "^1.21.1"

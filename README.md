@@ -1,6 +1,6 @@
 # CDK-SPA-Deploy
 
-This is an AWS CDK Construct to make deploying a single page website (Angular/React/Vue) to AWS S3 behind SSL/Cloudfront easier
+This is an AWS CDK Construct to make deploying a single page website (Angular/React/Vue) to AWS S3 behind SSL/Cloudfront as easy as 5 lines of code.
 
 
 ## Installation and Usage
@@ -16,6 +16,12 @@ pip install cdk-spa-deploy
 ![cdk-spa-deploy python example](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/python.png)
 
 ## Advanced Usage
+
+### Auto Deploy From Hosted Zone Name
+
+If you purchased your domain through route 53 and already have a hosted zone then just use the name to deploy your site behind cloudfront. This handles the SSL cert and everything for you.
+
+![cdk-spa-deploy alias](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/fromHostedZone.png)
 
 ### Custom Domain and SSL Certificates
 
