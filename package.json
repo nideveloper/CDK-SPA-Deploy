@@ -24,10 +24,10 @@
     }
   },
   "devDependencies": {
-    "@aws-cdk/assert": "^1.20.0",
+    "@aws-cdk/assert": "^1.21.1",
     "@types/jest": "^24.0.22",
     "@types/node": "10.17.5",
-    "aws-cdk": "^1.20.0",
+    "aws-cdk": "^1.21.1",
     "jest": "^24.9.0",
     "jsii": "0.21.1",
     "jsii-pacmak": "0.21.1",
@@ -39,18 +39,18 @@
     "source-map-support": "^0.5.16"
   },
   "dependencies": {
-    "@aws-cdk/aws-certificatemanager": "^1.20.0",
-    "@aws-cdk/aws-cloudfront": "^1.20.0",
-    "@aws-cdk/aws-s3": "^1.20.0",
-    "@aws-cdk/aws-s3-deployment": "^1.20.0",
-    "@aws-cdk/core": "^1.20.0"
+    "@aws-cdk/aws-certificatemanager": "^1.21.1",
+    "@aws-cdk/aws-cloudfront": "^1.21.1",
+    "@aws-cdk/aws-s3": "^1.21.1",
+    "@aws-cdk/aws-s3-deployment": "^1.21.1",
+    "@aws-cdk/core": "^1.21.1"
   },
   "peerDependencies": {
-    "@aws-cdk/aws-cloudfront": "^1.20.0",
-    "@aws-cdk/aws-s3": "^1.20.0",
-    "@aws-cdk/aws-s3-deployment": "^1.20.0",
-    "@aws-cdk/aws-certificatemanager": "^1.20.0",
-    "@aws-cdk/core": "^1.20.0"
+    "@aws-cdk/aws-cloudfront": "^1.21.1",
+    "@aws-cdk/aws-s3": "^1.21.1",
+    "@aws-cdk/aws-s3-deployment": "^1.21.1",
+    "@aws-cdk/aws-certificatemanager": "^1.21.1",
+    "@aws-cdk/core": "^1.21.1"
   },
   "keywords": [
     "aws",
