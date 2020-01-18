@@ -43,6 +43,9 @@ export class SPADeploy extends cdk.Construct {
         }
     }
     
+    /**
+     * Helper method to provide a configured s3 bucket
+     */
     private getS3Bucket(config:SPADeployConfig) {
       
       let bucketConfig:any = {
@@ -79,6 +82,9 @@ export class SPADeploy extends cdk.Construct {
       return bucket;
     }
     
+    /**
+     * Helper method to provide configuration for cloudfront 
+     */
     private getCFConfig(websiteBucket:s3.Bucket, config:any, cert?:DnsValidatedCertificate) {
          let cfConfig:any = {
           originConfigs: [
@@ -119,6 +125,23 @@ export class SPADeploy extends cdk.Construct {
     }
     
     /**
+     * Basic setup needed for a non-ssl, non vanity url, non cached s3 website
+     */
+    public createBasicSite(config:SPADeployConfig) {
+        const websiteBucket = this.getS3Bucket(config);
+        
+        new s3deploy.BucketDeployment(this, 'BucketDeployment', {
+          sources: [s3deploy.Source.asset(config.websiteFolder)], 
+          destinationBucket: websiteBucket,
+        });
+        
+        new cdk.CfnOutput(this, 'URL', {
+          description: 'The url of the website',
+          value: websiteBucket.bucketWebsiteUrl
+        })
+    }
+    
+    /**
      * This will create an s3 deployment fronted by a cloudfront distribution
      * It will also setup error forwarding and unauth forwarding back to indexDoc
      */
@@ -137,23 +160,6 @@ export class SPADeploy extends cdk.Construct {
         new cdk.CfnOutput(this, 'cloudfront domain', {
           description: 'The domain of the website',
           value: distribution.domainName
-        })
-    }
-    
-    /**
-     * Basic setup needed for a non-ssl, non vanity url, non cached s3 website
-     */
-    public createBasicSite(config:SPADeployConfig) {
-        const websiteBucket = this.getS3Bucket(config);
-        
-        new s3deploy.BucketDeployment(this, 'BucketDeployment', {
-          sources: [s3deploy.Source.asset(config.websiteFolder)], 
-          destinationBucket: websiteBucket,
-        });
-        
-        new cdk.CfnOutput(this, 'URL', {
-          description: 'The url of the website',
-          value: websiteBucket.bucketWebsiteUrl
         })
     }
     
