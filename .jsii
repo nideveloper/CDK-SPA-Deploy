@@ -6,13 +6,13 @@
     ]
   },
   "dependencies": {
-    "@aws-cdk/aws-certificatemanager": "^1.21.1",
-    "@aws-cdk/aws-cloudfront": "^1.21.1",
-    "@aws-cdk/aws-route53-patterns": "^1.21.1",
-    "@aws-cdk/aws-route53-targets": "^1.21.1",
-    "@aws-cdk/aws-s3": "^1.21.1",
-    "@aws-cdk/aws-s3-deployment": "^1.21.1",
-    "@aws-cdk/core": "^1.21.1"
+    "@aws-cdk/aws-certificatemanager": "^1.23.0",
+    "@aws-cdk/aws-cloudfront": "^1.23.0",
+    "@aws-cdk/aws-route53-patterns": "^1.23.0",
+    "@aws-cdk/aws-route53-targets": "^1.23.0",
+    "@aws-cdk/aws-s3": "^1.23.0",
+    "@aws-cdk/aws-s3-deployment": "^1.23.0",
+    "@aws-cdk/core": "^1.23.0"
   },
   "dependencyClosure": {
     "@aws-cdk/assets": {
@@ -704,7 +704,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-        "line": 17
+        "line": 18
       },
       "name": "HostedZoneConfig",
       "properties": [
@@ -713,7 +713,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 18
+            "line": 19
           },
           "name": "indexDoc",
           "type": {
@@ -725,7 +725,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 19
+            "line": 20
           },
           "name": "websiteFolder",
           "type": {
@@ -737,7 +737,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 20
+            "line": 21
           },
           "name": "zoneName",
           "type": {
@@ -776,7 +776,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-        "line": 29
+        "line": 30
       },
       "methods": [
         {
@@ -785,7 +785,7 @@
           },
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 145
+            "line": 130
           },
           "name": "createBasicSite",
           "parameters": [
@@ -803,7 +803,7 @@
           },
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 163
+            "line": 170
           },
           "name": "createSiteFromHostedZone",
           "parameters": [
@@ -821,7 +821,7 @@
           },
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 124
+            "line": 148
           },
           "name": "createSiteWithCloudfront",
           "parameters": [
@@ -839,7 +839,7 @@
         {
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 30
+            "line": 31
           },
           "name": "globalConfig",
           "type": {
@@ -855,7 +855,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-        "line": 10
+        "line": 11
       },
       "name": "SPADeployConfig",
       "properties": [
@@ -864,7 +864,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 11
+            "line": 12
           },
           "name": "indexDoc",
           "type": {
@@ -876,7 +876,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 12
+            "line": 13
           },
           "name": "websiteFolder",
           "type": {
@@ -888,7 +888,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 13
+            "line": 14
           },
           "name": "certificateARN",
           "optional": true,
@@ -901,7 +901,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 14
+            "line": 15
           },
           "name": "cfAliases",
           "optional": true,
@@ -923,7 +923,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-        "line": 23
+        "line": 24
       },
       "name": "SPAGlobalConfig",
       "properties": [
@@ -932,7 +932,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 24
+            "line": 25
           },
           "name": "encryptBucket",
           "optional": true,
@@ -945,7 +945,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 25
+            "line": 26
           },
           "name": "ipFilter",
           "optional": true,
@@ -958,7 +958,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 26
+            "line": 27
           },
           "name": "ipList",
           "optional": true,
@@ -974,6 +974,6 @@
       ]
     }
   },
-  "version": "0.3.0",
-  "fingerprint": "nzFeH4SIWULTwgEFSaH7Jbqjsnw7ykE3TiHwyzXhLX8="
+  "version": "0.4.0",
+  "fingerprint": "6JRSwqUBP+94GI87ptgTDkbJxLPTpoM+qNGICXJjaxY="
 }
