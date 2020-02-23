@@ -1,6 +1,6 @@
 {
   "name": "cdk-spa-deploy",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "publishConfig": {
