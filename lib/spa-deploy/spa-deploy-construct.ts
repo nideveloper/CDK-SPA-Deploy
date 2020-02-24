@@ -12,7 +12,9 @@ export interface SPADeployConfig {
   readonly indexDoc:string,
   readonly websiteFolder: string,
   readonly certificateARN?: string,
-  readonly cfAliases?: string[]
+  readonly cfAliases?: string[],
+  readonly exportWebsiteUrlOutput?:boolean,
+  readonly exportWebsiteUrlName?: string
 }
 
 export interface HostedZoneConfig {
@@ -135,10 +137,19 @@ export class SPADeploy extends cdk.Construct {
           destinationBucket: websiteBucket,
         });
         
-        new cdk.CfnOutput(this, 'URL', {
+        let cfnOutputConfig:any = {
           description: 'The url of the website',
           value: websiteBucket.bucketWebsiteUrl
-        })
+        };
+
+        if (config.exportWebsiteUrlOutput === true) {
+          if(typeof config.exportWebsiteUrlName == 'undefined' || config.exportWebsiteUrlName === '') {
+            this.node.addError('When Output URL as AWS Export property is true then the output name is required');
+          }
+          cfnOutputConfig.exportName = config.exportWebsiteUrlName;
+        }
+
+        new cdk.CfnOutput(this, 'URL', cfnOutputConfig);
     }
     
     /**

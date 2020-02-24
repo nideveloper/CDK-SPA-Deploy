@@ -1,4 +1,4 @@
-import { expect as expectCDK, haveResource, haveResourceLike } from '@aws-cdk/assert';
+import { expect as expectCDK, haveResource, haveResourceLike, haveOutput } from '@aws-cdk/assert';
 import { Stack, App } from '@aws-cdk/core';
 import { SPADeploy } from '../lib/';
 
@@ -360,4 +360,59 @@ test('Create From Hosted Zone', () => {
           }
       }
     }));
+});
+
+test('Basic Site Setup, URL Output Enabled With Name', () => {
+  let stack = new Stack();
+  const exportName = 'test-export-name';
+
+  // WHEN
+  new SPADeploy(stack, 'spaDeploy', {})
+    .createBasicSite({
+      indexDoc: 'index.html',
+      websiteFolder: 'website',
+      exportWebsiteUrlOutput: true,
+      exportWebsiteUrlName: exportName
+    })
+
+  // THEN  
+  expectCDK(stack).to(haveOutput({
+    exportName: exportName
+  }));
+});
+
+test('Basic Site Setup, URL Output Enabled With No Name', () => {
+  let stack = new Stack();
+  const exportName = 'test-export-name';
+
+  // WHEN
+  new SPADeploy(stack, 'spaDeploy', {})
+    .createBasicSite({
+      indexDoc: 'index.html',
+      websiteFolder: 'website',
+      exportWebsiteUrlOutput: true
+    })
+
+  // THEN  
+  expectCDK(stack).notTo(haveOutput({
+    exportName: exportName
+  }));
+});
+
+test('Basic Site Setup, URL Output Not Enabled', () => {
+  let stack = new Stack();
+  const exportName = 'test-export-name';
+
+  // WHEN
+  new SPADeploy(stack, 'spaDeploy', {})
+    .createBasicSite({
+      indexDoc: 'index.html',
+      websiteFolder: 'website',
+      exportWebsiteUrlOutput: false
+    })
+
+  // THEN  
+  expectCDK(stack).notTo(haveOutput({
+    exportName: exportName
+  }));
 });

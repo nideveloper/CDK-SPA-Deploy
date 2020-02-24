@@ -6,13 +6,13 @@
     ]
   },
   "dependencies": {
-    "@aws-cdk/aws-certificatemanager": "1.24.0",
-    "@aws-cdk/aws-cloudfront": "1.24.0",
-    "@aws-cdk/aws-route53-patterns": "1.24.0",
-    "@aws-cdk/aws-route53-targets": "1.24.0",
-    "@aws-cdk/aws-s3": "1.24.0",
-    "@aws-cdk/aws-s3-deployment": "1.24.0",
-    "@aws-cdk/core": "1.24.0"
+    "@aws-cdk/aws-certificatemanager": "1.25.0",
+    "@aws-cdk/aws-cloudfront": "1.25.0",
+    "@aws-cdk/aws-route53-patterns": "1.25.0",
+    "@aws-cdk/aws-route53-targets": "1.25.0",
+    "@aws-cdk/aws-s3": "1.25.0",
+    "@aws-cdk/aws-s3-deployment": "1.25.0",
+    "@aws-cdk/core": "1.25.0"
   },
   "dependencyClosure": {
     "@aws-cdk/assets": {
@@ -974,6 +974,6 @@
       ]
     }
   },
-  "version": "0.6.0",
-  "fingerprint": "ppnuIP4+k8PHolkgZurfJ6jzHm6J4t3RFakRtJT2a38="
+  "version": "0.6.1",
+  "fingerprint": "UjN4nLT0adc5WLUTTBsFWWeHKYnMTUZ+a2eBGEAmtP8="
 }
