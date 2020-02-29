@@ -1,4 +1,5 @@
 # CDK-SPA-Deploy
+[![npm](https://img.shields.io/npm/dt/aws-cdk-dynamodb-seeder)](https://www.npmjs.com/package/cdk-spa-deploy)
 
 This is an AWS CDK Construct to make deploying a single page website (Angular/React/Vue) to AWS S3 behind SSL/Cloudfront as easy as 5 lines of code.
 
