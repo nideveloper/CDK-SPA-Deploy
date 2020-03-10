@@ -396,6 +396,55 @@ test('Create From Hosted Zone', () => {
     }));
 });
 
+test('Create From Hosted Zone with Error Bucket', () => {
+  let app = new App();
+  let stack = new Stack(app, 'testStack', {
+    env: {
+      region: 'us-east-1',
+      account: '1234'
+      }
+  });
+  // WHEN
+  new SPADeploy(stack, 'spaDeploy', {encryptBucket:true})
+    .createSiteFromHostedZone({
+      zoneName: 'cdkspadeploy.com',
+      indexDoc: 'index.html',
+      errorDoc: 'error.html',
+      websiteFolder: 'website'
+    });
+
+  // THEN
+  expectCDK(stack).to(haveResource('AWS::S3::Bucket', {
+    BucketEncryption: {
+      ServerSideEncryptionConfiguration: [
+        {
+          ServerSideEncryptionByDefault: {
+            SSEAlgorithm: "AES256"
+          }
+        }
+      ]
+    },
+    WebsiteConfiguration: {
+      IndexDocument: 'index.html',
+      ErrorDocument: 'error.html'
+    }
+  }));
+  
+  expectCDK(stack).to(haveResource('Custom::CDKBucketDeployment'));
+  
+  expectCDK(stack).to(haveResourceLike('AWS::CloudFront::Distribution', {
+    "DistributionConfig": {
+        "Aliases": [
+              "www.cdkspadeploy.com"
+        ],
+        "ViewerCertificate": {
+          "SslSupportMethod": "sni-only"
+        }
+    }
+  }));
+});
+
+
 test('Basic Site Setup, URL Output Enabled With Name', () => {
   let stack = new Stack();
   const exportName = 'test-export-name';

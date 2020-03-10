@@ -20,6 +20,7 @@ export interface SPADeployConfig {
 
 export interface HostedZoneConfig {
   readonly indexDoc:string,
+  readonly errorDoc?:string,
   readonly websiteFolder: string,
   readonly zoneName: string
 }
