@@ -10,6 +10,7 @@ import { CloudFrontTarget } from '@aws-cdk/aws-route53-targets';
 
 export interface SPADeployConfig {
   readonly indexDoc:string,
+  readonly errorDoc?:string,
   readonly websiteFolder: string,
   readonly certificateARN?: string,
   readonly cfAliases?: string[],
@@ -52,6 +53,7 @@ export class SPADeploy extends cdk.Construct {
       
       let bucketConfig:any = {
           websiteIndexDocument: config.indexDoc,
+          websiteErrorDocument: config.errorDoc,
           publicReadAccess: true
         };
         

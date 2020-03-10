@@ -125,6 +125,40 @@ test('Basic Site Setup', () => {
     }));
 });
 
+test('Basic Site Setup with Error Doc set', () => {
+  let stack = new Stack();
+  
+  // WHEN
+  let deploy = new SPADeploy(stack, 'spaDeploy');
+  
+  deploy.createBasicSite({
+    indexDoc: 'index.html',
+    errorDoc: 'error.html',
+    websiteFolder: 'website'
+  })
+  
+  // THEN
+  expectCDK(stack).to(haveResource('AWS::S3::Bucket', {
+    WebsiteConfiguration: {
+      IndexDocument: 'index.html',
+      ErrorDocument: 'error.html'
+    }
+  }));
+  
+  expectCDK(stack).to(haveResource('Custom::CDKBucketDeployment'));
+  
+  expectCDK(stack).to(haveResourceLike('AWS::S3::BucketPolicy',  {
+          PolicyDocument: {
+              Statement: [
+                  {
+                      "Action": "s3:GetObject",
+                      "Effect": "Allow",
+                      "Principal": "*"
+                  }]
+          }
+  }));
+});
+
 test('Basic Site Setup, Encrypted Bucket', () => {
     let stack = new Stack();
     
