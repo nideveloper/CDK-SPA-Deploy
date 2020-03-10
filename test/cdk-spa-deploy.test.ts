@@ -59,6 +59,65 @@ test('Cloudfront Distribution Included', () => {
     }));
 });
 
+test('Cloudfront Distribution Included - with non-default error-doc cfg set', () => {
+  let stack = new Stack();
+  // WHEN
+  let deploy = new SPADeploy(stack, 'spaDeploy');
+  
+  deploy.createSiteWithCloudfront({
+    indexDoc: 'index.html',
+    errorDoc: 'error.html',
+    websiteFolder: 'website'
+  })
+  // THEN
+  expectCDK(stack).to(haveResource('AWS::S3::Bucket', {
+    WebsiteConfiguration: {
+      IndexDocument: 'index.html',
+      ErrorDocument: 'error.html'
+    }
+  }));
+  
+  expectCDK(stack).to(haveResource('Custom::CDKBucketDeployment'));
+  
+  expectCDK(stack).to(haveResourceLike('AWS::CloudFront::Distribution', {
+    "DistributionConfig": {
+        "CustomErrorResponses": [
+          {
+            "ErrorCode": 403,
+            "ResponseCode": 200,
+            "ResponsePagePath": "/error.html"
+          },
+          {
+            "ErrorCode": 404,
+            "ResponseCode": 200,
+            "ResponsePagePath": "/error.html"
+          }
+        ],
+        "DefaultCacheBehavior": {
+              "ViewerProtocolPolicy": "redirect-to-https"
+        },
+        "DefaultRootObject": "index.html",
+        "HttpVersion": "http2",
+        "IPV6Enabled": true,
+        "PriceClass": "PriceClass_100",
+        "ViewerCertificate": {
+          "CloudFrontDefaultCertificate": true
+        }
+    }
+  }));
+  
+  expectCDK(stack).to(haveResourceLike('AWS::S3::BucketPolicy',  {
+          PolicyDocument: {
+              Statement: [
+                  {
+                      "Action": "s3:GetObject",
+                      "Effect": "Allow",
+                      "Principal": "*"
+                  }]
+          }
+  }));
+});
+
 test('Cloudfront With Custom Cert and Aliases', () => {
     let stack = new Stack();
     // WHEN
@@ -395,6 +454,55 @@ test('Create From Hosted Zone', () => {
       }
     }));
 });
+
+test('Create From Hosted Zone with Error Bucket', () => {
+  let app = new App();
+  let stack = new Stack(app, 'testStack', {
+    env: {
+      region: 'us-east-1',
+      account: '1234'
+      }
+  });
+  // WHEN
+  new SPADeploy(stack, 'spaDeploy', {encryptBucket:true})
+    .createSiteFromHostedZone({
+      zoneName: 'cdkspadeploy.com',
+      indexDoc: 'index.html',
+      errorDoc: 'error.html',
+      websiteFolder: 'website'
+    });
+
+  // THEN
+  expectCDK(stack).to(haveResource('AWS::S3::Bucket', {
+    BucketEncryption: {
+      ServerSideEncryptionConfiguration: [
+        {
+          ServerSideEncryptionByDefault: {
+            SSEAlgorithm: "AES256"
+          }
+        }
+      ]
+    },
+    WebsiteConfiguration: {
+      IndexDocument: 'index.html',
+      ErrorDocument: 'error.html'
+    }
+  }));
+  
+  expectCDK(stack).to(haveResource('Custom::CDKBucketDeployment'));
+  
+  expectCDK(stack).to(haveResourceLike('AWS::CloudFront::Distribution', {
+    "DistributionConfig": {
+        "Aliases": [
+              "www.cdkspadeploy.com"
+        ],
+        "ViewerCertificate": {
+          "SslSupportMethod": "sni-only"
+        }
+    }
+  }));
+});
+
 
 test('Basic Site Setup, URL Output Enabled With Name', () => {
   let stack = new Stack();

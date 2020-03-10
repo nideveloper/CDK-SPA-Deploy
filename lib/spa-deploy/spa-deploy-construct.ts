@@ -20,6 +20,7 @@ export interface SPADeployConfig {
 
 export interface HostedZoneConfig {
   readonly indexDoc:string,
+  readonly errorDoc?:string,
   readonly websiteFolder: string,
   readonly zoneName: string
 }
@@ -102,12 +103,12 @@ export class SPADeploy extends cdk.Construct {
           //We need to redirect all unknown routes back to index.html for angular routing to work
           errorConfigurations: [{
             errorCode: 403,
-            responsePagePath: '/'+config.indexDoc,
+            responsePagePath: (config.errorDoc ? '/'+config.errorDoc : '/'+config.indexDoc),
             responseCode: 200
           },
           {
             errorCode: 404,
-            responsePagePath: '/'+config.indexDoc,
+            responsePagePath: (config.errorDoc ? '/'+config.errorDoc : '/'+config.indexDoc),
             responseCode: 200
           }]
         }
