@@ -6,13 +6,13 @@
     ]
   },
   "dependencies": {
-    "@aws-cdk/aws-certificatemanager": "1.28.0",
-    "@aws-cdk/aws-cloudfront": "1.28.0",
-    "@aws-cdk/aws-route53-patterns": "1.28.0",
-    "@aws-cdk/aws-route53-targets": "1.28.0",
-    "@aws-cdk/aws-s3": "1.28.0",
-    "@aws-cdk/aws-s3-deployment": "1.28.0",
-    "@aws-cdk/core": "1.28.0"
+    "@aws-cdk/aws-certificatemanager": "1.29.0",
+    "@aws-cdk/aws-cloudfront": "1.29.0",
+    "@aws-cdk/aws-route53-patterns": "1.29.0",
+    "@aws-cdk/aws-route53-targets": "1.29.0",
+    "@aws-cdk/aws-s3": "1.29.0",
+    "@aws-cdk/aws-s3-deployment": "1.29.0",
+    "@aws-cdk/core": "1.29.0"
   },
   "dependencyClosure": {
     "@aws-cdk/assets": {
@@ -664,6 +664,28 @@
           "module": "aws_cdk.region_info"
         }
       }
+    },
+    "constructs": {
+      "targets": {
+        "dotnet": {
+          "namespace": "Constructs",
+          "packageId": "Constructs"
+        },
+        "java": {
+          "maven": {
+            "artifactId": "constructs",
+            "groupId": "software.constructs"
+          },
+          "package": "software.constructs"
+        },
+        "js": {
+          "npm": "constructs"
+        },
+        "python": {
+          "distName": "constructs",
+          "module": "constructs"
+        }
+      }
     }
   },
   "description": "This is an AWS CDK Construct to make deploying a single page website (Angular/React/Vue) to AWS S3 behind SSL/Cloudfront as easy as 5 lines of code.",
@@ -1027,5 +1049,5 @@
     }
   },
   "version": "0.9.0",
-  "fingerprint": "xBxMPLGezWdg9yfWSEKapGVSmWxu1LzyhgfvFXDRe8c="
+  "fingerprint": "YlblFKL7NUs3DIFJ8XSXdMCQOPFeS/1zL591McPAgoo="
 }
