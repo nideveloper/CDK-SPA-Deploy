@@ -68,7 +68,7 @@
     "deploy",
     "cloudfront"
   ],
-  "author": "matt@vs-software.co.uk",
+  "author": "hello@cdkpatterns.com",
   "repository": {
     "url": "https://github.com/nideveloper/CDK-SPA-Deploy.git",
     "type": "git"
