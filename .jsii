@@ -6,13 +6,13 @@
     ]
   },
   "dependencies": {
-    "@aws-cdk/aws-certificatemanager": "1.32.2",
-    "@aws-cdk/aws-cloudfront": "1.32.2",
-    "@aws-cdk/aws-route53-patterns": "1.32.2",
-    "@aws-cdk/aws-route53-targets": "1.32.2",
-    "@aws-cdk/aws-s3": "1.32.2",
-    "@aws-cdk/aws-s3-deployment": "1.32.2",
-    "@aws-cdk/core": "1.32.2"
+    "@aws-cdk/aws-certificatemanager": "1.33.1",
+    "@aws-cdk/aws-cloudfront": "1.33.1",
+    "@aws-cdk/aws-route53-patterns": "1.33.1",
+    "@aws-cdk/aws-route53-targets": "1.33.1",
+    "@aws-cdk/aws-s3": "1.33.1",
+    "@aws-cdk/aws-s3-deployment": "1.33.1",
+    "@aws-cdk/core": "1.33.1"
   },
   "dependencyClosure": {
     "@aws-cdk/assets": {
@@ -590,6 +590,31 @@
         }
       }
     },
+    "@aws-cdk/cloud-assembly-schema": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.CloudAssembly.Schema",
+          "packageId": "Amazon.CDK.CloudAssembly.Schema",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "cdk-cloud-assembly-schema",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.cloudassembly.schema"
+        },
+        "js": {
+          "npm": "@aws-cdk/cloud-assembly-schema"
+        },
+        "python": {
+          "distName": "aws-cdk.cloud-assembly-schema",
+          "module": "aws_cdk.cloud_assembly_schema"
+        }
+      }
+    },
     "@aws-cdk/core": {
       "targets": {
         "dotnet": {
@@ -1048,6 +1073,6 @@
       ]
     }
   },
-  "version": "1.32.2",
-  "fingerprint": "1F68ZatNwa2ZHIRbqRazwaw9hm01AQiK1dKkxGKBSYk="
+  "version": "1.33.1",
+  "fingerprint": "PuoQdDzOWd89GpYopiy6l45GbONriasV4SYLq5a/Bh8="
 }
