@@ -6,13 +6,13 @@
     ]
   },
   "dependencies": {
-    "@aws-cdk/aws-certificatemanager": "1.33.1",
-    "@aws-cdk/aws-cloudfront": "1.33.1",
-    "@aws-cdk/aws-route53-patterns": "1.33.1",
-    "@aws-cdk/aws-route53-targets": "1.33.1",
-    "@aws-cdk/aws-s3": "1.33.1",
-    "@aws-cdk/aws-s3-deployment": "1.33.1",
-    "@aws-cdk/core": "1.33.1"
+    "@aws-cdk/aws-certificatemanager": "1.36.0",
+    "@aws-cdk/aws-cloudfront": "1.36.0",
+    "@aws-cdk/aws-route53-patterns": "1.36.0",
+    "@aws-cdk/aws-route53-targets": "1.36.0",
+    "@aws-cdk/aws-s3": "1.36.0",
+    "@aws-cdk/aws-s3-deployment": "1.36.0",
+    "@aws-cdk/core": "1.36.0"
   },
   "dependencyClosure": {
     "@aws-cdk/assets": {
@@ -162,6 +162,31 @@
         "python": {
           "distName": "aws-cdk.aws-cloudwatch",
           "module": "aws_cdk.aws_cloudwatch"
+        }
+      }
+    },
+    "@aws-cdk/aws-cognito": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.Cognito",
+          "packageId": "Amazon.CDK.AWS.Cognito",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "cognito",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.cognito"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-cognito"
+        },
+        "python": {
+          "distName": "aws-cdk.aws-cognito",
+          "module": "aws_cdk.aws_cognito"
         }
       }
     },
@@ -640,6 +665,31 @@
         }
       }
     },
+    "@aws-cdk/custom-resources": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.CustomResources",
+          "packageId": "Amazon.CDK.AWS.CustomResources",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "cdk-customresources",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.customresources"
+        },
+        "js": {
+          "npm": "@aws-cdk/custom-resources"
+        },
+        "python": {
+          "distName": "aws-cdk.custom-resources",
+          "module": "aws_cdk.custom_resources"
+        }
+      }
+    },
     "@aws-cdk/cx-api": {
       "targets": {
         "dotnet": {
@@ -1073,6 +1123,6 @@
       ]
     }
   },
-  "version": "1.33.1",
-  "fingerprint": "PuoQdDzOWd89GpYopiy6l45GbONriasV4SYLq5a/Bh8="
+  "version": "1.36.0",
+  "fingerprint": "8X2QCHjkZbgCzOeIInfq8uzCTDTwHX6yeu1MgSV0wI8="
 }
