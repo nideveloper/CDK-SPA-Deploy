@@ -48,15 +48,36 @@ test('Cloudfront Distribution Included', () => {
     }));
     
     expectCDK(stack).to(haveResourceLike('AWS::S3::BucketPolicy',  {
-            PolicyDocument: {
-                Statement: [
+      PolicyDocument: {
+          Statement: [
+            {
+              "Action": "s3:GetObject",
+              "Effect": "Allow",
+              "Principal": {
+                "CanonicalUser": {
+                  "Fn::GetAtt": [
+                    "spaDeployOriginAccessIdentityEDA4C19C",
+                    "S3CanonicalUserId"
+                  ]
+                }
+              },
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
                     {
-                        "Action": "s3:GetObject",
-                        "Effect": "Allow",
-                        "Principal": "*"
-                    }]
-            }
-    }));
+                      "Fn::GetAtt": [
+                        "spaDeployWebsiteBucket1E4C4442",
+                        "Arn"
+                      ]
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }]
+      }
+}));
 });
 
 test('Cloudfront Distribution Included - with non-default error-doc cfg set', () => {
@@ -109,11 +130,32 @@ test('Cloudfront Distribution Included - with non-default error-doc cfg set', ()
   expectCDK(stack).to(haveResourceLike('AWS::S3::BucketPolicy',  {
           PolicyDocument: {
               Statement: [
-                  {
-                      "Action": "s3:GetObject",
-                      "Effect": "Allow",
-                      "Principal": "*"
-                  }]
+                {
+                  "Action": "s3:GetObject",
+                  "Effect": "Allow",
+                  "Principal": {
+                    "CanonicalUser": {
+                      "Fn::GetAtt": [
+                        "spaDeployOriginAccessIdentityEDA4C19C",
+                        "S3CanonicalUserId"
+                      ]
+                    }
+                  },
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        {
+                          "Fn::GetAtt": [
+                            "spaDeployWebsiteBucket1E4C4442",
+                            "Arn"
+                          ]
+                        },
+                        "/*"
+                      ]
+                    ]
+                  }
+                }]
           }
   }));
 });
@@ -348,67 +390,6 @@ test('Basic Site Setup, IP Filter', () => {
     }));
 });
 
-test('Cloudfront With IP Filter', () => {
-    let stack = new Stack();
-    // WHEN
-    let deploy = new SPADeploy(stack, 'spaDeploy', {encryptBucket:true, ipFilter:true, ipList: ['1.1.1.1']});
-    
-    deploy.createSiteWithCloudfront({
-      indexDoc: 'index.html',
-      websiteFolder: 'website',
-      certificateARN: 'arn:1234',
-      cfAliases: ['www.test.com']
-    })
-
-    // THEN
-    expectCDK(stack).to(haveResource('AWS::S3::Bucket', {
-      BucketEncryption: {
-        ServerSideEncryptionConfiguration: [
-          {
-            ServerSideEncryptionByDefault: {
-              SSEAlgorithm: "AES256"
-            }
-          }
-        ]
-      },
-      WebsiteConfiguration: {
-        IndexDocument: 'index.html'
-      }
-    }));
-    
-    expectCDK(stack).to(haveResource('Custom::CDKBucketDeployment'));
-    
-    expectCDK(stack).to(haveResourceLike('AWS::S3::BucketPolicy',  {
-            PolicyDocument: {
-                Statement: [
-                    {
-                        "Action": "s3:GetObject",
-                        "Condition": {
-                          "IpAddress": {
-                            "aws:SourceIp": [
-                              "1.1.1.1"
-                            ]
-                          }
-                        },
-                        "Effect": "Allow",
-                        "Principal": "*"
-                    }]
-            }
-    }));
-    
-    expectCDK(stack).to(haveResourceLike('AWS::CloudFront::Distribution', {
-      "DistributionConfig": {
-          "Aliases": [
-                "www.test.com"
-          ],
-          "ViewerCertificate": {
-            "AcmCertificateArn": "arn:1234",
-            "SslSupportMethod": "sni-only"
-          }
-      }
-    }));
-});
-
 test('Create From Hosted Zone', () => {
     let app = new App();
     let stack = new Stack(app, 'testStack', {
@@ -453,6 +434,38 @@ test('Create From Hosted Zone', () => {
           }
       }
     }));
+
+    expectCDK(stack).to(haveResourceLike('AWS::S3::BucketPolicy',  {
+      PolicyDocument: {
+          Statement: [
+            {
+              "Action": "s3:GetObject",
+              "Effect": "Allow",
+              "Principal": {
+                "CanonicalUser": {
+                  "Fn::GetAtt": [
+                    "spaDeployOriginAccessIdentityEDA4C19C",
+                    "S3CanonicalUserId"
+                  ]
+                }
+              },
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "spaDeployWebsiteBucket1E4C4442",
+                        "Arn"
+                      ]
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }]
+      }
+}));
 });
 
 test('Create From Hosted Zone with Error Bucket', () => {

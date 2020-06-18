@@ -1,7 +1,7 @@
 import cdk = require('@aws-cdk/core');
 import s3deploy= require('@aws-cdk/aws-s3-deployment');
 import s3 = require('@aws-cdk/aws-s3');
-import { CloudFrontWebDistribution, ViewerCertificate } from '@aws-cdk/aws-cloudfront'
+import { CloudFrontWebDistribution, ViewerCertificate, OriginAccessIdentity } from '@aws-cdk/aws-cloudfront'
 import { PolicyStatement } from '@aws-cdk/aws-iam';
 import { HostedZone, ARecord, RecordTarget } from '@aws-cdk/aws-route53';
 import { DnsValidatedCertificate } from '@aws-cdk/aws-certificatemanager';
@@ -50,7 +50,7 @@ export class SPADeploy extends cdk.Construct {
     /**
      * Helper method to provide a configured s3 bucket
      */
-    private getS3Bucket(config:SPADeployConfig) {
+    private getS3Bucket(config:SPADeployConfig, isForCloudFront: boolean) {
       
       let bucketConfig:any = {
           websiteIndexDocument: config.indexDoc,
@@ -62,13 +62,13 @@ export class SPADeploy extends cdk.Construct {
         bucketConfig.encryption = s3.BucketEncryption.S3_MANAGED
       }
       
-      if(this.globalConfig.ipFilter === true){
+      if(this.globalConfig.ipFilter === true || isForCloudFront === true){
         bucketConfig.publicReadAccess = false;
       }
         
       let bucket = new s3.Bucket(this, 'WebsiteBucket', bucketConfig);
       
-      if(this.globalConfig.ipFilter === true){
+      if(this.globalConfig.ipFilter === true && isForCloudFront === false){
         if(typeof this.globalConfig.ipList == 'undefined') {
           this.node.addError('When IP Filter is true then the IP List is required');
         }
@@ -90,12 +90,13 @@ export class SPADeploy extends cdk.Construct {
     /**
      * Helper method to provide configuration for cloudfront 
      */
-    private getCFConfig(websiteBucket:s3.Bucket, config:any, cert?:DnsValidatedCertificate) {
+    private getCFConfig(websiteBucket:s3.Bucket, config:any, accessIdentity: OriginAccessIdentity, cert?:DnsValidatedCertificate,) {
          let cfConfig:any = {
           originConfigs: [
             {
               s3OriginSource: {
-                s3BucketSource: websiteBucket
+                s3BucketSource: websiteBucket,
+                accessIdentity: accessIdentity
               },
               behaviors : [ {isDefaultBehavior: true}]
             }
@@ -130,10 +131,24 @@ export class SPADeploy extends cdk.Construct {
     }
     
     /**
+     * This will grant a provided OriginAccessIdentity access to read objects from the bucket. This allows for the bucket to have public access disabled
+     * 
+     * See: https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html
+     */
+    private grantIdentityAccessToBucket(bucket: s3.Bucket, accessIdentity: OriginAccessIdentity) {
+      const bucketPolicy = new PolicyStatement();
+      bucketPolicy.addPrincipals(accessIdentity.grantPrincipal);
+      bucketPolicy.addActions('s3:GetObject');
+      bucketPolicy.addResources(bucket.bucketArn + '/*');
+      bucket.addToResourcePolicy(bucketPolicy);
+    }
+
+
+    /**
      * Basic setup needed for a non-ssl, non vanity url, non cached s3 website
      */
     public createBasicSite(config:SPADeployConfig) {
-        const websiteBucket = this.getS3Bucket(config);
+        const websiteBucket = this.getS3Bucket(config, false);
         
         new s3deploy.BucketDeployment(this, 'BucketDeployment', {
           sources: [s3deploy.Source.asset(config.websiteFolder)], 
@@ -160,9 +175,11 @@ export class SPADeploy extends cdk.Construct {
      * It will also setup error forwarding and unauth forwarding back to indexDoc
      */
     public createSiteWithCloudfront(config:SPADeployConfig) {
-        const websiteBucket = this.getS3Bucket(config);
-        const distribution = new CloudFrontWebDistribution(this, 'cloudfrontDistribution', this.getCFConfig(websiteBucket, config));
-        
+        const websiteBucket = this.getS3Bucket(config, true);
+        const accessIdentity = new OriginAccessIdentity(this, 'OriginAccessIdentity', {comment: `${websiteBucket.bucketName}-access-identity`});
+        const distribution = new CloudFrontWebDistribution(this, 'cloudfrontDistribution', this.getCFConfig(websiteBucket, config, accessIdentity));
+        this.grantIdentityAccessToBucket(websiteBucket, accessIdentity);
+
         new s3deploy.BucketDeployment(this, 'BucketDeployment', {
           sources: [s3deploy.Source.asset(config.websiteFolder)], 
           destinationBucket: websiteBucket,
@@ -177,20 +194,24 @@ export class SPADeploy extends cdk.Construct {
         })
     }
     
+  
     /**
      * S3 Deployment, cloudfront distribution, ssl cert and error forwarding auto
      * configured by using the details in the hosted zone provided
      */
     public createSiteFromHostedZone(config:HostedZoneConfig) {
-       const websiteBucket = this.getS3Bucket(config);
+       const websiteBucket = this.getS3Bucket(config, true);
        let zone = HostedZone.fromLookup(this, 'HostedZone', { domainName: config.zoneName });
        let cert = new DnsValidatedCertificate(this, 'Certificate', {
                 hostedZone: zone,
                 domainName: config.zoneName,
                 region: 'us-east-1',
             });
+        
             
-        const distribution = new CloudFrontWebDistribution(this, 'cloudfrontDistribution', this.getCFConfig(websiteBucket, config, cert));
+        const accessIdentity = new OriginAccessIdentity(this, 'OriginAccessIdentity', {comment: `${websiteBucket.bucketName}-access-identity`});
+        const distribution = new CloudFrontWebDistribution(this, 'cloudfrontDistribution', this.getCFConfig(websiteBucket, config, accessIdentity, cert));
+        this.grantIdentityAccessToBucket(websiteBucket, accessIdentity);
         
         new s3deploy.BucketDeployment(this, 'BucketDeployment', {
           sources: [s3deploy.Source.asset(config.websiteFolder)], 
