@@ -51,7 +51,11 @@ test('Cloudfront Distribution Included', () => {
       PolicyDocument: {
           Statement: [
             {
-              "Action": "s3:GetObject",
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*"
+              ],
               "Effect": "Allow",
               "Principal": {
                 "CanonicalUser": {
@@ -61,20 +65,28 @@ test('Cloudfront Distribution Included', () => {
                   ]
                 }
               },
-              "Resource": {
-                "Fn::Join": [
-                  "",
-                  [
-                    {
-                      "Fn::GetAtt": [
-                        "spaDeployWebsiteBucket1E4C4442",
-                        "Arn"
-                      ]
-                    },
-                    "/*"
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "spaDeployWebsiteBucket1E4C4442",
+                    "Arn"
                   ]
-                ]
-              }
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "spaDeployWebsiteBucket1E4C4442",
+                          "Arn"
+                        ]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
             }]
       }
 }));
@@ -131,7 +143,11 @@ test('Cloudfront Distribution Included - with non-default error-doc cfg set', ()
           PolicyDocument: {
               Statement: [
                 {
-                  "Action": "s3:GetObject",
+                  "Action": [
+                    "s3:GetObject*",
+                    "s3:GetBucket*",
+                    "s3:List*"
+                  ],
                   "Effect": "Allow",
                   "Principal": {
                     "CanonicalUser": {
@@ -141,20 +157,28 @@ test('Cloudfront Distribution Included - with non-default error-doc cfg set', ()
                       ]
                     }
                   },
-                  "Resource": {
-                    "Fn::Join": [
-                      "",
-                      [
-                        {
-                          "Fn::GetAtt": [
-                            "spaDeployWebsiteBucket1E4C4442",
-                            "Arn"
-                          ]
-                        },
-                        "/*"
+                  "Resource": [
+                    {
+                      "Fn::GetAtt": [
+                        "spaDeployWebsiteBucket1E4C4442",
+                        "Arn"
                       ]
-                    ]
-                  }
+                    },
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          {
+                            "Fn::GetAtt": [
+                              "spaDeployWebsiteBucket1E4C4442",
+                              "Arn"
+                            ]
+                          },
+                          "/*"
+                        ]
+                      ]
+                    }
+                  ]
                 }]
           }
   }));
@@ -439,7 +463,11 @@ test('Create From Hosted Zone', () => {
       PolicyDocument: {
           Statement: [
             {
-              "Action": "s3:GetObject",
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*"
+              ],
               "Effect": "Allow",
               "Principal": {
                 "CanonicalUser": {
@@ -449,20 +477,28 @@ test('Create From Hosted Zone', () => {
                   ]
                 }
               },
-              "Resource": {
-                "Fn::Join": [
-                  "",
-                  [
-                    {
-                      "Fn::GetAtt": [
-                        "spaDeployWebsiteBucket1E4C4442",
-                        "Arn"
-                      ]
-                    },
-                    "/*"
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "spaDeployWebsiteBucket1E4C4442",
+                    "Arn"
                   ]
-                ]
-              }
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "spaDeployWebsiteBucket1E4C4442",
+                          "Arn"
+                        ]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
             }]
       }
 }));

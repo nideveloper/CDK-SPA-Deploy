@@ -130,19 +130,6 @@ export class SPADeploy extends cdk.Construct {
         return cfConfig;
     }
     
-    /**
-     * This will grant a provided OriginAccessIdentity access to read objects from the bucket. This allows for the bucket to have public access disabled
-     * 
-     * See: https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html
-     */
-    private grantIdentityAccessToBucket(bucket: s3.Bucket, accessIdentity: OriginAccessIdentity) {
-      const bucketPolicy = new PolicyStatement();
-      bucketPolicy.addPrincipals(accessIdentity.grantPrincipal);
-      bucketPolicy.addActions('s3:GetObject');
-      bucketPolicy.addResources(bucket.bucketArn + '/*');
-      bucket.addToResourcePolicy(bucketPolicy);
-    }
-
 
     /**
      * Basic setup needed for a non-ssl, non vanity url, non cached s3 website
@@ -178,7 +165,6 @@ export class SPADeploy extends cdk.Construct {
         const websiteBucket = this.getS3Bucket(config, true);
         const accessIdentity = new OriginAccessIdentity(this, 'OriginAccessIdentity', {comment: `${websiteBucket.bucketName}-access-identity`});
         const distribution = new CloudFrontWebDistribution(this, 'cloudfrontDistribution', this.getCFConfig(websiteBucket, config, accessIdentity));
-        this.grantIdentityAccessToBucket(websiteBucket, accessIdentity);
 
         new s3deploy.BucketDeployment(this, 'BucketDeployment', {
           sources: [s3deploy.Source.asset(config.websiteFolder)], 
@@ -211,7 +197,6 @@ export class SPADeploy extends cdk.Construct {
             
         const accessIdentity = new OriginAccessIdentity(this, 'OriginAccessIdentity', {comment: `${websiteBucket.bucketName}-access-identity`});
         const distribution = new CloudFrontWebDistribution(this, 'cloudfrontDistribution', this.getCFConfig(websiteBucket, config, accessIdentity, cert));
-        this.grantIdentityAccessToBucket(websiteBucket, accessIdentity);
         
         new s3deploy.BucketDeployment(this, 'BucketDeployment', {
           sources: [s3deploy.Source.asset(config.websiteFolder)], 

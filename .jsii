@@ -920,7 +920,7 @@
           },
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 150
+            "line": 137
           },
           "name": "createBasicSite",
           "parameters": [
@@ -938,7 +938,7 @@
           },
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 202
+            "line": 188
           },
           "name": "createSiteFromHostedZone",
           "parameters": [
@@ -956,7 +956,7 @@
           },
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 177
+            "line": 164
           },
           "name": "createSiteWithCloudfront",
           "parameters": [
@@ -1149,5 +1149,5 @@
     }
   },
   "version": "1.45.0",
-  "fingerprint": "PSzRMEw5fukWUYPT7Cp2K1M+4kxlz97S5zdAlAtPlI8="
+  "fingerprint": "lGOsiHwhXJqObFaD77a/1i9jPl4o/mWtcxYHGOJ+VNM="
 }
