@@ -96,7 +96,7 @@ export class SPADeploy extends cdk.Construct {
             {
               s3OriginSource: {
                 s3BucketSource: websiteBucket,
-                accessIdentity: accessIdentity
+                originAccessIdentity: accessIdentity
               },
               behaviors : [ {isDefaultBehavior: true}]
             }
