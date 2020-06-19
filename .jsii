@@ -6,13 +6,13 @@
     ]
   },
   "dependencies": {
-    "@aws-cdk/aws-certificatemanager": "1.36.0",
-    "@aws-cdk/aws-cloudfront": "1.36.0",
-    "@aws-cdk/aws-route53-patterns": "1.36.0",
-    "@aws-cdk/aws-route53-targets": "1.36.0",
-    "@aws-cdk/aws-s3": "1.36.0",
-    "@aws-cdk/aws-s3-deployment": "1.36.0",
-    "@aws-cdk/core": "1.36.0"
+    "@aws-cdk/aws-certificatemanager": "1.45.0",
+    "@aws-cdk/aws-cloudfront": "1.45.0",
+    "@aws-cdk/aws-route53-patterns": "1.45.0",
+    "@aws-cdk/aws-route53-targets": "1.45.0",
+    "@aws-cdk/aws-s3": "1.45.0",
+    "@aws-cdk/aws-s3-deployment": "1.45.0",
+    "@aws-cdk/core": "1.45.0"
   },
   "dependencyClosure": {
     "@aws-cdk/assets": {
@@ -615,6 +615,31 @@
         }
       }
     },
+    "@aws-cdk/cdk-assets-schema": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.CdkAssets.Schema",
+          "packageId": "Amazon.CDK.CdkAssets.Schema",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "cdk-assets-schema",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.cdkassets.schema"
+        },
+        "js": {
+          "npm": "@aws-cdk/cdk-assets-schema"
+        },
+        "python": {
+          "distName": "aws-cdk.cdk-assets-schema",
+          "module": "aws_cdk.cdk_assets_schema"
+        }
+      }
+    },
     "@aws-cdk/cloud-assembly-schema": {
       "targets": {
         "dotnet": {
@@ -895,7 +920,7 @@
           },
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 135
+            "line": 137
           },
           "name": "createBasicSite",
           "parameters": [
@@ -913,7 +938,7 @@
           },
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 184
+            "line": 188
           },
           "name": "createSiteFromHostedZone",
           "parameters": [
@@ -931,7 +956,7 @@
           },
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 162
+            "line": 164
           },
           "name": "createSiteWithCloudfront",
           "parameters": [
@@ -1123,6 +1148,6 @@
       ]
     }
   },
-  "version": "1.36.0",
-  "fingerprint": "8X2QCHjkZbgCzOeIInfq8uzCTDTwHX6yeu1MgSV0wI8="
+  "version": "1.45.0",
+  "fingerprint": "lGOsiHwhXJqObFaD77a/1i9jPl4o/mWtcxYHGOJ+VNM="
 }
