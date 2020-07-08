@@ -1,1 +1,1 @@
-export * from './spa-deploy/spa-deploy-construct'
+export * from './spa-deploy/spa-deploy-construct';
