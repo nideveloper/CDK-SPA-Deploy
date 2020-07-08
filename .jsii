@@ -6,13 +6,15 @@
     ]
   },
   "dependencies": {
-    "@aws-cdk/aws-certificatemanager": "1.49.0",
-    "@aws-cdk/aws-cloudfront": "1.49.0",
-    "@aws-cdk/aws-route53-patterns": "1.49.0",
-    "@aws-cdk/aws-route53-targets": "1.49.0",
-    "@aws-cdk/aws-s3": "1.49.0",
-    "@aws-cdk/aws-s3-deployment": "1.49.0",
-    "@aws-cdk/core": "1.49.0"
+    "@aws-cdk/aws-certificatemanager": "1.50.0",
+    "@aws-cdk/aws-cloudfront": "1.50.0",
+    "@aws-cdk/aws-iam": "1.50.0",
+    "@aws-cdk/aws-route53": "1.50.0",
+    "@aws-cdk/aws-route53-patterns": "1.50.0",
+    "@aws-cdk/aws-route53-targets": "1.50.0",
+    "@aws-cdk/aws-s3": "1.50.0",
+    "@aws-cdk/aws-s3-deployment": "1.50.0",
+    "@aws-cdk/core": "1.50.0"
   },
   "dependencyClosure": {
     "@aws-cdk/assets": {
@@ -212,6 +214,31 @@
         "python": {
           "distName": "aws-cdk.aws-ec2",
           "module": "aws_cdk.aws_ec2"
+        }
+      }
+    },
+    "@aws-cdk/aws-efs": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.EFS",
+          "packageId": "Amazon.CDK.AWS.EFS",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "efs",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.efs"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-efs"
+        },
+        "python": {
+          "distName": "aws-cdk.aws-efs",
+          "module": "aws_cdk.aws_efs"
         }
       }
     },
@@ -765,7 +792,7 @@
   },
   "description": "This is an AWS CDK Construct to make deploying a single page website (Angular/React/Vue) to AWS S3 behind SSL/Cloudfront as easy as 5 lines of code.",
   "homepage": "https://github.com/nideveloper/CDK-SPA-Deploy.git",
-  "jsiiVersion": "1.7.0 (build 179a3a5)",
+  "jsiiVersion": "1.8.0 (build 4a047ac)",
   "keywords": [
     "aws",
     "cdk",
@@ -886,7 +913,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-        "line": 34
+        "line": 38
       },
       "methods": [
         {
@@ -895,7 +922,7 @@
           },
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 137
+            "line": 139
           },
           "name": "createBasicSite",
           "parameters": [
@@ -905,7 +932,12 @@
                 "fqn": "cdk-spa-deploy.SPADeployConfig"
               }
             }
-          ]
+          ],
+          "returns": {
+            "type": {
+              "fqn": "cdk-spa-deploy.SPADeployment"
+            }
+          }
         },
         {
           "docs": {
@@ -913,7 +945,7 @@
           },
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 188
+            "line": 193
           },
           "name": "createSiteFromHostedZone",
           "parameters": [
@@ -923,7 +955,12 @@
                 "fqn": "cdk-spa-deploy.HostedZoneConfig"
               }
             }
-          ]
+          ],
+          "returns": {
+            "type": {
+              "fqn": "cdk-spa-deploy.SPADeployment"
+            }
+          }
         },
         {
           "docs": {
@@ -931,7 +968,7 @@
           },
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 164
+            "line": 168
           },
           "name": "createSiteWithCloudfront",
           "parameters": [
@@ -941,7 +978,12 @@
                 "fqn": "cdk-spa-deploy.SPADeployConfig"
               }
             }
-          ]
+          ],
+          "returns": {
+            "type": {
+              "fqn": "cdk-spa-deploy.SPADeployment"
+            }
+          }
         }
       ],
       "name": "SPADeploy",
@@ -949,7 +991,7 @@
         {
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 35
+            "line": 39
           },
           "name": "globalConfig",
           "type": {
@@ -1065,6 +1107,32 @@
         }
       ]
     },
+    "cdk-spa-deploy.SPADeployment": {
+      "assembly": "cdk-spa-deploy",
+      "datatype": true,
+      "fqn": "cdk-spa-deploy.SPADeployment",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+        "line": 34
+      },
+      "name": "SPADeployment",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+            "line": 35
+          },
+          "name": "websiteBucket",
+          "optional": true,
+          "type": {
+            "fqn": "@aws-cdk/aws-s3.Bucket"
+          }
+        }
+      ]
+    },
     "cdk-spa-deploy.SPAGlobalConfig": {
       "assembly": "cdk-spa-deploy",
       "datatype": true,
@@ -1123,6 +1191,6 @@
       ]
     }
   },
-  "version": "1.49.0",
-  "fingerprint": "eGdxRKs/1B4ZeKm9tGL/qF4NIKMNf+vn2+jH0xMg1MQ="
+  "version": "1.50.0",
+  "fingerprint": "0o/IoGakKzw86RvuBLHdbuWAvfQhJr3vsRphUQrvLtE="
 }

@@ -43,6 +43,16 @@ Pass in a boolean and an array of IP addresses and your site is locked down!
 
 ![cdk-spa-deploy ipfilter](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/ipfilter.png)
 
+### Modifying S3 Bucket Created in Construct
+
+An object is now returned containing the S3 bucket for all of the methods if you need to make any further modifications
+
+```typescript
+export interface SPADeployment {
+  readonly websiteBucket?: s3.Bucket,
+}
+```
+
 ## Issues / Feature Requests
 
 https://github.com/nideveloper/CDK-SPA-Deploy
