@@ -45,11 +45,17 @@ Pass in a boolean and an array of IP addresses and your site is locked down!
 
 ### Modifying S3 Bucket Created in Construct
 
-An object is now returned containing the S3 bucket for all of the methods if you need to make any further modifications
+An object is now returned containing relevant artifacts created if you need to make any further modifications:
+  * The S3 bucket is present for all of the methods
+  * When a CloudFront Web distribution is created it will be present in the return object
 
 ```typescript
 export interface SPADeployment {
-  readonly websiteBucket?: s3.Bucket,
+  readonly websiteBucket: s3.Bucket,
+}
+
+export interface SPADeploymentWithCloudFront extends SPADeployment {
+  readonly distribution: CloudFrontWebDistribution,
 }
 ```
 
