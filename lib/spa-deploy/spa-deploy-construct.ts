@@ -32,7 +32,11 @@ export interface SPAGlobalConfig {
 }
 
 export interface SPADeployment {
-  readonly websiteBucket?: s3.Bucket,
+  readonly websiteBucket: s3.Bucket,
+}
+
+export interface SPADeploymentWithCloudFront extends SPADeployment {
+  readonly distribution: CloudFrontWebDistribution,
 }
 
 export class SPADeploy extends cdk.Construct {
@@ -165,7 +169,7 @@ export class SPADeploy extends cdk.Construct {
      * This will create an s3 deployment fronted by a cloudfront distribution
      * It will also setup error forwarding and unauth forwarding back to indexDoc
      */
-    public createSiteWithCloudfront(config:SPADeployConfig): SPADeployment {
+    public createSiteWithCloudfront(config:SPADeployConfig): SPADeploymentWithCloudFront {
       const websiteBucket = this.getS3Bucket(config, true);
       const accessIdentity = new OriginAccessIdentity(this, 'OriginAccessIdentity', { comment: `${websiteBucket.bucketName}-access-identity` });
       const distribution = new CloudFrontWebDistribution(this, 'cloudfrontDistribution', this.getCFConfig(websiteBucket, config, accessIdentity));
@@ -183,14 +187,14 @@ export class SPADeploy extends cdk.Construct {
         value: distribution.domainName,
       });
 
-      return { websiteBucket };
+      return { websiteBucket, distribution };
     }
 
     /**
      * S3 Deployment, cloudfront distribution, ssl cert and error forwarding auto
      * configured by using the details in the hosted zone provided
      */
-    public createSiteFromHostedZone(config:HostedZoneConfig): SPADeployment {
+    public createSiteFromHostedZone(config:HostedZoneConfig): SPADeploymentWithCloudFront {
       const websiteBucket = this.getS3Bucket(config, true);
       const zone = HostedZone.fromLookup(this, 'HostedZone', { domainName: config.zoneName });
       const cert = new DnsValidatedCertificate(this, 'Certificate', {
@@ -222,6 +226,6 @@ export class SPADeploy extends cdk.Construct {
         targetDomain: config.zoneName,
       });
 
-      return { websiteBucket };
+      return { websiteBucket, distribution };
     }
 }
