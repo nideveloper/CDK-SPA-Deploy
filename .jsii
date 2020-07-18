@@ -6,15 +6,15 @@
     ]
   },
   "dependencies": {
-    "@aws-cdk/aws-certificatemanager": "1.51.0",
-    "@aws-cdk/aws-cloudfront": "1.51.0",
-    "@aws-cdk/aws-iam": "1.51.0",
-    "@aws-cdk/aws-route53": "1.51.0",
-    "@aws-cdk/aws-route53-patterns": "1.51.0",
-    "@aws-cdk/aws-route53-targets": "1.51.0",
-    "@aws-cdk/aws-s3": "1.51.0",
-    "@aws-cdk/aws-s3-deployment": "1.51.0",
-    "@aws-cdk/core": "1.51.0"
+    "@aws-cdk/aws-certificatemanager": "1.52.0",
+    "@aws-cdk/aws-cloudfront": "1.52.0",
+    "@aws-cdk/aws-iam": "1.52.0",
+    "@aws-cdk/aws-route53": "1.52.0",
+    "@aws-cdk/aws-route53-patterns": "1.52.0",
+    "@aws-cdk/aws-route53-targets": "1.52.0",
+    "@aws-cdk/aws-s3": "1.52.0",
+    "@aws-cdk/aws-s3-deployment": "1.52.0",
+    "@aws-cdk/core": "1.52.0"
   },
   "dependencyClosure": {
     "@aws-cdk/assets": {
@@ -164,6 +164,31 @@
         "python": {
           "distName": "aws-cdk.aws-cloudwatch",
           "module": "aws_cdk.aws_cloudwatch"
+        }
+      }
+    },
+    "@aws-cdk/aws-codeguruprofiler": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.CodeGuruProfiler",
+          "packageId": "Amazon.CDK.AWS.CodeGuruProfiler",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "codeguruprofiler",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.codeguruprofiler"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-codeguruprofiler"
+        },
+        "python": {
+          "distName": "aws-cdk.aws-codeguruprofiler",
+          "module": "aws_cdk.aws_codeguruprofiler"
         }
       }
     },
@@ -804,7 +829,7 @@
   "license": "MIT",
   "name": "cdk-spa-deploy",
   "readme": {
-    "markdown": "# CDK-SPA-Deploy\n[![npm](https://img.shields.io/npm/dt/cdk-spa-deploy)](https://www.npmjs.com/package/cdk-spa-deploy)\n[![Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/cdk-spa-deploy)](https://www.npmjs.com/package/cdk-spa-deploy)\n\nThis is an AWS CDK Construct to make deploying a single page website (Angular/React/Vue) to AWS S3 behind SSL/Cloudfront as easy as 5 lines of code.\n\n\n## Installation and Usage\n\n### Typescript\nnpm install --save cdk-spa-deploy\n\n![cdk-spa-deploy example](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/spadeploy.png)\n\n### Python\npip install cdk-spa-deploy\n\n![cdk-spa-deploy python example](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/python.png)\n\n## Advanced Usage\n\n### Auto Deploy From Hosted Zone Name\n\nIf you purchased your domain through route 53 and already have a hosted zone then just use the name to deploy your site behind cloudfront. This handles the SSL cert and everything for you.\n\n![cdk-spa-deploy alias](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/fromHostedZone.PNG)\n\n### Custom Domain and SSL Certificates\n\nYou can also pass the ARN for an SSL certification and your alias routes to cloudfront\n\n![cdk-spa-deploy alias](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/cdkdeploy-alias.png)\n\n### Encrypted S3 Bucket\n\nPass in one boolean to tell SPA Deploy to encrypt your website bucket\n\n![cdk-spa-deploy encryption](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/encryption.PNG)\n\n### Restrict Access to Known IPs\n\nPass in a boolean and an array of IP addresses and your site is locked down!\n\n![cdk-spa-deploy ipfilter](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/ipfilter.png)\n\n### Modifying S3 Bucket Created in Construct\n\nAn object is now returned containing the S3 bucket for all of the methods if you need to make any further modifications\n\n```typescript\nexport interface SPADeployment {\n  readonly websiteBucket?: s3.Bucket,\n}\n```\n\n## Issues / Feature Requests\n\nhttps://github.com/nideveloper/CDK-SPA-Deploy\n"
+    "markdown": "# CDK-SPA-Deploy\n[![npm](https://img.shields.io/npm/dt/cdk-spa-deploy)](https://www.npmjs.com/package/cdk-spa-deploy)\n[![Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/cdk-spa-deploy)](https://www.npmjs.com/package/cdk-spa-deploy)\n\nThis is an AWS CDK Construct to make deploying a single page website (Angular/React/Vue) to AWS S3 behind SSL/Cloudfront as easy as 5 lines of code.\n\n\n## Installation and Usage\n\n### Typescript\nnpm install --save cdk-spa-deploy\n\n![cdk-spa-deploy example](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/spadeploy.png)\n\n### Python\npip install cdk-spa-deploy\n\n![cdk-spa-deploy python example](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/python.png)\n\n## Advanced Usage\n\n### Auto Deploy From Hosted Zone Name\n\nIf you purchased your domain through route 53 and already have a hosted zone then just use the name to deploy your site behind cloudfront. This handles the SSL cert and everything for you.\n\n![cdk-spa-deploy alias](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/fromHostedZone.PNG)\n\n### Custom Domain and SSL Certificates\n\nYou can also pass the ARN for an SSL certification and your alias routes to cloudfront\n\n![cdk-spa-deploy alias](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/cdkdeploy-alias.png)\n\n### Encrypted S3 Bucket\n\nPass in one boolean to tell SPA Deploy to encrypt your website bucket\n\n![cdk-spa-deploy encryption](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/encryption.PNG)\n\n### Restrict Access to Known IPs\n\nPass in a boolean and an array of IP addresses and your site is locked down!\n\n![cdk-spa-deploy ipfilter](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/ipfilter.png)\n\n### Modifying S3 Bucket Created in Construct\n\nAn object is now returned containing relevant artifacts created if you need to make any further modifications:\n  * The S3 bucket is present for all of the methods\n  * When a CloudFront Web distribution is created it will be present in the return object\n\n```typescript\nexport interface SPADeployment {\n  readonly websiteBucket: s3.Bucket,\n}\n\nexport interface SPADeploymentWithCloudFront extends SPADeployment {\n  readonly distribution: CloudFrontWebDistribution,\n}\n```\n\n## Issues / Feature Requests\n\nhttps://github.com/nideveloper/CDK-SPA-Deploy\n"
   },
   "repository": {
     "type": "git",
@@ -913,7 +938,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-        "line": 38
+        "line": 42
       },
       "methods": [
         {
@@ -922,7 +947,7 @@
           },
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 139
+            "line": 143
           },
           "name": "createBasicSite",
           "parameters": [
@@ -945,7 +970,7 @@
           },
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 193
+            "line": 197
           },
           "name": "createSiteFromHostedZone",
           "parameters": [
@@ -958,7 +983,7 @@
           ],
           "returns": {
             "type": {
-              "fqn": "cdk-spa-deploy.SPADeployment"
+              "fqn": "cdk-spa-deploy.SPADeploymentWithCloudFront"
             }
           }
         },
@@ -968,7 +993,7 @@
           },
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 168
+            "line": 172
           },
           "name": "createSiteWithCloudfront",
           "parameters": [
@@ -981,7 +1006,7 @@
           ],
           "returns": {
             "type": {
-              "fqn": "cdk-spa-deploy.SPADeployment"
+              "fqn": "cdk-spa-deploy.SPADeploymentWithCloudFront"
             }
           }
         }
@@ -991,7 +1016,7 @@
         {
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 39
+            "line": 43
           },
           "name": "globalConfig",
           "type": {
@@ -1126,9 +1151,36 @@
             "line": 35
           },
           "name": "websiteBucket",
-          "optional": true,
           "type": {
             "fqn": "@aws-cdk/aws-s3.Bucket"
+          }
+        }
+      ]
+    },
+    "cdk-spa-deploy.SPADeploymentWithCloudFront": {
+      "assembly": "cdk-spa-deploy",
+      "datatype": true,
+      "fqn": "cdk-spa-deploy.SPADeploymentWithCloudFront",
+      "interfaces": [
+        "cdk-spa-deploy.SPADeployment"
+      ],
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+        "line": 38
+      },
+      "name": "SPADeploymentWithCloudFront",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+            "line": 39
+          },
+          "name": "distribution",
+          "type": {
+            "fqn": "@aws-cdk/aws-cloudfront.CloudFrontWebDistribution"
           }
         }
       ]
@@ -1191,6 +1243,6 @@
       ]
     }
   },
-  "version": "1.51.0",
-  "fingerprint": "L0ulUOtqvBRcBmJICPbmL8s8mF479elfWxoUFMDfZDc="
+  "version": "1.52.0",
+  "fingerprint": "LjYnNE22Aa2zximlUEnGIzbRiVv9outbBhc6XK0D6EE="
 }
