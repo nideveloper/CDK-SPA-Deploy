@@ -1,20 +1,20 @@
 {
   "author": {
-    "name": "hello@cdkpatterns.com",
+    "name": "hi@cdkpatterns.com",
     "roles": [
       "author"
     ]
   },
   "dependencies": {
-    "@aws-cdk/aws-certificatemanager": "1.56.0",
-    "@aws-cdk/aws-cloudfront": "1.56.0",
-    "@aws-cdk/aws-iam": "1.56.0",
-    "@aws-cdk/aws-route53": "1.56.0",
-    "@aws-cdk/aws-route53-patterns": "1.56.0",
-    "@aws-cdk/aws-route53-targets": "1.56.0",
-    "@aws-cdk/aws-s3": "1.56.0",
-    "@aws-cdk/aws-s3-deployment": "1.56.0",
-    "@aws-cdk/core": "1.56.0"
+    "@aws-cdk/aws-certificatemanager": "1.58.0",
+    "@aws-cdk/aws-cloudfront": "1.58.0",
+    "@aws-cdk/aws-iam": "1.58.0",
+    "@aws-cdk/aws-route53": "1.58.0",
+    "@aws-cdk/aws-route53-patterns": "1.58.0",
+    "@aws-cdk/aws-route53-targets": "1.58.0",
+    "@aws-cdk/aws-s3": "1.58.0",
+    "@aws-cdk/aws-s3-deployment": "1.58.0",
+    "@aws-cdk/core": "1.58.0"
   },
   "dependencyClosure": {
     "@aws-cdk/assets": {
@@ -64,6 +64,56 @@
         "python": {
           "distName": "aws-cdk.aws-apigateway",
           "module": "aws_cdk.aws_apigateway"
+        }
+      }
+    },
+    "@aws-cdk/aws-applicationautoscaling": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.ApplicationAutoScaling",
+          "packageId": "Amazon.CDK.AWS.ApplicationAutoScaling",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "applicationautoscaling",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.applicationautoscaling"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-applicationautoscaling"
+        },
+        "python": {
+          "distName": "aws-cdk.aws-applicationautoscaling",
+          "module": "aws_cdk.aws_applicationautoscaling"
+        }
+      }
+    },
+    "@aws-cdk/aws-autoscaling-common": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.AutoScaling.Common",
+          "packageId": "Amazon.CDK.AWS.AutoScaling.Common",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "autoscaling-common",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.autoscaling.common"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-autoscaling-common"
+        },
+        "python": {
+          "distName": "aws-cdk.aws-autoscaling-common",
+          "module": "aws_cdk.aws_autoscaling_common"
         }
       }
     },
@@ -817,7 +867,7 @@
   },
   "description": "This is an AWS CDK Construct to make deploying a single page website (Angular/React/Vue) to AWS S3 behind SSL/Cloudfront as easy as 5 lines of code.",
   "homepage": "https://github.com/nideveloper/CDK-SPA-Deploy.git",
-  "jsiiVersion": "1.9.0 (build 5c646d5)",
+  "jsiiVersion": "1.10.0 (build 27cfbed)",
   "keywords": [
     "aws",
     "cdk",
@@ -913,6 +963,10 @@
       "base": "@aws-cdk/core.Construct",
       "fqn": "cdk-spa-deploy.SPADeploy",
       "initializer": {
+        "locationInModule": {
+          "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+          "line": 45
+        },
         "parameters": [
           {
             "name": "scope",
@@ -1243,6 +1297,6 @@
       ]
     }
   },
-  "version": "1.56.0",
-  "fingerprint": "LsZG+1OAa/hc6H4N9x8TUq9tvSH2TPDDXBkMEG0HC0M="
+  "version": "1.58.0",
+  "fingerprint": "Lf3AGy8LmLCHrt0gcOje5gcXbDG+t12j0a/fFunH6CQ="
 }
