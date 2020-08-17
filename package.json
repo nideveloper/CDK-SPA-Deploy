@@ -1,6 +1,6 @@
 {
   "name": "cdk-spa-deploy",
-  "version": "1.58.0",
+  "version": "1.59.0",
   "description": "This is an AWS CDK Construct to make deploying a single page website (Angular/React/Vue) to AWS S3 behind SSL/Cloudfront as easy as 5 lines of code.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -29,7 +29,7 @@
     "twitter": "nideveloper"
   },
   "devDependencies": {
-    "@aws-cdk/assert": "1.58.0",
+    "@aws-cdk/assert": "1.59.0",
     "@types/jest": "^26.0.9",
     "@types/node": "14.0.27",
     "@typescript-eslint/eslint-plugin": "^3.9.0",
@@ -51,26 +51,26 @@
     "typescript": "~3.9.7"
   },
   "dependencies": {
-    "@aws-cdk/aws-certificatemanager": "1.58.0",
-    "@aws-cdk/aws-cloudfront": "1.58.0",
-    "@aws-cdk/aws-iam": "1.58.0",
-    "@aws-cdk/aws-route53": "1.58.0",
-    "@aws-cdk/aws-route53-patterns": "1.58.0",
-    "@aws-cdk/aws-route53-targets": "1.58.0",
-    "@aws-cdk/aws-s3": "1.58.0",
-    "@aws-cdk/aws-s3-deployment": "1.58.0",
-    "@aws-cdk/core": "1.58.0"
+    "@aws-cdk/aws-certificatemanager": "1.59.0",
+    "@aws-cdk/aws-cloudfront": "1.59.0",
+    "@aws-cdk/aws-iam": "1.59.0",
+    "@aws-cdk/aws-route53": "1.59.0",
+    "@aws-cdk/aws-route53-patterns": "1.59.0",
+    "@aws-cdk/aws-route53-targets": "1.59.0",
+    "@aws-cdk/aws-s3": "1.59.0",
+    "@aws-cdk/aws-s3-deployment": "1.59.0",
+    "@aws-cdk/core": "1.59.0"
   },
   "peerDependencies": {
-    "@aws-cdk/aws-cloudfront": "1.58.0",
-    "@aws-cdk/aws-s3": "1.58.0",
-    "@aws-cdk/aws-s3-deployment": "1.58.0",
-    "@aws-cdk/aws-certificatemanager": "1.58.0",
-    "@aws-cdk/core": "1.58.0",
-    "@aws-cdk/aws-route53-patterns": "1.58.0",
-    "@aws-cdk/aws-route53-targets": "1.58.0",
-    "@aws-cdk/aws-iam": "1.58.0",
-    "@aws-cdk/aws-route53": "1.58.0"
+    "@aws-cdk/aws-cloudfront": "1.59.0",
+    "@aws-cdk/aws-s3": "1.59.0",
+    "@aws-cdk/aws-s3-deployment": "1.59.0",
+    "@aws-cdk/aws-certificatemanager": "1.59.0",
+    "@aws-cdk/core": "1.59.0",
+    "@aws-cdk/aws-route53-patterns": "1.59.0",
+    "@aws-cdk/aws-route53-targets": "1.59.0",
+    "@aws-cdk/aws-iam": "1.59.0",
+    "@aws-cdk/aws-route53": "1.59.0"
   },
   "keywords": [
     "aws",
