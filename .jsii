@@ -6,15 +6,15 @@
     ]
   },
   "dependencies": {
-    "@aws-cdk/aws-certificatemanager": "1.60.0",
-    "@aws-cdk/aws-cloudfront": "1.60.0",
-    "@aws-cdk/aws-iam": "1.60.0",
-    "@aws-cdk/aws-route53": "1.60.0",
-    "@aws-cdk/aws-route53-patterns": "1.60.0",
-    "@aws-cdk/aws-route53-targets": "1.60.0",
-    "@aws-cdk/aws-s3": "1.60.0",
-    "@aws-cdk/aws-s3-deployment": "1.60.0",
-    "@aws-cdk/core": "1.60.0"
+    "@aws-cdk/aws-certificatemanager": "1.62.0",
+    "@aws-cdk/aws-cloudfront": "1.62.0",
+    "@aws-cdk/aws-iam": "1.62.0",
+    "@aws-cdk/aws-route53": "1.62.0",
+    "@aws-cdk/aws-route53-patterns": "1.62.0",
+    "@aws-cdk/aws-route53-targets": "1.62.0",
+    "@aws-cdk/aws-s3": "1.62.0",
+    "@aws-cdk/aws-s3-deployment": "1.62.0",
+    "@aws-cdk/core": "1.62.0"
   },
   "dependencyClosure": {
     "@aws-cdk/assets": {
@@ -867,7 +867,7 @@
   },
   "description": "This is an AWS CDK Construct to make deploying a single page website (Angular/React/Vue) to AWS S3 behind SSL/Cloudfront as easy as 5 lines of code.",
   "homepage": "https://github.com/nideveloper/CDK-SPA-Deploy.git",
-  "jsiiVersion": "1.11.0 (build 1e9b8e1)",
+  "jsiiVersion": "1.12.0 (build 5ddc9f2)",
   "keywords": [
     "aws",
     "cdk",
@@ -1297,6 +1297,6 @@
       ]
     }
   },
-  "version": "1.60.0",
-  "fingerprint": "S9FyUkwlMfHggCBeLpoFN2HYRX7u6llRHDASVfNUuBw="
+  "version": "1.62.0",
+  "fingerprint": "t+Guu9J4FsFYpX9pjjk9zhRWXGGet1t5xIuefCoPS4o="
 }
