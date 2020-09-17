@@ -31,7 +31,7 @@
   "devDependencies": {
     "@aws-cdk/assert": "1.62.0",
     "@types/jest": "^26.0.13",
-    "@types/node": "14.6.4",
+    "@types/node": "14.10.3",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
     "aws-cdk": "1.62.0",
