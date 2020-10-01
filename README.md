@@ -37,6 +37,33 @@ Pass in one boolean to tell SPA Deploy to encrypt your website bucket
 
 ![cdk-spa-deploy encryption](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/encryption.PNG)
 
+### Custom Origin Behaviors
+
+Pass in an array of CloudFront Behaviors 
+
+```typescript
+deploy.createSiteWithCloudfront({
+  indexDoc: 'index.html',
+  websiteFolder: 'website',
+  cfBehaviors: [
+    {
+      isDefaultBehavior: true,
+      allowedMethods: cf.CloudFrontAllowedMethods.ALL,
+      forwardedValues: {
+        queryString: true,
+        cookies: { forward: 'all' },
+        headers: ['*'],
+      },
+    },
+    {
+      pathPattern: '/virtual-path',
+      allowedMethods: cf.CloudFrontAllowedMethods.GET_HEAD,
+      cachedMethods: cf.CloudFrontAllowedCachedMethods.GET_HEAD,
+    },
+  ],
+});
+```
+
 ### Restrict Access to Known IPs
 
 Pass in a boolean and an array of IP addresses and your site is locked down!

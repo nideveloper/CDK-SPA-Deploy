@@ -1,4 +1,4 @@
-import { CloudFrontWebDistribution, ViewerCertificate, OriginAccessIdentity } from '@aws-cdk/aws-cloudfront';
+import { CloudFrontWebDistribution, ViewerCertificate, OriginAccessIdentity, Behavior } from '@aws-cdk/aws-cloudfront';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
 import { HostedZone, ARecord, RecordTarget } from '@aws-cdk/aws-route53';
 import { DnsValidatedCertificate } from '@aws-cdk/aws-certificatemanager';
@@ -13,6 +13,7 @@ export interface SPADeployConfig {
   readonly errorDoc?:string,
   readonly websiteFolder: string,
   readonly certificateARN?: string,
+  readonly cfBehaviors?: Behavior[],
   readonly cfAliases?: string[],
   readonly exportWebsiteUrlOutput?:boolean,
   readonly exportWebsiteUrlName?: string
@@ -21,6 +22,7 @@ export interface SPADeployConfig {
 export interface HostedZoneConfig {
   readonly indexDoc:string,
   readonly errorDoc?:string,
+  readonly cfBehaviors?: Behavior[],
   readonly websiteFolder: string,
   readonly zoneName: string
 }
@@ -105,7 +107,7 @@ export class SPADeploy extends cdk.Construct {
               s3BucketSource: websiteBucket,
               originAccessIdentity: accessIdentity,
             },
-            behaviors: [{ isDefaultBehavior: true }],
+            behaviors: config.cfBehaviors ? config.cfBehaviors : [{ isDefaultBehavior: true }],
           },
         ],
         // We need to redirect all unknown routes back to index.html for angular routing to work
