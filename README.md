@@ -60,7 +60,7 @@ class PythonStack(core.Stack):
       index_doc='index.html',
       website_folder='../blog/blog/dist/blog'
     )
-
+```
 
 ## Advanced Usage
 
