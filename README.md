@@ -13,9 +13,26 @@ npm install --save cdk-spa-deploy
 ![cdk-spa-deploy example](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/spadeploy.png)
 
 ### Python
+```console
 pip install cdk-spa-deploy
+```
 
-![cdk-spa-deploy python example](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/python.png)
+```python
+from aws_cdk import core
+from spa_deploy import SPADeploy
+
+
+class PythonStack(core.Stack):
+
+    def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
+        super().__init__(scope, id, **kwargs)
+
+        SPADeploy(self, 'spaDeploy').create_basic_site(index_doc='index.html',
+                                                       website_folder='../blog/blog/dist/blog')
+
+        SPADeploy(self, 'cfDeploy').create_site_with_cloudfront(index_doc='index.html',
+                                                                website_folder='../blog/blog/dist/blog')
+```
 
 ## Advanced Usage
 
