@@ -8,9 +8,32 @@ This is an AWS CDK Construct to make deploying a single page website (Angular/Re
 ## Installation and Usage
 
 ### Typescript
+```console
 npm install --save cdk-spa-deploy
+```
 
-![cdk-spa-deploy example](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/spadeploy.png)
+```typescript
+import * as cdk from '@aws-cdk/core';
+import { SPADeploy } from 'cdk-spa-deploy';
+
+export class CdkWorkshopStack extends cdk.Stack {
+  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
+
+    new SPADeploy(this, 'spaDeploy')
+      .createBasicSite({
+        indexDoc: 'index.html',
+        websiteFolder: '../blog/build'
+      })
+
+    new SPADeploy(this, 'spaDeploy')
+      .createSiteWithCloudfront({
+        indexDoc: 'index.html',
+        websiteFolder: '../blog/build'
+      })
+  }
+}
+```
 
 ### Python
 ```console
@@ -40,19 +63,49 @@ class PythonStack(core.Stack):
 
 If you purchased your domain through route 53 and already have a hosted zone then just use the name to deploy your site behind cloudfront. This handles the SSL cert and everything for you.
 
-![cdk-spa-deploy alias](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/fromHostedZone.PNG)
+```typescript
+    new SPADeploy(this, 'spaDeploy', { encryptBucket: true })
+      .createSiteFromHostedZone({
+        zoneName: 'cdkpatterns.com',
+        indexDoc: 'index.html',
+        websiteFolder: '../client/build'
+      })
+```
 
 ### Custom Domain and SSL Certificates
 
 You can also pass the ARN for an SSL certification and your alias routes to cloudfront
 
-![cdk-spa-deploy alias](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/cdkdeploy-alias.png)
+```typescript
+import * as cdk from '@aws-cdk/core';
+import { SPADeploy } from 'cdk-spa-deploy';
+
+export class CdkWorkshopStack extends cdk.Stack {
+  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
+
+    new SPADeploy(this, 'cfDeploy')
+      .createSiteWithCloudfront({
+        indexDoc: 'index.html',
+        websiteFolder: '../blog/build',
+        certificateARN: 'arn:...',
+        cfAliases: ['www.alias.com']
+      })
+  }
+}
+```
 
 ### Encrypted S3 Bucket
 
 Pass in one boolean to tell SPA Deploy to encrypt your website bucket
 
-![cdk-spa-deploy encryption](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/encryption.PNG)
+```typescript
+    new SPADeploy(this, 'spaDeploy', { encryptBucket: true })
+      .createBasicSite({
+        indexDoc: 'index.html',
+        websiteFolder: '../client/build'
+      })
+```
 
 ### Custom Origin Behaviors
 
@@ -85,7 +138,20 @@ deploy.createSiteWithCloudfront({
 
 Pass in a boolean and an array of IP addresses and your site is locked down!
 
-![cdk-spa-deploy ipfilter](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/ipfilter.png)
+```typescript
+    new SPADeploy(this, 'spaDeploy', {
+      encryptBucket: true,
+      ipFilter: true,
+      ipList: [
+        '1.1.1.1',
+        '1.1.1.2'
+      ]
+    })
+      .createBasicSite({
+        indexDoc: 'index.html',
+        websiteFolder: '../client/build'
+      })
+```
 
 ### Modifying S3 Bucket Created in Construct
 
