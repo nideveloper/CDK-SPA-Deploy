@@ -8,7 +8,10 @@ This is an AWS CDK Construct to make deploying a single page website (Angular/Re
 ## Installation and Usage
 
 ### Typescript
+
+```console
 npm install --save cdk-spa-deploy
+```
 
 ```typescript
 import cdk = require('@aws-cdk/core');
