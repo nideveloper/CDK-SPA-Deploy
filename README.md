@@ -35,7 +35,9 @@ export class CdkStack extends cdk.Stack {
 ```
 
 ### Python
+```console
 pip install cdk-spa-deploy
+```
 
 ```python
 from aws_cdk import core
@@ -55,7 +57,7 @@ class PythonStack(core.Stack):
       index_doc='index.html',
       website_folder='../blog/blog/dist/blog'
     )
-```
+
 
 ## Advanced Usage
 
