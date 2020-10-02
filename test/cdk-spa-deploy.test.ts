@@ -1,6 +1,7 @@
 import {
   expect as expectCDK, haveResource, haveResourceLike, haveOutput,
 } from '@aws-cdk/assert';
+import * as cf from '@aws-cdk/aws-cloudfront';
 import { Stack, App } from '@aws-cdk/core';
 import { SPADeploy } from '../lib';
 
@@ -364,6 +365,58 @@ test('Cloudfront With Encrypted Bucket', () => {
       ViewerCertificate: {
         AcmCertificateArn: 'arn:1234',
         SslSupportMethod: 'sni-only',
+      },
+    },
+  }));
+});
+
+test('Cloudfront With Custom Defined Behaviors', () => {
+  const stack = new Stack();
+
+  // WHEN
+  const deploy = new SPADeploy(stack, 'spaDeploy');
+
+  deploy.createSiteWithCloudfront({
+    indexDoc: 'index.html',
+    websiteFolder: 'website',
+    cfBehaviors: [
+      {
+        isDefaultBehavior: true,
+        allowedMethods: cf.CloudFrontAllowedMethods.ALL,
+        forwardedValues: {
+          queryString: true,
+          cookies: { forward: 'all' },
+          headers: ['*'],
+        },
+      },
+      {
+        pathPattern: '/virtual-path',
+        allowedMethods: cf.CloudFrontAllowedMethods.GET_HEAD,
+        cachedMethods: cf.CloudFrontAllowedCachedMethods.GET_HEAD,
+      },
+    ],
+  });
+
+  // THEN
+  expectCDK(stack).to(haveResource('Custom::CDKBucketDeployment'));
+
+  expectCDK(stack).to(haveResourceLike('AWS::CloudFront::Distribution', {
+    DistributionConfig: {
+      CacheBehaviors: [
+        {
+          AllowedMethods: ['GET', 'HEAD'],
+          CachedMethods: ['GET', 'HEAD'],
+          PathPattern: '/virtual-path',
+        },
+      ],
+      DefaultCacheBehavior: {
+        AllowedMethods: ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'PATCH', 'POST', 'PUT'],
+        ForwardedValues: {
+          Cookies: { Forward: 'all' },
+          Headers: ['*'],
+          QueryString: true,
+        },
+        TargetOriginId: 'origin1'
       },
     },
   }));
