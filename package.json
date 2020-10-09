@@ -1,6 +1,6 @@
 {
   "name": "cdk-spa-deploy",
-  "version": "1.66.0",
+  "version": "1.67.0",
   "description": "This is an AWS CDK Construct to make deploying a single page website (Angular/React/Vue) to AWS S3 behind SSL/Cloudfront as easy as 5 lines of code.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -29,12 +29,12 @@
     "twitter": "nideveloper"
   },
   "devDependencies": {
-    "@aws-cdk/assert": "1.66.0",
+    "@aws-cdk/assert": "1.67.0",
     "@types/jest": "^26.0.14",
     "@types/node": "14.11.2",
     "@typescript-eslint/eslint-plugin": "^4.3.0",
     "@typescript-eslint/parser": "^4.3.0",
-    "aws-cdk": "1.66.0",
+    "aws-cdk": "1.67.0",
     "eslint": "^7.10.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-formatter-pretty": "^4.0.0",
@@ -51,26 +51,26 @@
     "typescript": "~4.0.3"
   },
   "dependencies": {
-    "@aws-cdk/aws-certificatemanager": "1.66.0",
-    "@aws-cdk/aws-cloudfront": "1.66.0",
-    "@aws-cdk/aws-iam": "1.66.0",
-    "@aws-cdk/aws-route53": "1.66.0",
-    "@aws-cdk/aws-route53-patterns": "1.66.0",
-    "@aws-cdk/aws-route53-targets": "1.66.0",
-    "@aws-cdk/aws-s3": "1.66.0",
-    "@aws-cdk/aws-s3-deployment": "1.66.0",
-    "@aws-cdk/core": "1.66.0"
+    "@aws-cdk/aws-certificatemanager": "1.67.0",
+    "@aws-cdk/aws-cloudfront": "1.67.0",
+    "@aws-cdk/aws-iam": "1.67.0",
+    "@aws-cdk/aws-route53": "1.67.0",
+    "@aws-cdk/aws-route53-patterns": "1.67.0",
+    "@aws-cdk/aws-route53-targets": "1.67.0",
+    "@aws-cdk/aws-s3": "1.67.0",
+    "@aws-cdk/aws-s3-deployment": "1.67.0",
+    "@aws-cdk/core": "1.67.0"
   },
   "peerDependencies": {
-    "@aws-cdk/aws-cloudfront": "1.66.0",
-    "@aws-cdk/aws-s3": "1.66.0",
-    "@aws-cdk/aws-s3-deployment": "1.66.0",
-    "@aws-cdk/aws-certificatemanager": "1.66.0",
-    "@aws-cdk/core": "1.66.0",
-    "@aws-cdk/aws-route53-patterns": "1.66.0",
-    "@aws-cdk/aws-route53-targets": "1.66.0",
-    "@aws-cdk/aws-iam": "1.66.0",
-    "@aws-cdk/aws-route53": "1.66.0"
+    "@aws-cdk/aws-cloudfront": "1.67.0",
+    "@aws-cdk/aws-s3": "1.67.0",
+    "@aws-cdk/aws-s3-deployment": "1.67.0",
+    "@aws-cdk/aws-certificatemanager": "1.67.0",
+    "@aws-cdk/core": "1.67.0",
+    "@aws-cdk/aws-route53-patterns": "1.67.0",
+    "@aws-cdk/aws-route53-targets": "1.67.0",
+    "@aws-cdk/aws-iam": "1.67.0",
+    "@aws-cdk/aws-route53": "1.67.0"
   },
   "keywords": [
     "aws",
