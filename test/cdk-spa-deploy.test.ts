@@ -2,6 +2,7 @@ import {
   expect as expectCDK, haveResource, haveResourceLike, haveOutput,
 } from '@aws-cdk/assert';
 import * as cf from '@aws-cdk/aws-cloudfront';
+import { BlockPublicAccess } from '@aws-cdk/aws-s3';
 import { Stack, App } from '@aws-cdk/core';
 import { SPADeploy } from '../lib';
 
@@ -661,3 +662,30 @@ test('Basic Site Setup, URL Output Not Enabled', () => {
     exportName,
   }));
 });
+
+test('Basic Site Setup, Block Public Enabled', () => {
+  const stack = new Stack();
+
+  // WHEN
+  new SPADeploy(stack, 'spaDeploy', { ipFilter: true })
+    .createBasicSite({
+      indexDoc: 'index.html',
+      websiteFolder: 'website',
+      enableBlockPublicAccess: true,
+      blockPublicAccess: BlockPublicAccess.BLOCK_ALL
+    });
+
+  // THEN
+  expectCDK(stack).to(haveResource('AWS::S3::Bucket', {
+    WebsiteConfiguration: {
+      IndexDocument: 'index.html',
+    },
+    PublicAccessBlockConfiguration: {
+      BlockPublicAcls: true,
+      BlockPublicPolicy: true,
+      IgnorePublicAcls: true,
+      RestrictPublicBuckets: true
+    },
+  }));
+});
+

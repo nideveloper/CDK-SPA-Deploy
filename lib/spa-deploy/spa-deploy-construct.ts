@@ -16,7 +16,9 @@ export interface SPADeployConfig {
   readonly cfBehaviors?: Behavior[],
   readonly cfAliases?: string[],
   readonly exportWebsiteUrlOutput?:boolean,
-  readonly exportWebsiteUrlName?: string
+  readonly exportWebsiteUrlName?: string,
+  readonly enableBlockPublicAccess?:boolean,
+  readonly blockPublicAccess?:s3.BlockPublicAccess
 }
 
 export interface HostedZoneConfig {
@@ -73,6 +75,12 @@ export class SPADeploy extends cdk.Construct {
 
       if (this.globalConfig.ipFilter === true || isForCloudFront === true) {
         bucketConfig.publicReadAccess = false;
+        if (config.enableBlockPublicAccess === true) {
+          if (typeof config.blockPublicAccess === 'undefined') {
+            this.node.addError('When enableBlockPublicAccess is true then the blockPublicAccessPolicy is required');
+          }
+          bucketConfig.blockPublicAccess = config.blockPublicAccess;
+        }
       }
 
       const bucket = new s3.Bucket(this, 'WebsiteBucket', bucketConfig);
