@@ -671,7 +671,6 @@ test('Basic Site Setup, Block Public Enabled', () => {
     .createBasicSite({
       indexDoc: 'index.html',
       websiteFolder: 'website',
-      enableBlockPublicAccess: true,
       blockPublicAccess: BlockPublicAccess.BLOCK_ALL
     });
 
