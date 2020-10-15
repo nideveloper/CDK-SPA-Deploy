@@ -1,18 +1,20 @@
 {
   "author": {
-    "name": "matt@vs-software.co.uk",
+    "name": "hi@cdkpatterns.com",
     "roles": [
       "author"
     ]
   },
   "dependencies": {
-    "@aws-cdk/aws-certificatemanager": "1.24.0",
-    "@aws-cdk/aws-cloudfront": "1.24.0",
-    "@aws-cdk/aws-route53-patterns": "1.24.0",
-    "@aws-cdk/aws-route53-targets": "1.24.0",
-    "@aws-cdk/aws-s3": "1.24.0",
-    "@aws-cdk/aws-s3-deployment": "1.24.0",
-    "@aws-cdk/core": "1.24.0"
+    "@aws-cdk/aws-certificatemanager": "1.67.0",
+    "@aws-cdk/aws-cloudfront": "1.67.0",
+    "@aws-cdk/aws-iam": "1.67.0",
+    "@aws-cdk/aws-route53": "1.67.0",
+    "@aws-cdk/aws-route53-patterns": "1.67.0",
+    "@aws-cdk/aws-route53-targets": "1.67.0",
+    "@aws-cdk/aws-s3": "1.67.0",
+    "@aws-cdk/aws-s3-deployment": "1.67.0",
+    "@aws-cdk/core": "1.67.0"
   },
   "dependencyClosure": {
     "@aws-cdk/assets": {
@@ -35,6 +37,10 @@
           "npm": "@aws-cdk/assets"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.assets",
           "module": "aws_cdk.assets"
         }
@@ -60,8 +66,70 @@
           "npm": "@aws-cdk/aws-apigateway"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.aws-apigateway",
           "module": "aws_cdk.aws_apigateway"
+        }
+      }
+    },
+    "@aws-cdk/aws-applicationautoscaling": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.ApplicationAutoScaling",
+          "packageId": "Amazon.CDK.AWS.ApplicationAutoScaling",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "applicationautoscaling",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.applicationautoscaling"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-applicationautoscaling"
+        },
+        "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
+          "distName": "aws-cdk.aws-applicationautoscaling",
+          "module": "aws_cdk.aws_applicationautoscaling"
+        }
+      }
+    },
+    "@aws-cdk/aws-autoscaling-common": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.AutoScaling.Common",
+          "packageId": "Amazon.CDK.AWS.AutoScaling.Common",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "autoscaling-common",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.autoscaling.common"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-autoscaling-common"
+        },
+        "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
+          "distName": "aws-cdk.aws-autoscaling-common",
+          "module": "aws_cdk.aws_autoscaling_common"
         }
       }
     },
@@ -85,6 +153,10 @@
           "npm": "@aws-cdk/aws-certificatemanager"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.aws-certificatemanager",
           "module": "aws_cdk.aws_certificatemanager"
         }
@@ -110,6 +182,10 @@
           "npm": "@aws-cdk/aws-cloudformation"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.aws-cloudformation",
           "module": "aws_cdk.aws_cloudformation"
         }
@@ -135,6 +211,10 @@
           "npm": "@aws-cdk/aws-cloudfront"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.aws-cloudfront",
           "module": "aws_cdk.aws_cloudfront"
         }
@@ -160,8 +240,70 @@
           "npm": "@aws-cdk/aws-cloudwatch"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.aws-cloudwatch",
           "module": "aws_cdk.aws_cloudwatch"
+        }
+      }
+    },
+    "@aws-cdk/aws-codeguruprofiler": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.CodeGuruProfiler",
+          "packageId": "Amazon.CDK.AWS.CodeGuruProfiler",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "codeguruprofiler",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.codeguruprofiler"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-codeguruprofiler"
+        },
+        "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
+          "distName": "aws-cdk.aws-codeguruprofiler",
+          "module": "aws_cdk.aws_codeguruprofiler"
+        }
+      }
+    },
+    "@aws-cdk/aws-cognito": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.Cognito",
+          "packageId": "Amazon.CDK.AWS.Cognito",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "cognito",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.cognito"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-cognito"
+        },
+        "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
+          "distName": "aws-cdk.aws-cognito",
+          "module": "aws_cdk.aws_cognito"
         }
       }
     },
@@ -185,8 +327,41 @@
           "npm": "@aws-cdk/aws-ec2"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.aws-ec2",
           "module": "aws_cdk.aws_ec2"
+        }
+      }
+    },
+    "@aws-cdk/aws-efs": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.EFS",
+          "packageId": "Amazon.CDK.AWS.EFS",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "efs",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.efs"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-efs"
+        },
+        "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
+          "distName": "aws-cdk.aws-efs",
+          "module": "aws_cdk.aws_efs"
         }
       }
     },
@@ -210,6 +385,10 @@
           "npm": "@aws-cdk/aws-elasticloadbalancing"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.aws-elasticloadbalancing",
           "module": "aws_cdk.aws_elasticloadbalancing"
         }
@@ -235,6 +414,10 @@
           "npm": "@aws-cdk/aws-elasticloadbalancingv2"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.aws-elasticloadbalancingv2",
           "module": "aws_cdk.aws_elasticloadbalancingv2"
         }
@@ -260,6 +443,10 @@
           "npm": "@aws-cdk/aws-events"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.aws-events",
           "module": "aws_cdk.aws_events"
         }
@@ -285,6 +472,10 @@
           "npm": "@aws-cdk/aws-iam"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.aws-iam",
           "module": "aws_cdk.aws_iam"
         }
@@ -310,6 +501,10 @@
           "npm": "@aws-cdk/aws-kms"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.aws-kms",
           "module": "aws_cdk.aws_kms"
         }
@@ -335,6 +530,10 @@
           "npm": "@aws-cdk/aws-lambda"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.aws-lambda",
           "module": "aws_cdk.aws_lambda"
         }
@@ -360,6 +559,10 @@
           "npm": "@aws-cdk/aws-logs"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.aws-logs",
           "module": "aws_cdk.aws_logs"
         }
@@ -385,6 +588,10 @@
           "npm": "@aws-cdk/aws-route53"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.aws-route53",
           "module": "aws_cdk.aws_route53"
         }
@@ -410,6 +617,10 @@
           "npm": "@aws-cdk/aws-route53-patterns"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.aws-route53-patterns",
           "module": "aws_cdk.aws_route53_patterns"
         }
@@ -435,6 +646,10 @@
           "npm": "@aws-cdk/aws-route53-targets"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.aws-route53-targets",
           "module": "aws_cdk.aws_route53_targets"
         }
@@ -460,6 +675,10 @@
           "npm": "@aws-cdk/aws-s3"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.aws-s3",
           "module": "aws_cdk.aws_s3"
         }
@@ -485,6 +704,10 @@
           "npm": "@aws-cdk/aws-s3-assets"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.aws-s3-assets",
           "module": "aws_cdk.aws_s3_assets"
         }
@@ -510,6 +733,10 @@
           "npm": "@aws-cdk/aws-s3-deployment"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.aws-s3-deployment",
           "module": "aws_cdk.aws_s3_deployment"
         }
@@ -535,6 +762,10 @@
           "npm": "@aws-cdk/aws-sns"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.aws-sns",
           "module": "aws_cdk.aws_sns"
         }
@@ -560,6 +791,10 @@
           "npm": "@aws-cdk/aws-sqs"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.aws-sqs",
           "module": "aws_cdk.aws_sqs"
         }
@@ -585,8 +820,41 @@
           "npm": "@aws-cdk/aws-ssm"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.aws-ssm",
           "module": "aws_cdk.aws_ssm"
+        }
+      }
+    },
+    "@aws-cdk/cloud-assembly-schema": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.CloudAssembly.Schema",
+          "packageId": "Amazon.CDK.CloudAssembly.Schema",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "cdk-cloud-assembly-schema",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.cloudassembly.schema"
+        },
+        "js": {
+          "npm": "@aws-cdk/cloud-assembly-schema"
+        },
+        "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
+          "distName": "aws-cdk.cloud-assembly-schema",
+          "module": "aws_cdk.cloud_assembly_schema"
         }
       }
     },
@@ -610,8 +878,41 @@
           "npm": "@aws-cdk/core"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.core",
           "module": "aws_cdk.core"
+        }
+      }
+    },
+    "@aws-cdk/custom-resources": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.CustomResources",
+          "packageId": "Amazon.CDK.AWS.CustomResources",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "cdk-customresources",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.customresources"
+        },
+        "js": {
+          "npm": "@aws-cdk/custom-resources"
+        },
+        "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
+          "distName": "aws-cdk.custom-resources",
+          "module": "aws_cdk.custom_resources"
         }
       }
     },
@@ -635,6 +936,10 @@
           "npm": "@aws-cdk/cx-api"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.cx-api",
           "module": "aws_cdk.cx_api"
         }
@@ -660,15 +965,41 @@
           "npm": "@aws-cdk/region-info"
         },
         "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
           "distName": "aws-cdk.region-info",
           "module": "aws_cdk.region_info"
         }
       }
+    },
+    "constructs": {
+      "targets": {
+        "dotnet": {
+          "namespace": "Constructs",
+          "packageId": "Constructs"
+        },
+        "java": {
+          "maven": {
+            "artifactId": "constructs",
+            "groupId": "software.constructs"
+          },
+          "package": "software.constructs"
+        },
+        "js": {
+          "npm": "constructs"
+        },
+        "python": {
+          "distName": "constructs",
+          "module": "constructs"
+        }
+      }
     }
   },
-  "description": "cdk-spa-deploy",
+  "description": "This is an AWS CDK Construct to make deploying a single page website (Angular/React/Vue) to AWS S3 behind SSL/Cloudfront as easy as 5 lines of code.",
   "homepage": "https://github.com/nideveloper/CDK-SPA-Deploy.git",
-  "jsiiVersion": "0.21.1 (build 9ff44cb)",
+  "jsiiVersion": "1.13.0 (build 385c325)",
   "keywords": [
     "aws",
     "cdk",
@@ -680,7 +1011,7 @@
   "license": "MIT",
   "name": "cdk-spa-deploy",
   "readme": {
-    "markdown": "# CDK-SPA-Deploy\n\nThis is an AWS CDK Construct to make deploying a single page website (Angular/React/Vue) to AWS S3 behind SSL/Cloudfront as easy as 5 lines of code.\n\n\n## Installation and Usage\n\n### Typescript\nnpm install --save cdk-spa-deploy\n\n![cdk-spa-deploy example](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/spadeploy.png)\n\n### Python\npip install cdk-spa-deploy\n\n![cdk-spa-deploy python example](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/python.png)\n\n## Advanced Usage\n\n### Auto Deploy From Hosted Zone Name\n\nIf you purchased your domain through route 53 and already have a hosted zone then just use the name to deploy your site behind cloudfront. This handles the SSL cert and everything for you.\n\n![cdk-spa-deploy alias](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/fromHostedZone.PNG)\n\n### Custom Domain and SSL Certificates\n\nYou can also pass the ARN for an SSL certification and your alias routes to cloudfront\n\n![cdk-spa-deploy alias](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/cdkdeploy-alias.png)\n\n### Encrypted S3 Bucket\n\nPass in one boolean to tell SPA Deploy to encrypt your website bucket\n\n![cdk-spa-deploy encryption](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/encryption.PNG)\n\n### Restrict Access to Known IPs\n\nPass in a boolean and an array of IP addresses and your site is locked down!\n\n![cdk-spa-deploy ipfilter](https://raw.githubusercontent.com/nideveloper/cdk-spa-deploy/master/img/ipfilter.png)\n\n## Issues / Feature Requests\n\nhttps://github.com/nideveloper/CDK-SPA-Deploy"
+    "markdown": "# CDK-SPA-Deploy\n[![npm](https://img.shields.io/npm/dt/cdk-spa-deploy)](https://www.npmjs.com/package/cdk-spa-deploy)\n[![Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/cdk-spa-deploy)](https://www.npmjs.com/package/cdk-spa-deploy)\n\nThis is an AWS CDK Construct to make deploying a single page website (Angular/React/Vue) to AWS S3 behind SSL/Cloudfront as easy as 5 lines of code.\n\n\n## Installation and Usage\n\n### Typescript\n\n```console\nnpm install --save cdk-spa-deploy\n```\n\n```typescript\nimport cdk = require('@aws-cdk/core');\nimport { SPADeploy } from 'cdk-spa-deploy';\n\nexport class CdkStack extends cdk.Stack {\n  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {\n    super(scope, id, props);\n\n    new SPADeploy(this, 'spaDeploy')\n      .createBasicSite({\n        indexDoc: 'index.html',\n        websiteFolder: '../blog/dist/blog'\n      });\n\n    new SPADeploy(this, 'cfDeploy')\n      .createSiteWithCloudfront({\n        indexDoc: 'index.html',\n        websiteFolder: '../blog/dist/blog'\n      });\n  }\n}\n\n```\n\n### Python\n```console\npip install cdk-spa-deploy\n```\n\n```python\nfrom aws_cdk import core\nfrom spa_deploy import SPADeploy\n\nclass PythonStack(core.Stack):\n  def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:\n    super().__init__(scope, id, **kwargs)\n\n    SPADeploy(self, 'spaDeploy').create_basic_site(\n      index_doc='index.html',\n      website_folder='../blog/blog/dist/blog'\n    )\n\n\n    SPADeploy(self, 'cfDeploy').create_site_with_cloudfront(\n      index_doc='index.html',\n      website_folder='../blog/blog/dist/blog'\n    )\n```\n\n## Advanced Usage\n\n### Auto Deploy From Hosted Zone Name\n\nIf you purchased your domain through route 53 and already have a hosted zone then just use the name to deploy your site behind cloudfront. This handles the SSL cert and everything for you.\n\n```typescript\nnew SPADeploy(this, 'spaDeploy', { encryptBucket: true })\n  .createSiteFromHostedZone({\n    zoneName: 'cdkpatterns.com',\n    indexDoc: 'index.html',\n    websiteFolder: '../website/dist/website'\n  });\n\n```\n\n### Custom Domain and SSL Certificates\n\nYou can also pass the ARN for an SSL certification and your alias routes to cloudfront\n\n```typescript\nimport cdk = require('@aws-cdk/core');\nimport { SPADeploy } from 'cdk-spa-deploy';\n\nexport class CdkStack extends cdk.Stack {\n  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {\n    super(scope, id, props);\n\n    new SPADeploy(this, 'cfDeploy')\n      .createSiteWithCloudfront({\n        indexDoc: '../blog/dist/blog',\n        certificateARN: 'arn:...',\n        cfAliases: ['www.alias.com']\n      });\n  }\n}\n\n```\n\n### Encrypted S3 Bucket\n\nPass in one boolean to tell SPA Deploy to encrypt your website bucket\n\n```typescript\n\nnew SPADeploy(this, 'cfDeploy')\n  .createBasicSite({\n    indexDoc: 'index.html',\n    websiteFolder: 'website'\n  });\n\n```\n\n### Custom Origin Behaviors\n\nPass in an array of CloudFront Behaviors\n\n```typescript\nnew SPADeploy(this, 'cfDeploy').createSiteWithCloudfront({\n  indexDoc: 'index.html',\n  websiteFolder: 'website',\n  cfBehaviors: [\n    {\n      isDefaultBehavior: true,\n      allowedMethods: cf.CloudFrontAllowedMethods.ALL,\n      forwardedValues: {\n        queryString: true,\n        cookies: { forward: 'all' },\n        headers: ['*'],\n      },\n    },\n    {\n      pathPattern: '/virtual-path',\n      allowedMethods: cf.CloudFrontAllowedMethods.GET_HEAD,\n      cachedMethods: cf.CloudFrontAllowedCachedMethods.GET_HEAD,\n    },\n  ],\n});\n```\n\n### Restrict Access to Known IPs\n\nPass in a boolean and an array of IP addresses and your site is locked down!\n\n```typescript\nnew SPADeploy(stack, 'spaDeploy', {\n  encryptBucket: true,\n  ipFilter: true,\n  ipList: ['1.1.1.1']\n}).createBasicSite({\n    indexDoc: 'index.html',\n    websiteFolder: 'website'\n  })\n```\n\n### Modifying S3 Bucket Created in Construct\n\nAn object is now returned containing relevant artifacts created if you need to make any further modifications:\n  * The S3 bucket is present for all of the methods\n  * When a CloudFront Web distribution is created it will be present in the return object\n\n```typescript\nexport interface SPADeployment {\n  readonly websiteBucket: s3.Bucket,\n}\n\nexport interface SPADeploymentWithCloudFront extends SPADeployment {\n  readonly distribution: CloudFrontWebDistribution,\n}\n```\n\n## Issues / Feature Requests\n\nhttps://github.com/nideveloper/CDK-SPA-Deploy\n"
   },
   "repository": {
     "type": "git",
@@ -704,7 +1035,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-        "line": 18
+        "line": 22
       },
       "name": "HostedZoneConfig",
       "properties": [
@@ -713,7 +1044,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 19
+            "line": 23
           },
           "name": "indexDoc",
           "type": {
@@ -725,7 +1056,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 20
+            "line": 26
           },
           "name": "websiteFolder",
           "type": {
@@ -737,9 +1068,40 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 21
+            "line": 27
           },
           "name": "zoneName",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+            "line": 25
+          },
+          "name": "cfBehaviors",
+          "optional": true,
+          "type": {
+            "collection": {
+              "elementtype": {
+                "fqn": "@aws-cdk/aws-cloudfront.Behavior"
+              },
+              "kind": "array"
+            }
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+            "line": 24
+          },
+          "name": "errorDoc",
+          "optional": true,
           "type": {
             "primitive": "string"
           }
@@ -751,6 +1113,10 @@
       "base": "@aws-cdk/core.Construct",
       "fqn": "cdk-spa-deploy.SPADeploy",
       "initializer": {
+        "locationInModule": {
+          "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+          "line": 47
+        },
         "parameters": [
           {
             "name": "scope",
@@ -776,7 +1142,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-        "line": 30
+        "line": 44
       },
       "methods": [
         {
@@ -785,7 +1151,7 @@
           },
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 130
+            "line": 145
           },
           "name": "createBasicSite",
           "parameters": [
@@ -795,7 +1161,12 @@
                 "fqn": "cdk-spa-deploy.SPADeployConfig"
               }
             }
-          ]
+          ],
+          "returns": {
+            "type": {
+              "fqn": "cdk-spa-deploy.SPADeployment"
+            }
+          }
         },
         {
           "docs": {
@@ -803,7 +1174,7 @@
           },
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 170
+            "line": 199
           },
           "name": "createSiteFromHostedZone",
           "parameters": [
@@ -813,7 +1184,12 @@
                 "fqn": "cdk-spa-deploy.HostedZoneConfig"
               }
             }
-          ]
+          ],
+          "returns": {
+            "type": {
+              "fqn": "cdk-spa-deploy.SPADeploymentWithCloudFront"
+            }
+          }
         },
         {
           "docs": {
@@ -821,7 +1197,7 @@
           },
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 148
+            "line": 174
           },
           "name": "createSiteWithCloudfront",
           "parameters": [
@@ -831,7 +1207,12 @@
                 "fqn": "cdk-spa-deploy.SPADeployConfig"
               }
             }
-          ]
+          ],
+          "returns": {
+            "type": {
+              "fqn": "cdk-spa-deploy.SPADeploymentWithCloudFront"
+            }
+          }
         }
       ],
       "name": "SPADeploy",
@@ -839,7 +1220,7 @@
         {
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 31
+            "line": 45
           },
           "name": "globalConfig",
           "type": {
@@ -876,7 +1257,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 13
+            "line": 14
           },
           "name": "websiteFolder",
           "type": {
@@ -888,7 +1269,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 14
+            "line": 15
           },
           "name": "certificateARN",
           "optional": true,
@@ -901,7 +1282,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 15
+            "line": 17
           },
           "name": "cfAliases",
           "optional": true,
@@ -913,6 +1294,116 @@
               "kind": "array"
             }
           }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+            "line": 16
+          },
+          "name": "cfBehaviors",
+          "optional": true,
+          "type": {
+            "collection": {
+              "elementtype": {
+                "fqn": "@aws-cdk/aws-cloudfront.Behavior"
+              },
+              "kind": "array"
+            }
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+            "line": 13
+          },
+          "name": "errorDoc",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+            "line": 19
+          },
+          "name": "exportWebsiteUrlName",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+            "line": 18
+          },
+          "name": "exportWebsiteUrlOutput",
+          "optional": true,
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ]
+    },
+    "cdk-spa-deploy.SPADeployment": {
+      "assembly": "cdk-spa-deploy",
+      "datatype": true,
+      "fqn": "cdk-spa-deploy.SPADeployment",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+        "line": 36
+      },
+      "name": "SPADeployment",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+            "line": 37
+          },
+          "name": "websiteBucket",
+          "type": {
+            "fqn": "@aws-cdk/aws-s3.Bucket"
+          }
+        }
+      ]
+    },
+    "cdk-spa-deploy.SPADeploymentWithCloudFront": {
+      "assembly": "cdk-spa-deploy",
+      "datatype": true,
+      "fqn": "cdk-spa-deploy.SPADeploymentWithCloudFront",
+      "interfaces": [
+        "cdk-spa-deploy.SPADeployment"
+      ],
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+        "line": 40
+      },
+      "name": "SPADeploymentWithCloudFront",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+            "line": 41
+          },
+          "name": "distribution",
+          "type": {
+            "fqn": "@aws-cdk/aws-cloudfront.CloudFrontWebDistribution"
+          }
         }
       ]
     },
@@ -923,7 +1414,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-        "line": 24
+        "line": 30
       },
       "name": "SPAGlobalConfig",
       "properties": [
@@ -932,7 +1423,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 25
+            "line": 31
           },
           "name": "encryptBucket",
           "optional": true,
@@ -945,7 +1436,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 26
+            "line": 32
           },
           "name": "ipFilter",
           "optional": true,
@@ -958,7 +1449,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 27
+            "line": 33
           },
           "name": "ipList",
           "optional": true,
@@ -974,6 +1465,6 @@
       ]
     }
   },
-  "version": "0.5.0",
-  "fingerprint": "M6fZAkAdvnahuJYdGtLpXCloci0bw33AW9n+xAFhj14="
+  "version": "1.67.0",
+  "fingerprint": "gq1ZJDAYwBzd7alcJplcCLcsW9hFfUxwu+E9ccrRlRM="
 }

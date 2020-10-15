@@ -1,6 +1,7 @@
 {
   "name": "cdk-spa-deploy",
-  "version": "0.6.0",
+  "version": "1.67.0",
+  "description": "This is an AWS CDK Construct to make deploying a single page website (Angular/React/Vue) to AWS S3 behind SSL/Cloudfront as easy as 5 lines of code.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "publishConfig": {
@@ -11,6 +12,7 @@
     "build": "jsii",
     "build:watch": "jsii -w",
     "test": "tsc && jest",
+    "lint": "eslint --ext .ts,.tsx --format node_modules/eslint-formatter-pretty .",
     "cdk": "cdk",
     "package": "jsii-pacmak"
   },
@@ -23,38 +25,52 @@
       }
     }
   },
+  "awscdkio": {
+    "twitter": "nideveloper"
+  },
   "devDependencies": {
-    "@aws-cdk/assert": "1.24.0",
-    "@types/jest": "^24.0.22",
-    "@types/node": "10.17.5",
-    "aws-cdk": "1.24.0",
-    "jest": "^24.9.0",
-    "jsii": "0.21.1",
-    "jsii-pacmak": "0.21.1",
-    "ts-jest": "^24.2.0",
-    "jest-extended": "^0.11.2",
-    "jest-junit": "^10.0.0",
-    "ts-node": "^8.1.0",
-    "typescript": "~3.7.2",
-    "source-map-support": "^0.5.16"
+    "@aws-cdk/assert": "1.67.0",
+    "@types/jest": "^26.0.14",
+    "@types/node": "14.11.8",
+    "@typescript-eslint/eslint-plugin": "^4.3.0",
+    "@typescript-eslint/parser": "^4.3.0",
+    "aws-cdk": "1.67.0",
+    "eslint": "^7.10.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-formatter-pretty": "^4.0.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.0.2",
+    "jest": "^26.4.2",
+    "jest-extended": "^0.11.5",
+    "jest-junit": "^12.0.0",
+    "jsii": "1.13.0",
+    "jsii-pacmak": "1.13.0",
+    "source-map-support": "^0.5.19",
+    "ts-jest": "^26.4.1",
+    "ts-node": "^9.0.0",
+    "typescript": "~4.0.3"
   },
   "dependencies": {
-    "@aws-cdk/aws-certificatemanager": "1.24.0",
-    "@aws-cdk/aws-cloudfront": "1.24.0",
-    "@aws-cdk/aws-route53-patterns": "1.24.0",
-    "@aws-cdk/aws-route53-targets": "1.24.0",
-    "@aws-cdk/aws-s3": "1.24.0",
-    "@aws-cdk/aws-s3-deployment": "1.24.0",
-    "@aws-cdk/core": "1.24.0"
+    "@aws-cdk/aws-certificatemanager": "1.67.0",
+    "@aws-cdk/aws-cloudfront": "1.67.0",
+    "@aws-cdk/aws-iam": "1.67.0",
+    "@aws-cdk/aws-route53": "1.67.0",
+    "@aws-cdk/aws-route53-patterns": "1.67.0",
+    "@aws-cdk/aws-route53-targets": "1.67.0",
+    "@aws-cdk/aws-s3": "1.67.0",
+    "@aws-cdk/aws-s3-deployment": "1.67.0",
+    "@aws-cdk/core": "1.67.0"
   },
   "peerDependencies": {
-    "@aws-cdk/aws-cloudfront": "1.24.0",
-    "@aws-cdk/aws-s3": "1.24.0",
-    "@aws-cdk/aws-s3-deployment": "1.24.0",
-    "@aws-cdk/aws-certificatemanager": "1.24.0",
-    "@aws-cdk/core": "1.24.0",
-    "@aws-cdk/aws-route53-patterns": "1.24.0",
-    "@aws-cdk/aws-route53-targets": "1.24.0"
+    "@aws-cdk/aws-cloudfront": "1.67.0",
+    "@aws-cdk/aws-s3": "1.67.0",
+    "@aws-cdk/aws-s3-deployment": "1.67.0",
+    "@aws-cdk/aws-certificatemanager": "1.67.0",
+    "@aws-cdk/core": "1.67.0",
+    "@aws-cdk/aws-route53-patterns": "1.67.0",
+    "@aws-cdk/aws-route53-targets": "1.67.0",
+    "@aws-cdk/aws-iam": "1.67.0",
+    "@aws-cdk/aws-route53": "1.67.0"
   },
   "keywords": [
     "aws",
@@ -64,7 +80,7 @@
     "deploy",
     "cloudfront"
   ],
-  "author": "matt@vs-software.co.uk",
+  "author": "hi@cdkpatterns.com",
   "repository": {
     "url": "https://github.com/nideveloper/CDK-SPA-Deploy.git",
     "type": "git"

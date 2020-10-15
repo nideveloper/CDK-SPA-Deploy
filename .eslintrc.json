@@ -1,0 +1,31 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+      "airbnb-base",
+      "eslint:recommended",
+      "plugin:jest/recommended"
+    ],
+    "plugins": [
+      "jest"
+    ],
+    "rules": {
+      "import/no-unresolved": 0,
+      "import/extensions":0,
+      "class-methods-use-this": 0,
+      "no-new": 0,
+      "max-len": 0,
+      "jest/no-disabled-tests": 2,
+      "jest/no-focused-tests": 2,
+      "jest/no-identical-title": 2,
+      "jest/prefer-to-have-length": 1,
+      "jest/valid-expect": 2,
+      "jest/expect-expect": 0,
+      "jest/consistent-test-it": [
+        2,
+        {
+          "fn": "test",
+          "withinDescribe": "it"
+        }
+      ]
+    }
+  }
