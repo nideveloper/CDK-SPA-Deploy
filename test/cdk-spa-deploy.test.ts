@@ -417,7 +417,66 @@ test('Cloudfront With Custom Defined Behaviors', () => {
           Headers: ['*'],
           QueryString: true,
         },
-        TargetOriginId: 'origin1'
+        TargetOriginId: 'origin1',
+      },
+    },
+  }));
+});
+
+test('Cloudfront With Custom Security Policy', () => {
+  const stack = new Stack();
+  // WHEN
+  const deploy = new SPADeploy(stack, 'spaDeploy');
+
+  deploy.createSiteWithCloudfront({
+    indexDoc: 'index.html',
+    websiteFolder: 'website',
+    certificateARN: 'arn:1234',
+    cfAliases: ['www.test.com'],
+    securityPolicy: cf.SecurityPolicyProtocol.TLS_V1_2_2019,
+  });
+
+  // THEN
+  expectCDK(stack).to(haveResource('Custom::CDKBucketDeployment'));
+
+  expectCDK(stack).to(haveResourceLike('AWS::CloudFront::Distribution', {
+    DistributionConfig: {
+      Aliases: [
+        'www.test.com',
+      ],
+      ViewerCertificate: {
+        AcmCertificateArn: 'arn:1234',
+        SslSupportMethod: 'sni-only',
+        MinimumProtocolVersion: 'TLSv1.2_2019',
+      },
+    },
+  }));
+});
+
+test('Cloudfront With Custom SSL Method', () => {
+  const stack = new Stack();
+  // WHEN
+  const deploy = new SPADeploy(stack, 'spaDeploy');
+
+  deploy.createSiteWithCloudfront({
+    indexDoc: 'index.html',
+    websiteFolder: 'website',
+    certificateARN: 'arn:1234',
+    cfAliases: ['www.test.com'],
+    sslMethod: cf.SSLMethod.VIP,
+  });
+
+  // THEN
+  expectCDK(stack).to(haveResource('Custom::CDKBucketDeployment'));
+
+  expectCDK(stack).to(haveResourceLike('AWS::CloudFront::Distribution', {
+    DistributionConfig: {
+      Aliases: [
+        'www.test.com',
+      ],
+      ViewerCertificate: {
+        AcmCertificateArn: 'arn:1234',
+        SslSupportMethod: 'vip',
       },
     },
   }));
@@ -671,7 +730,7 @@ test('Basic Site Setup, Block Public Enabled', () => {
     .createBasicSite({
       indexDoc: 'index.html',
       websiteFolder: 'website',
-      blockPublicAccess: BlockPublicAccess.BLOCK_ALL
+      blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
     });
 
   // THEN
@@ -683,8 +742,7 @@ test('Basic Site Setup, Block Public Enabled', () => {
       BlockPublicAcls: true,
       BlockPublicPolicy: true,
       IgnorePublicAcls: true,
-      RestrictPublicBuckets: true
+      RestrictPublicBuckets: true,
     },
   }));
 });
-

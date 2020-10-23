@@ -13,6 +13,7 @@
     "build:watch": "jsii -w",
     "test": "tsc && jest",
     "lint": "eslint --ext .ts,.tsx --format node_modules/eslint-formatter-pretty .",
+    "lint:fix": "eslint --fix --ext .ts,.tsx --format node_modules/eslint-formatter-pretty .",
     "cdk": "cdk",
     "package": "jsii-pacmak"
   },

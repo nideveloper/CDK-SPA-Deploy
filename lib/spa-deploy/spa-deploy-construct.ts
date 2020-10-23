@@ -1,4 +1,11 @@
-import { CloudFrontWebDistribution, ViewerCertificate, OriginAccessIdentity, Behavior } from '@aws-cdk/aws-cloudfront';
+import {
+  CloudFrontWebDistribution,
+  ViewerCertificate,
+  OriginAccessIdentity,
+  Behavior,
+  SSLMethod,
+  SecurityPolicyProtocol,
+} from '@aws-cdk/aws-cloudfront';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
 import { HostedZone, ARecord, RecordTarget } from '@aws-cdk/aws-route53';
 import { DnsValidatedCertificate } from '@aws-cdk/aws-certificatemanager';
@@ -18,6 +25,8 @@ export interface SPADeployConfig {
   readonly exportWebsiteUrlOutput?:boolean,
   readonly exportWebsiteUrlName?: string,
   readonly blockPublicAccess?:s3.BlockPublicAccess
+  readonly sslMethod?: SSLMethod,
+  readonly securityPolicy?: SecurityPolicyProtocol,
 }
 
 export interface HostedZoneConfig {
@@ -74,8 +83,8 @@ export class SPADeploy extends cdk.Construct {
 
       if (this.globalConfig.ipFilter === true || isForCloudFront === true) {
         bucketConfig.publicReadAccess = false;
-          if (typeof config.blockPublicAccess !== 'undefined') {
-            bucketConfig.blockPublicAccess = config.blockPublicAccess;
+        if (typeof config.blockPublicAccess !== 'undefined') {
+          bucketConfig.blockPublicAccess = config.blockPublicAccess;
         }
       }
 
@@ -132,6 +141,13 @@ export class SPADeploy extends cdk.Construct {
           acmCertRef: config.certificateARN,
           names: config.cfAliases,
         };
+      }
+      if (typeof config.sslMethod !== 'undefined') {
+        cfConfig.aliasConfiguration.sslMethod = config.sslMethod;
+      }
+
+      if (typeof config.securityPolicy !== 'undefined') {
+        cfConfig.aliasConfiguration.securityPolicy = config.securityPolicy;
       }
 
       if (typeof config.zoneName !== 'undefined' && typeof cert !== 'undefined') {
@@ -190,7 +206,7 @@ export class SPADeploy extends cdk.Construct {
 
       new cdk.CfnOutput(this, 'cloudfront domain', {
         description: 'The domain of the website',
-        value: distribution.domainName,
+        value: distribution.distributionDomainName,
       });
 
       return { websiteBucket, distribution };
