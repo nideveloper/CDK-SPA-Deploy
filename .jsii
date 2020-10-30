@@ -6,15 +6,15 @@
     ]
   },
   "dependencies": {
-    "@aws-cdk/aws-certificatemanager": "1.69.0",
-    "@aws-cdk/aws-cloudfront": "1.69.0",
-    "@aws-cdk/aws-iam": "1.69.0",
-    "@aws-cdk/aws-route53": "1.69.0",
-    "@aws-cdk/aws-route53-patterns": "1.69.0",
-    "@aws-cdk/aws-route53-targets": "1.69.0",
-    "@aws-cdk/aws-s3": "1.69.0",
-    "@aws-cdk/aws-s3-deployment": "1.69.0",
-    "@aws-cdk/core": "1.69.0"
+    "@aws-cdk/aws-certificatemanager": "1.71.0",
+    "@aws-cdk/aws-cloudfront": "1.71.0",
+    "@aws-cdk/aws-iam": "1.71.0",
+    "@aws-cdk/aws-route53": "1.71.0",
+    "@aws-cdk/aws-route53-patterns": "1.71.0",
+    "@aws-cdk/aws-route53-targets": "1.71.0",
+    "@aws-cdk/aws-s3": "1.71.0",
+    "@aws-cdk/aws-s3-deployment": "1.71.0",
+    "@aws-cdk/core": "1.71.0"
   },
   "dependencyClosure": {
     "@aws-cdk/assets": {
@@ -999,7 +999,7 @@
   },
   "description": "This is an AWS CDK Construct to make deploying a single page website (Angular/React/Vue) to AWS S3 behind SSL/Cloudfront as easy as 5 lines of code.",
   "homepage": "https://github.com/nideveloper/CDK-SPA-Deploy.git",
-  "jsiiVersion": "1.13.0 (build 385c325)",
+  "jsiiVersion": "1.14.0 (build 729554b)",
   "keywords": [
     "aws",
     "cdk",
@@ -1009,6 +1009,13 @@
     "cloudfront"
   ],
   "license": "MIT",
+  "metadata": {
+    "jsii": {
+      "pacmak": {
+        "hasDefaultInterfaces": true
+      }
+    }
+  },
   "name": "cdk-spa-deploy",
   "readme": {
     "markdown": "# CDK-SPA-Deploy\n[![npm](https://img.shields.io/npm/dt/cdk-spa-deploy)](https://www.npmjs.com/package/cdk-spa-deploy)\n[![Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/cdk-spa-deploy)](https://www.npmjs.com/package/cdk-spa-deploy)\n\nThis is an AWS CDK Construct to make deploying a single page website (Angular/React/Vue) to AWS S3 behind SSL/Cloudfront as easy as 5 lines of code.\n\n\n## Installation and Usage\n\n### Typescript\n\n```console\nnpm install --save cdk-spa-deploy\n```\n\n```typescript\nimport cdk = require('@aws-cdk/core');\nimport { SPADeploy } from 'cdk-spa-deploy';\n\nexport class CdkStack extends cdk.Stack {\n  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {\n    super(scope, id, props);\n\n    new SPADeploy(this, 'spaDeploy')\n      .createBasicSite({\n        indexDoc: 'index.html',\n        websiteFolder: '../blog/dist/blog'\n      });\n\n    new SPADeploy(this, 'cfDeploy')\n      .createSiteWithCloudfront({\n        indexDoc: 'index.html',\n        websiteFolder: '../blog/dist/blog'\n      });\n  }\n}\n\n```\n\n### Python\n```console\npip install cdk-spa-deploy\n```\n\n```python\nfrom aws_cdk import core\nfrom spa_deploy import SPADeploy\n\nclass PythonStack(core.Stack):\n  def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:\n    super().__init__(scope, id, **kwargs)\n\n    SPADeploy(self, 'spaDeploy').create_basic_site(\n      index_doc='index.html',\n      website_folder='../blog/blog/dist/blog'\n    )\n\n\n    SPADeploy(self, 'cfDeploy').create_site_with_cloudfront(\n      index_doc='index.html',\n      website_folder='../blog/blog/dist/blog'\n    )\n```\n\n## Advanced Usage\n\n### Auto Deploy From Hosted Zone Name\n\nIf you purchased your domain through route 53 and already have a hosted zone then just use the name to deploy your site behind cloudfront. This handles the SSL cert and everything for you.\n\n```typescript\nnew SPADeploy(this, 'spaDeploy', { encryptBucket: true })\n  .createSiteFromHostedZone({\n    zoneName: 'cdkpatterns.com',\n    indexDoc: 'index.html',\n    websiteFolder: '../website/dist/website'\n  });\n\n```\n\n### Custom Domain and SSL Certificates\n\nYou can also pass the ARN for an SSL certification and your alias routes to cloudfront\n\n```typescript\nimport cdk = require('@aws-cdk/core');\nimport { SPADeploy } from 'cdk-spa-deploy';\n\nexport class CdkStack extends cdk.Stack {\n  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {\n    super(scope, id, props);\n\n    new SPADeploy(this, 'cfDeploy')\n      .createSiteWithCloudfront({\n        indexDoc: '../blog/dist/blog',\n        certificateARN: 'arn:...',\n        cfAliases: ['www.alias.com']\n      });\n  }\n}\n\n```\n\n### Encrypted S3 Bucket\n\nPass in one boolean to tell SPA Deploy to encrypt your website bucket\n\n```typescript\n\nnew SPADeploy(this, 'cfDeploy')\n  .createBasicSite({\n    indexDoc: 'index.html',\n    websiteFolder: 'website'\n  });\n\n```\n\n### Custom Origin Behaviors\n\nPass in an array of CloudFront Behaviors\n\n```typescript\nnew SPADeploy(this, 'cfDeploy').createSiteWithCloudfront({\n  indexDoc: 'index.html',\n  websiteFolder: 'website',\n  cfBehaviors: [\n    {\n      isDefaultBehavior: true,\n      allowedMethods: cf.CloudFrontAllowedMethods.ALL,\n      forwardedValues: {\n        queryString: true,\n        cookies: { forward: 'all' },\n        headers: ['*'],\n      },\n    },\n    {\n      pathPattern: '/virtual-path',\n      allowedMethods: cf.CloudFrontAllowedMethods.GET_HEAD,\n      cachedMethods: cf.CloudFrontAllowedCachedMethods.GET_HEAD,\n    },\n  ],\n});\n```\n\n### Restrict Access to Known IPs\n\nPass in a boolean and an array of IP addresses and your site is locked down!\n\n```typescript\nnew SPADeploy(stack, 'spaDeploy', {\n  encryptBucket: true,\n  ipFilter: true,\n  ipList: ['1.1.1.1']\n}).createBasicSite({\n    indexDoc: 'index.html',\n    websiteFolder: 'website'\n  })\n```\n\n### Modifying S3 Bucket Created in Construct\n\nAn object is now returned containing relevant artifacts created if you need to make any further modifications:\n  * The S3 bucket is present for all of the methods\n  * When a CloudFront Web distribution is created it will be present in the return object\n\n```typescript\nexport interface SPADeployment {\n  readonly websiteBucket: s3.Bucket,\n}\n\nexport interface SPADeploymentWithCloudFront extends SPADeployment {\n  readonly distribution: CloudFrontWebDistribution,\n}\n```\n\n## Issues / Feature Requests\n\nhttps://github.com/nideveloper/CDK-SPA-Deploy\n"
@@ -1035,7 +1042,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-        "line": 23
+        "line": 32
       },
       "name": "HostedZoneConfig",
       "properties": [
@@ -1044,7 +1051,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 24
+            "line": 33
           },
           "name": "indexDoc",
           "type": {
@@ -1056,7 +1063,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 27
+            "line": 36
           },
           "name": "websiteFolder",
           "type": {
@@ -1068,7 +1075,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 28
+            "line": 37
           },
           "name": "zoneName",
           "type": {
@@ -1080,7 +1087,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 26
+            "line": 35
           },
           "name": "cfBehaviors",
           "optional": true,
@@ -1098,7 +1105,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 25
+            "line": 34
           },
           "name": "errorDoc",
           "optional": true,
@@ -1115,7 +1122,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-          "line": 48
+          "line": 57
         },
         "parameters": [
           {
@@ -1142,7 +1149,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-        "line": 45
+        "line": 54
       },
       "methods": [
         {
@@ -1151,7 +1158,7 @@
           },
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 149
+            "line": 165
           },
           "name": "createBasicSite",
           "parameters": [
@@ -1174,7 +1181,7 @@
           },
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 203
+            "line": 219
           },
           "name": "createSiteFromHostedZone",
           "parameters": [
@@ -1197,7 +1204,7 @@
           },
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 178
+            "line": 194
           },
           "name": "createSiteWithCloudfront",
           "parameters": [
@@ -1220,7 +1227,7 @@
         {
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 46
+            "line": 55
           },
           "name": "globalConfig",
           "type": {
@@ -1236,7 +1243,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-        "line": 11
+        "line": 18
       },
       "name": "SPADeployConfig",
       "properties": [
@@ -1245,7 +1252,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 12
+            "line": 19
           },
           "name": "indexDoc",
           "type": {
@@ -1257,7 +1264,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 14
+            "line": 21
           },
           "name": "websiteFolder",
           "type": {
@@ -1269,7 +1276,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 20
+            "line": 27
           },
           "name": "blockPublicAccess",
           "optional": true,
@@ -1282,7 +1289,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 15
+            "line": 22
           },
           "name": "certificateARN",
           "optional": true,
@@ -1295,7 +1302,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 17
+            "line": 24
           },
           "name": "cfAliases",
           "optional": true,
@@ -1313,7 +1320,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 16
+            "line": 23
           },
           "name": "cfBehaviors",
           "optional": true,
@@ -1331,7 +1338,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 13
+            "line": 20
           },
           "name": "errorDoc",
           "optional": true,
@@ -1344,7 +1351,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 19
+            "line": 26
           },
           "name": "exportWebsiteUrlName",
           "optional": true,
@@ -1357,12 +1364,38 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 18
+            "line": 25
           },
           "name": "exportWebsiteUrlOutput",
           "optional": true,
           "type": {
             "primitive": "boolean"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+            "line": 29
+          },
+          "name": "securityPolicy",
+          "optional": true,
+          "type": {
+            "fqn": "@aws-cdk/aws-cloudfront.SecurityPolicyProtocol"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/spa-deploy/spa-deploy-construct.ts",
+            "line": 28
+          },
+          "name": "sslMethod",
+          "optional": true,
+          "type": {
+            "fqn": "@aws-cdk/aws-cloudfront.SSLMethod"
           }
         }
       ]
@@ -1374,7 +1407,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-        "line": 37
+        "line": 46
       },
       "name": "SPADeployment",
       "properties": [
@@ -1383,7 +1416,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 38
+            "line": 47
           },
           "name": "websiteBucket",
           "type": {
@@ -1402,7 +1435,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-        "line": 41
+        "line": 50
       },
       "name": "SPADeploymentWithCloudFront",
       "properties": [
@@ -1411,7 +1444,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 42
+            "line": 51
           },
           "name": "distribution",
           "type": {
@@ -1427,7 +1460,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-        "line": 31
+        "line": 40
       },
       "name": "SPAGlobalConfig",
       "properties": [
@@ -1436,7 +1469,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 32
+            "line": 41
           },
           "name": "encryptBucket",
           "optional": true,
@@ -1449,7 +1482,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 33
+            "line": 42
           },
           "name": "ipFilter",
           "optional": true,
@@ -1462,7 +1495,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/spa-deploy/spa-deploy-construct.ts",
-            "line": 34
+            "line": 43
           },
           "name": "ipList",
           "optional": true,
@@ -1478,6 +1511,6 @@
       ]
     }
   },
-  "version": "1.69.0",
-  "fingerprint": "Pqs2Ni6BiuPmCp/vyKPFMCTovWr/CCyt+uNCxC4r+LY="
+  "version": "1.71.0",
+  "fingerprint": "qgG916lkDcQ9yah2pOk35ZW66f1UFQarwxepzutJSLY="
 }
