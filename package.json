@@ -45,7 +45,7 @@
     "jest-extended": "^0.11.5",
     "jest-junit": "^12.0.0",
     "jsii": "1.14.0",
-    "jsii-pacmak": "1.14.0",
+    "jsii-pacmak": "1.14.1",
     "source-map-support": "^0.5.19",
     "ts-jest": "^26.4.3",
     "ts-node": "^9.0.0",
