@@ -106,12 +106,10 @@ export class CdkStack extends cdk.Stack {
 Pass in one boolean to tell SPA Deploy to encrypt your website bucket
 
 ```typescript
-
-new SPADeploy(this, 'cfDeploy')
-  .createBasicSite({
+new SPADeploy(this, 'cfDeploy', {encryptBucket: true}).createBasicSite({
     indexDoc: 'index.html',
     websiteFolder: 'website'
-  });
+});
 
 ```
 
