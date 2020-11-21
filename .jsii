@@ -6,15 +6,15 @@
     ]
   },
   "dependencies": {
-    "@aws-cdk/aws-certificatemanager": "1.71.0",
-    "@aws-cdk/aws-cloudfront": "1.71.0",
-    "@aws-cdk/aws-iam": "1.71.0",
-    "@aws-cdk/aws-route53": "1.71.0",
-    "@aws-cdk/aws-route53-patterns": "1.71.0",
-    "@aws-cdk/aws-route53-targets": "1.71.0",
-    "@aws-cdk/aws-s3": "1.71.0",
-    "@aws-cdk/aws-s3-deployment": "1.71.0",
-    "@aws-cdk/core": "1.71.0"
+    "@aws-cdk/aws-certificatemanager": "1.74.0",
+    "@aws-cdk/aws-cloudfront": "1.74.0",
+    "@aws-cdk/aws-iam": "1.74.0",
+    "@aws-cdk/aws-route53": "1.74.0",
+    "@aws-cdk/aws-route53-patterns": "1.74.0",
+    "@aws-cdk/aws-route53-targets": "1.74.0",
+    "@aws-cdk/aws-s3": "1.74.0",
+    "@aws-cdk/aws-s3-deployment": "1.74.0",
+    "@aws-cdk/core": "1.74.0"
   },
   "dependencyClosure": {
     "@aws-cdk/assets": {
@@ -72,6 +72,35 @@
           ],
           "distName": "aws-cdk.aws-apigateway",
           "module": "aws_cdk.aws_apigateway"
+        }
+      }
+    },
+    "@aws-cdk/aws-apigatewayv2": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.APIGatewayv2",
+          "packageId": "Amazon.CDK.AWS.APIGatewayv2",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "apigatewayv2",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.apigatewayv2"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-apigatewayv2"
+        },
+        "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
+          "distName": "aws-cdk.aws-apigatewayv2",
+          "module": "aws_cdk.aws_apigatewayv2"
         }
       }
     },
@@ -999,7 +1028,7 @@
   },
   "description": "This is an AWS CDK Construct to make deploying a single page website (Angular/React/Vue) to AWS S3 behind SSL/Cloudfront as easy as 5 lines of code.",
   "homepage": "https://github.com/nideveloper/CDK-SPA-Deploy.git",
-  "jsiiVersion": "1.14.0 (build 729554b)",
+  "jsiiVersion": "1.14.1 (build 828de8a)",
   "keywords": [
     "aws",
     "cdk",
@@ -1511,6 +1540,6 @@
       ]
     }
   },
-  "version": "1.71.0",
-  "fingerprint": "qgG916lkDcQ9yah2pOk35ZW66f1UFQarwxepzutJSLY="
+  "version": "1.74.0",
+  "fingerprint": "xRM0OZWAN/hkNcIVK693mZivcmSZrQaOhpXVcELK5NA="
 }
