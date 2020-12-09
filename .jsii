@@ -6,15 +6,15 @@
     ]
   },
   "dependencies": {
-    "@aws-cdk/aws-certificatemanager": "1.74.0",
-    "@aws-cdk/aws-cloudfront": "1.74.0",
-    "@aws-cdk/aws-iam": "1.74.0",
-    "@aws-cdk/aws-route53": "1.74.0",
-    "@aws-cdk/aws-route53-patterns": "1.74.0",
-    "@aws-cdk/aws-route53-targets": "1.74.0",
-    "@aws-cdk/aws-s3": "1.74.0",
-    "@aws-cdk/aws-s3-deployment": "1.74.0",
-    "@aws-cdk/core": "1.74.0"
+    "@aws-cdk/aws-certificatemanager": "1.77.0",
+    "@aws-cdk/aws-cloudfront": "1.77.0",
+    "@aws-cdk/aws-iam": "1.77.0",
+    "@aws-cdk/aws-route53": "1.77.0",
+    "@aws-cdk/aws-route53-patterns": "1.77.0",
+    "@aws-cdk/aws-route53-targets": "1.77.0",
+    "@aws-cdk/aws-s3": "1.77.0",
+    "@aws-cdk/aws-s3-deployment": "1.77.0",
+    "@aws-cdk/core": "1.77.0"
   },
   "dependencyClosure": {
     "@aws-cdk/assets": {
@@ -221,6 +221,14 @@
       }
     },
     "@aws-cdk/aws-cloudfront": {
+      "submodules": {
+        "@aws-cdk/aws-cloudfront.experimental": {
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 9
+          }
+        }
+      },
       "targets": {
         "dotnet": {
           "assemblyOriginatorKeyFile": "../../key.snk",
@@ -362,6 +370,64 @@
           ],
           "distName": "aws-cdk.aws-ec2",
           "module": "aws_cdk.aws_ec2"
+        }
+      }
+    },
+    "@aws-cdk/aws-ecr": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.ECR",
+          "packageId": "Amazon.CDK.AWS.ECR",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "ecr",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.ecr"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-ecr"
+        },
+        "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
+          "distName": "aws-cdk.aws-ecr",
+          "module": "aws_cdk.aws_ecr"
+        }
+      }
+    },
+    "@aws-cdk/aws-ecr-assets": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.Ecr.Assets",
+          "packageId": "Amazon.CDK.ECR.Assets",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "ecr-assets",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.ecr.assets"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-ecr-assets"
+        },
+        "python": {
+          "classifiers": [
+            "Framework :: AWS CDK",
+            "Framework :: AWS CDK :: 1"
+          ],
+          "distName": "aws-cdk.aws-ecr-assets",
+          "module": "aws_cdk.aws_ecr_assets"
         }
       }
     },
@@ -627,6 +693,14 @@
       }
     },
     "@aws-cdk/aws-route53-patterns": {
+      "submodules": {
+        "@aws-cdk/aws-cloudfront.experimental": {
+          "locationInModule": {
+            "filename": "../aws-cloudfront/lib/index.d.ts",
+            "line": 8
+          }
+        }
+      },
       "targets": {
         "dotnet": {
           "assemblyOriginatorKeyFile": "../../key.snk",
@@ -656,6 +730,14 @@
       }
     },
     "@aws-cdk/aws-route53-targets": {
+      "submodules": {
+        "@aws-cdk/aws-cloudfront.experimental": {
+          "locationInModule": {
+            "filename": "../aws-cloudfront/lib/index.d.ts",
+            "line": 8
+          }
+        }
+      },
       "targets": {
         "dotnet": {
           "assemblyOriginatorKeyFile": "../../key.snk",
@@ -743,6 +825,14 @@
       }
     },
     "@aws-cdk/aws-s3-deployment": {
+      "submodules": {
+        "@aws-cdk/aws-cloudfront.experimental": {
+          "locationInModule": {
+            "filename": "../aws-cloudfront/lib/index.d.ts",
+            "line": 8
+          }
+        }
+      },
       "targets": {
         "dotnet": {
           "assemblyOriginatorKeyFile": "../../key.snk",
@@ -1028,7 +1118,7 @@
   },
   "description": "This is an AWS CDK Construct to make deploying a single page website (Angular/React/Vue) to AWS S3 behind SSL/Cloudfront as easy as 5 lines of code.",
   "homepage": "https://github.com/nideveloper/CDK-SPA-Deploy.git",
-  "jsiiVersion": "1.14.1 (build 828de8a)",
+  "jsiiVersion": "1.16.0 (build 99a3413)",
   "keywords": [
     "aws",
     "cdk",
@@ -1047,13 +1137,21 @@
   },
   "name": "cdk-spa-deploy",
   "readme": {
-    "markdown": "# CDK-SPA-Deploy\n[![npm](https://img.shields.io/npm/dt/cdk-spa-deploy)](https://www.npmjs.com/package/cdk-spa-deploy)\n[![Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/cdk-spa-deploy)](https://www.npmjs.com/package/cdk-spa-deploy)\n\nThis is an AWS CDK Construct to make deploying a single page website (Angular/React/Vue) to AWS S3 behind SSL/Cloudfront as easy as 5 lines of code.\n\n\n## Installation and Usage\n\n### Typescript\n\n```console\nnpm install --save cdk-spa-deploy\n```\n\n```typescript\nimport cdk = require('@aws-cdk/core');\nimport { SPADeploy } from 'cdk-spa-deploy';\n\nexport class CdkStack extends cdk.Stack {\n  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {\n    super(scope, id, props);\n\n    new SPADeploy(this, 'spaDeploy')\n      .createBasicSite({\n        indexDoc: 'index.html',\n        websiteFolder: '../blog/dist/blog'\n      });\n\n    new SPADeploy(this, 'cfDeploy')\n      .createSiteWithCloudfront({\n        indexDoc: 'index.html',\n        websiteFolder: '../blog/dist/blog'\n      });\n  }\n}\n\n```\n\n### Python\n```console\npip install cdk-spa-deploy\n```\n\n```python\nfrom aws_cdk import core\nfrom spa_deploy import SPADeploy\n\nclass PythonStack(core.Stack):\n  def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:\n    super().__init__(scope, id, **kwargs)\n\n    SPADeploy(self, 'spaDeploy').create_basic_site(\n      index_doc='index.html',\n      website_folder='../blog/blog/dist/blog'\n    )\n\n\n    SPADeploy(self, 'cfDeploy').create_site_with_cloudfront(\n      index_doc='index.html',\n      website_folder='../blog/blog/dist/blog'\n    )\n```\n\n## Advanced Usage\n\n### Auto Deploy From Hosted Zone Name\n\nIf you purchased your domain through route 53 and already have a hosted zone then just use the name to deploy your site behind cloudfront. This handles the SSL cert and everything for you.\n\n```typescript\nnew SPADeploy(this, 'spaDeploy', { encryptBucket: true })\n  .createSiteFromHostedZone({\n    zoneName: 'cdkpatterns.com',\n    indexDoc: 'index.html',\n    websiteFolder: '../website/dist/website'\n  });\n\n```\n\n### Custom Domain and SSL Certificates\n\nYou can also pass the ARN for an SSL certification and your alias routes to cloudfront\n\n```typescript\nimport cdk = require('@aws-cdk/core');\nimport { SPADeploy } from 'cdk-spa-deploy';\n\nexport class CdkStack extends cdk.Stack {\n  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {\n    super(scope, id, props);\n\n    new SPADeploy(this, 'cfDeploy')\n      .createSiteWithCloudfront({\n        indexDoc: '../blog/dist/blog',\n        certificateARN: 'arn:...',\n        cfAliases: ['www.alias.com']\n      });\n  }\n}\n\n```\n\n### Encrypted S3 Bucket\n\nPass in one boolean to tell SPA Deploy to encrypt your website bucket\n\n```typescript\n\nnew SPADeploy(this, 'cfDeploy')\n  .createBasicSite({\n    indexDoc: 'index.html',\n    websiteFolder: 'website'\n  });\n\n```\n\n### Custom Origin Behaviors\n\nPass in an array of CloudFront Behaviors\n\n```typescript\nnew SPADeploy(this, 'cfDeploy').createSiteWithCloudfront({\n  indexDoc: 'index.html',\n  websiteFolder: 'website',\n  cfBehaviors: [\n    {\n      isDefaultBehavior: true,\n      allowedMethods: cf.CloudFrontAllowedMethods.ALL,\n      forwardedValues: {\n        queryString: true,\n        cookies: { forward: 'all' },\n        headers: ['*'],\n      },\n    },\n    {\n      pathPattern: '/virtual-path',\n      allowedMethods: cf.CloudFrontAllowedMethods.GET_HEAD,\n      cachedMethods: cf.CloudFrontAllowedCachedMethods.GET_HEAD,\n    },\n  ],\n});\n```\n\n### Restrict Access to Known IPs\n\nPass in a boolean and an array of IP addresses and your site is locked down!\n\n```typescript\nnew SPADeploy(stack, 'spaDeploy', {\n  encryptBucket: true,\n  ipFilter: true,\n  ipList: ['1.1.1.1']\n}).createBasicSite({\n    indexDoc: 'index.html',\n    websiteFolder: 'website'\n  })\n```\n\n### Modifying S3 Bucket Created in Construct\n\nAn object is now returned containing relevant artifacts created if you need to make any further modifications:\n  * The S3 bucket is present for all of the methods\n  * When a CloudFront Web distribution is created it will be present in the return object\n\n```typescript\nexport interface SPADeployment {\n  readonly websiteBucket: s3.Bucket,\n}\n\nexport interface SPADeploymentWithCloudFront extends SPADeployment {\n  readonly distribution: CloudFrontWebDistribution,\n}\n```\n\n## Issues / Feature Requests\n\nhttps://github.com/nideveloper/CDK-SPA-Deploy\n"
+    "markdown": "# CDK-SPA-Deploy\n[![npm](https://img.shields.io/npm/dt/cdk-spa-deploy)](https://www.npmjs.com/package/cdk-spa-deploy)\n[![Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/cdk-spa-deploy)](https://www.npmjs.com/package/cdk-spa-deploy)\n\nThis is an AWS CDK Construct to make deploying a single page website (Angular/React/Vue) to AWS S3 behind SSL/Cloudfront as easy as 5 lines of code.\n\n\n## Installation and Usage\n\n### Typescript\n\n```console\nnpm install --save cdk-spa-deploy\n```\n\n```typescript\nimport cdk = require('@aws-cdk/core');\nimport { SPADeploy } from 'cdk-spa-deploy';\n\nexport class CdkStack extends cdk.Stack {\n  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {\n    super(scope, id, props);\n\n    new SPADeploy(this, 'spaDeploy')\n      .createBasicSite({\n        indexDoc: 'index.html',\n        websiteFolder: '../blog/dist/blog'\n      });\n\n    new SPADeploy(this, 'cfDeploy')\n      .createSiteWithCloudfront({\n        indexDoc: 'index.html',\n        websiteFolder: '../blog/dist/blog'\n      });\n  }\n}\n\n```\n\n### Python\n```console\npip install cdk-spa-deploy\n```\n\n```python\nfrom aws_cdk import core\nfrom spa_deploy import SPADeploy\n\nclass PythonStack(core.Stack):\n  def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:\n    super().__init__(scope, id, **kwargs)\n\n    SPADeploy(self, 'spaDeploy').create_basic_site(\n      index_doc='index.html',\n      website_folder='../blog/blog/dist/blog'\n    )\n\n\n    SPADeploy(self, 'cfDeploy').create_site_with_cloudfront(\n      index_doc='index.html',\n      website_folder='../blog/blog/dist/blog'\n    )\n```\n\n## Advanced Usage\n\n### Auto Deploy From Hosted Zone Name\n\nIf you purchased your domain through route 53 and already have a hosted zone then just use the name to deploy your site behind cloudfront. This handles the SSL cert and everything for you.\n\n```typescript\nnew SPADeploy(this, 'spaDeploy', { encryptBucket: true })\n  .createSiteFromHostedZone({\n    zoneName: 'cdkpatterns.com',\n    indexDoc: 'index.html',\n    websiteFolder: '../website/dist/website'\n  });\n\n```\n\n### Custom Domain and SSL Certificates\n\nYou can also pass the ARN for an SSL certification and your alias routes to cloudfront\n\n```typescript\nimport cdk = require('@aws-cdk/core');\nimport { SPADeploy } from 'cdk-spa-deploy';\n\nexport class CdkStack extends cdk.Stack {\n  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {\n    super(scope, id, props);\n\n    new SPADeploy(this, 'cfDeploy')\n      .createSiteWithCloudfront({\n        indexDoc: '../blog/dist/blog',\n        certificateARN: 'arn:...',\n        cfAliases: ['www.alias.com']\n      });\n  }\n}\n\n```\n\n### Encrypted S3 Bucket\n\nPass in one boolean to tell SPA Deploy to encrypt your website bucket\n\n```typescript\nnew SPADeploy(this, 'cfDeploy', {encryptBucket: true}).createBasicSite({\n    indexDoc: 'index.html',\n    websiteFolder: 'website'\n});\n\n```\n\n### Custom Origin Behaviors\n\nPass in an array of CloudFront Behaviors\n\n```typescript\nnew SPADeploy(this, 'cfDeploy').createSiteWithCloudfront({\n  indexDoc: 'index.html',\n  websiteFolder: 'website',\n  cfBehaviors: [\n    {\n      isDefaultBehavior: true,\n      allowedMethods: cf.CloudFrontAllowedMethods.ALL,\n      forwardedValues: {\n        queryString: true,\n        cookies: { forward: 'all' },\n        headers: ['*'],\n      },\n    },\n    {\n      pathPattern: '/virtual-path',\n      allowedMethods: cf.CloudFrontAllowedMethods.GET_HEAD,\n      cachedMethods: cf.CloudFrontAllowedCachedMethods.GET_HEAD,\n    },\n  ],\n});\n```\n\n### Restrict Access to Known IPs\n\nPass in a boolean and an array of IP addresses and your site is locked down!\n\n```typescript\nnew SPADeploy(stack, 'spaDeploy', {\n  encryptBucket: true,\n  ipFilter: true,\n  ipList: ['1.1.1.1']\n}).createBasicSite({\n    indexDoc: 'index.html',\n    websiteFolder: 'website'\n  })\n```\n\n### Modifying S3 Bucket Created in Construct\n\nAn object is now returned containing relevant artifacts created if you need to make any further modifications:\n  * The S3 bucket is present for all of the methods\n  * When a CloudFront Web distribution is created it will be present in the return object\n\n```typescript\nexport interface SPADeployment {\n  readonly websiteBucket: s3.Bucket,\n}\n\nexport interface SPADeploymentWithCloudFront extends SPADeployment {\n  readonly distribution: CloudFrontWebDistribution,\n}\n```\n\n## Issues / Feature Requests\n\nhttps://github.com/nideveloper/CDK-SPA-Deploy\n"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/nideveloper/CDK-SPA-Deploy.git"
   },
   "schema": "jsii/0.10.0",
+  "submodules": {
+    "@aws-cdk/aws-cloudfront.experimental": {
+      "locationInModule": {
+        "filename": "node_modules/@aws-cdk/aws-cloudfront/lib/index.d.ts",
+        "line": 8
+      }
+    }
+  },
   "targets": {
     "js": {
       "npm": "cdk-spa-deploy"
@@ -1540,6 +1638,6 @@
       ]
     }
   },
-  "version": "1.74.0",
-  "fingerprint": "xRM0OZWAN/hkNcIVK693mZivcmSZrQaOhpXVcELK5NA="
+  "version": "1.77.0",
+  "fingerprint": "E9vQJhUfXqE7KgnwB3/7fjZdQh8YCVvZUbxmzCCWxd8="
 }
