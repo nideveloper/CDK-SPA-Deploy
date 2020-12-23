@@ -35,7 +35,7 @@
     "@types/node": "14.14.14",
     "@typescript-eslint/eslint-plugin": "^4.10.0",
     "@typescript-eslint/parser": "^4.10.0",
-    "aws-cdk": "1.79.0",
+    "aws-cdk": "1.80.0",
     "eslint": "^7.16.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-formatter-pretty": "^4.0.0",
