@@ -62,6 +62,21 @@ class PythonStack(core.Stack):
     )
 ```
 
+### Dotnet / C#
+
+This project has now been published to nuget, more details to follow soon but you can find it [here](https://www.nuget.org/packages/CDKSPADeploy/1.80.0)
+
+```bash
+# package manager
+Install-Package CDKSPADeploy -Version 1.80.0
+# .NET CLI
+dotnet add package CDKSPADeploy --version 1.80.0
+# Package reference
+<PackageReference Include="CDKSPADeploy" Version="1.80.0" />
+# Paket CLI
+paket add CDKSPADeploy --version 1.80.0
+```
+
 ## Advanced Usage
 
 ### Auto Deploy From Hosted Zone Name
