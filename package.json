@@ -28,7 +28,7 @@
         "package": "com.cdkpatterns",
         "maven": {
           "groupId": "com.cdkpatterns",
-          "artifactId": "cdk-spa-deploy"
+          "artifactId": "CDKSPADeploy"
         }
       },
       "dotnet": {

@@ -4,9 +4,9 @@ name: CI
 
 # Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ maven ]
+    tags:
+      - '*'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -28,9 +28,28 @@ jobs:
       # Runs a single command using the runners shell
       - name: Build and Package JSII modules
         run: npm i && npm run build && npm run package
+
+      # Release to NPM
+      - name: Release NPM
+        run: npx -p jsii-release jsii-release-npm
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # Release to Pypi
+      - name: Release Pypi
+        run: npx -p jsii-release jsii-release-pypi
+        env:
+          TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
+
+      # Release to Nuget
+      - name: Release Nuget
+        run: npx -p jsii-release jsii-release-nuget
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
       
       # Release to Maven
-      - name: Build and Package JSII modules
+      - name: Release Maven
         run: npx -p jsii-release jsii-release-maven
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
