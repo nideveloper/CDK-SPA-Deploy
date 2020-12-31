@@ -77,6 +77,18 @@ dotnet add package CDKSPADeploy --version 1.80.0
 paket add CDKSPADeploy --version 1.80.0
 ```
 
+### Java
+
+A version has now been published to maven
+
+```xml
+<dependency>
+  <groupId>com.cdkpatterns</groupId>
+  <artifactId>CDKSPADeploy</artifactId>
+  <version>1.81.0</version>
+</dependency>
+```
+
 ## Advanced Usage
 
 ### Auto Deploy From Hosted Zone Name
