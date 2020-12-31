@@ -1,6 +1,6 @@
 {
   "name": "cdk-spa-deploy",
-  "version": "1.80.0",
+  "version": "1.81.0",
   "description": "This is an AWS CDK Construct to make deploying a single page website (Angular/React/Vue) to AWS S3 behind SSL/Cloudfront as easy as 5 lines of code.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -41,12 +41,12 @@
     "twitter": "nideveloper"
   },
   "devDependencies": {
-    "@aws-cdk/assert": "1.80.0",
+    "@aws-cdk/assert": "1.81.0",
     "@types/jest": "^26.0.19",
     "@types/node": "14.14.16",
     "@typescript-eslint/eslint-plugin": "^4.11.1",
     "@typescript-eslint/parser": "^4.11.1",
-    "aws-cdk": "1.80.0",
+    "aws-cdk": "1.81.0",
     "eslint": "^7.16.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-formatter-pretty": "^4.0.0",
@@ -63,26 +63,26 @@
     "typescript": "~4.1.3"
   },
   "dependencies": {
-    "@aws-cdk/aws-certificatemanager": "1.80.0",
-    "@aws-cdk/aws-cloudfront": "1.80.0",
-    "@aws-cdk/aws-iam": "1.80.0",
-    "@aws-cdk/aws-route53": "1.80.0",
-    "@aws-cdk/aws-route53-patterns": "1.80.0",
-    "@aws-cdk/aws-route53-targets": "1.80.0",
-    "@aws-cdk/aws-s3": "1.80.0",
-    "@aws-cdk/aws-s3-deployment": "1.80.0",
-    "@aws-cdk/core": "1.80.0"
+    "@aws-cdk/aws-certificatemanager": "1.81.0",
+    "@aws-cdk/aws-cloudfront": "1.81.0",
+    "@aws-cdk/aws-iam": "1.81.0",
+    "@aws-cdk/aws-route53": "1.81.0",
+    "@aws-cdk/aws-route53-patterns": "1.81.0",
+    "@aws-cdk/aws-route53-targets": "1.81.0",
+    "@aws-cdk/aws-s3": "1.81.0",
+    "@aws-cdk/aws-s3-deployment": "1.81.0",
+    "@aws-cdk/core": "1.81.0"
   },
   "peerDependencies": {
-    "@aws-cdk/aws-certificatemanager": "1.80.0",
-    "@aws-cdk/aws-cloudfront": "1.80.0",
-    "@aws-cdk/aws-iam": "1.80.0",
-    "@aws-cdk/aws-route53": "1.80.0",
-    "@aws-cdk/aws-route53-patterns": "1.80.0",
-    "@aws-cdk/aws-route53-targets": "1.80.0",
-    "@aws-cdk/aws-s3": "1.80.0",
-    "@aws-cdk/aws-s3-deployment": "1.80.0",
-    "@aws-cdk/core": "1.80.0"
+    "@aws-cdk/aws-certificatemanager": "1.81.0",
+    "@aws-cdk/aws-cloudfront": "1.81.0",
+    "@aws-cdk/aws-iam": "1.81.0",
+    "@aws-cdk/aws-route53": "1.81.0",
+    "@aws-cdk/aws-route53-patterns": "1.81.0",
+    "@aws-cdk/aws-route53-targets": "1.81.0",
+    "@aws-cdk/aws-s3": "1.81.0",
+    "@aws-cdk/aws-s3-deployment": "1.81.0",
+    "@aws-cdk/core": "1.81.0"
   },
   "keywords": [
     "aws",
