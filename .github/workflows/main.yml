@@ -28,25 +28,6 @@ jobs:
       # Runs a single command using the runners shell
       - name: Build and Package JSII modules
         run: npm i && npm run build && npm run package
-
-      # Release to NPM
-      - name: Release NPM
-        run: npx -p jsii-release jsii-release-npm
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      # Release to Pypi
-      - name: Release Pypi
-        run: npx -p jsii-release jsii-release-pypi
-        env:
-          TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
-          TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
-
-      # Release to Nuget
-      - name: Release Nuget
-        run: npx -p jsii-release jsii-release-nuget
-        env:
-          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
       
       # Release to Maven
       - name: Release Maven
