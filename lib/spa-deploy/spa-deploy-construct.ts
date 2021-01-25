@@ -34,7 +34,8 @@ export interface HostedZoneConfig {
   readonly errorDoc?:string,
   readonly cfBehaviors?: Behavior[],
   readonly websiteFolder: string,
-  readonly zoneName: string
+  readonly zoneName: string,
+  readonly subdomain?: string,
 }
 
 export interface SPAGlobalConfig {
@@ -152,7 +153,7 @@ export class SPADeploy extends cdk.Construct {
 
       if (typeof config.zoneName !== 'undefined' && typeof cert !== 'undefined') {
         cfConfig.viewerCertificate = ViewerCertificate.fromAcmCertificate(cert, {
-          aliases: [config.zoneName],
+          aliases: [config.subdomain ? `${config.subdomain}.${config.zoneName}` : config.zoneName],
         });
       }
 
@@ -219,9 +220,10 @@ export class SPADeploy extends cdk.Construct {
     public createSiteFromHostedZone(config:HostedZoneConfig): SPADeploymentWithCloudFront {
       const websiteBucket = this.getS3Bucket(config, true);
       const zone = HostedZone.fromLookup(this, 'HostedZone', { domainName: config.zoneName });
+      const domainName = config.subdomain ? `${config.subdomain}.${config.zoneName}` : config.zoneName;
       const cert = new DnsValidatedCertificate(this, 'Certificate', {
         hostedZone: zone,
-        domainName: config.zoneName,
+        domainName,
         region: 'us-east-1',
       });
 
@@ -238,15 +240,17 @@ export class SPADeploy extends cdk.Construct {
 
       new ARecord(this, 'Alias', {
         zone,
-        recordName: config.zoneName,
+        recordName: domainName,
         target: RecordTarget.fromAlias(new CloudFrontTarget(distribution)),
       });
 
-      new HttpsRedirect(this, 'Redirect', {
-        zone,
-        recordNames: [`www.${config.zoneName}`],
-        targetDomain: config.zoneName,
-      });
+      if (!config.subdomain) {
+        new HttpsRedirect(this, 'Redirect', {
+            zone,
+            recordNames: [`www.${config.zoneName}`],
+            targetDomain: config.zoneName,
+        });          
+      }
 
       return { websiteBucket, distribution };
     }
