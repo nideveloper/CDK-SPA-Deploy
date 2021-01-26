@@ -619,6 +619,36 @@ test('Create From Hosted Zone', () => {
   }));
 });
 
+test('Create From Hosted Zone with subdomain', () => {
+  const app = new App();
+  const stack = new Stack(app, 'testStack', {
+    env: {
+      region: 'us-east-1',
+      account: '1234',
+    },
+  });
+    // WHEN
+  new SPADeploy(stack, 'spaDeploy', { encryptBucket: true })
+    .createSiteFromHostedZone({
+      zoneName: 'cdkspadeploy.com',
+      indexDoc: 'index.html',
+      websiteFolder: 'website',
+      subdomain: 'myhost',
+    });
+
+  // THEN
+  expectCDK(stack).to(haveResourceLike('AWS::CloudFront::Distribution', {
+    DistributionConfig: {
+      Aliases: [
+        'myhost.cdkspadeploy.com',
+      ],
+      ViewerCertificate: {
+        SslSupportMethod: 'sni-only',
+      },
+    },
+  }));
+});
+
 test('Create From Hosted Zone with Error Bucket', () => {
   const app = new App();
   const stack = new Stack(app, 'testStack', {
