@@ -198,6 +198,30 @@ export interface SPADeploymentWithCloudFront extends SPADeployment {
 }
 ```
 
+### Setting the deployment lamba memory limit
+
+The amount of memory (in MiB) to allocate to the AWS Lambda function which replicates the files from the CDK bucket to the destination bucket.
+
+If you are deploying large files, you will need to increase this number accordingly. Defaults to 128mb
+
+```typescript
+import cdk = require('@aws-cdk/core');
+import { SPADeploy } from 'cdk-spa-deploy';
+
+export class CdkStack extends cdk.Stack {
+  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
+
+    new SPADeploy(this, 'spaDeploy')
+      .createBasicSite({
+        indexDoc: 'index.html',
+        websiteFolder: '../blog/dist/blog'
+        memoryLimit: 1024
+      });
+  }
+}
+```
+
 ## Issues / Feature Requests
 
 https://github.com/nideveloper/CDK-SPA-Deploy
