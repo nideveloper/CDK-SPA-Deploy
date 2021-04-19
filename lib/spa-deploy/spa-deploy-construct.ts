@@ -27,6 +27,7 @@ export interface SPADeployConfig {
   readonly blockPublicAccess?:s3.BlockPublicAccess
   readonly sslMethod?: SSLMethod,
   readonly securityPolicy?: SecurityPolicyProtocol,
+  readonly memoryLimit?: number
 }
 
 export interface HostedZoneConfig {
@@ -36,6 +37,7 @@ export interface HostedZoneConfig {
   readonly websiteFolder: string,
   readonly zoneName: string,
   readonly subdomain?: string,
+  readonly memoryLimit?: number
 }
 
 export interface SPAGlobalConfig {
@@ -169,6 +171,7 @@ export class SPADeploy extends cdk.Construct {
       new s3deploy.BucketDeployment(this, 'BucketDeployment', {
         sources: [s3deploy.Source.asset(config.websiteFolder)],
         destinationBucket: websiteBucket,
+        memoryLimit: config.memoryLimit
       });
 
       const cfnOutputConfig:any = {
@@ -203,6 +206,7 @@ export class SPADeploy extends cdk.Construct {
         // Invalidate the cache for / and index.html when we deploy so that cloudfront serves latest site
         distribution,
         distributionPaths: ['/', `/${config.indexDoc}`],
+        memoryLimit: config.memoryLimit
       });
 
       new cdk.CfnOutput(this, 'cloudfront domain', {
@@ -236,6 +240,7 @@ export class SPADeploy extends cdk.Construct {
         // Invalidate the cache for / and index.html when we deploy so that cloudfront serves latest site
         distribution,
         distributionPaths: ['/', `/${config.indexDoc}`],
+        memoryLimit: config.memoryLimit
       });
 
       new ARecord(this, 'Alias', {
