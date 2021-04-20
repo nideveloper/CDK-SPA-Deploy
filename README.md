@@ -215,7 +215,7 @@ export class CdkStack extends cdk.Stack {
     new SPADeploy(this, 'spaDeploy')
       .createBasicSite({
         indexDoc: 'index.html',
-        websiteFolder: '../blog/dist/blog'
+        websiteFolder: '../blog/dist/blog',
         memoryLimit: 1024
       });
   }
