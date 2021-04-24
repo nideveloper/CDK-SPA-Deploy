@@ -14,7 +14,7 @@ npm install --save cdk-spa-deploy
 ```
 
 ```typescript
-import cdk = require('@aws-cdk/core');
+import * as cdk from '@aws-cdk/core';
 import { SPADeploy } from 'cdk-spa-deploy';
 
 export class CdkStack extends cdk.Stack {
