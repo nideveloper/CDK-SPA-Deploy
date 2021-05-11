@@ -55,42 +55,9 @@ test('Cloudfront Distribution Included', () => {
     PolicyDocument: {
       Statement: [
         {
-          Action: [
-            's3:GetObject*',
-            's3:GetBucket*',
-            's3:List*',
-          ],
-          Effect: 'Allow',
-          Principal: {
-            CanonicalUser: {
-              'Fn::GetAtt': [
-                'spaDeployOriginAccessIdentityEDA4C19C',
-                'S3CanonicalUserId',
-              ],
-            },
-          },
-          Resource: [
-            {
-              'Fn::GetAtt': [
-                'spaDeployWebsiteBucket1E4C4442',
-                'Arn',
-              ],
-            },
-            {
-              'Fn::Join': [
-                '',
-                [
-                  {
-                    'Fn::GetAtt': [
-                      'spaDeployWebsiteBucket1E4C4442',
-                      'Arn',
-                    ],
-                  },
-                  '/*',
-                ],
-              ],
-            },
-          ],
+          Action: 's3:GetObject'
+          ,
+          Effect: 'Allow'
         }],
     },
   }));
@@ -147,42 +114,8 @@ test('Cloudfront Distribution Included - with non-default error-doc cfg set', ()
     PolicyDocument: {
       Statement: [
         {
-          Action: [
-            's3:GetObject*',
-            's3:GetBucket*',
-            's3:List*',
-          ],
-          Effect: 'Allow',
-          Principal: {
-            CanonicalUser: {
-              'Fn::GetAtt': [
-                'spaDeployOriginAccessIdentityEDA4C19C',
-                'S3CanonicalUserId',
-              ],
-            },
-          },
-          Resource: [
-            {
-              'Fn::GetAtt': [
-                'spaDeployWebsiteBucket1E4C4442',
-                'Arn',
-              ],
-            },
-            {
-              'Fn::Join': [
-                '',
-                [
-                  {
-                    'Fn::GetAtt': [
-                      'spaDeployWebsiteBucket1E4C4442',
-                      'Arn',
-                    ],
-                  },
-                  '/*',
-                ],
-              ],
-            },
-          ],
+          Action: 's3:GetObject',
+          Effect: 'Allow'
         }],
     },
   }));
@@ -578,42 +511,8 @@ test('Create From Hosted Zone', () => {
     PolicyDocument: {
       Statement: [
         {
-          Action: [
-            's3:GetObject*',
-            's3:GetBucket*',
-            's3:List*',
-          ],
-          Effect: 'Allow',
-          Principal: {
-            CanonicalUser: {
-              'Fn::GetAtt': [
-                'spaDeployOriginAccessIdentityEDA4C19C',
-                'S3CanonicalUserId',
-              ],
-            },
-          },
-          Resource: [
-            {
-              'Fn::GetAtt': [
-                'spaDeployWebsiteBucket1E4C4442',
-                'Arn',
-              ],
-            },
-            {
-              'Fn::Join': [
-                '',
-                [
-                  {
-                    'Fn::GetAtt': [
-                      'spaDeployWebsiteBucket1E4C4442',
-                      'Arn',
-                    ],
-                  },
-                  '/*',
-                ],
-              ],
-            },
-          ],
+          Action: 's3:GetObject',
+          Effect: 'Allow'
         }],
     },
   }));
