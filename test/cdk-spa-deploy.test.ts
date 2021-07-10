@@ -2,6 +2,7 @@ import {
   expect as expectCDK, haveResource, haveResourceLike, haveOutput,
 } from '@aws-cdk/assert';
 import * as cf from '@aws-cdk/aws-cloudfront';
+import { Role, ServicePrincipal } from '@aws-cdk/aws-iam';
 import { BlockPublicAccess } from '@aws-cdk/aws-s3';
 import { Stack, App } from '@aws-cdk/core';
 import { SPADeploy } from '../lib';
@@ -155,6 +156,32 @@ test('Cloudfront With Custom Cert and Aliases', () => {
   }));
 });
 
+
+test('Cloudfront With Custom Role', () => {
+  const stack = new Stack();
+  // WHEN
+  const deploy = new SPADeploy(stack, 'spaDeploy');
+
+  deploy.createSiteWithCloudfront({
+    indexDoc: 'index.html',
+    websiteFolder: 'website',
+    certificateARN: 'arn:1234',
+    cfAliases: ['www.test.com'],
+    role: new Role(stack, 'myRole', {roleName: 'testRole', assumedBy: new ServicePrincipal('lambda.amazonaws.com')})
+  });
+
+  // THEN
+  expectCDK(stack).to(haveResource('AWS::Lambda::Function', {
+    Role: {
+      "Fn::GetAtt": [
+        "myRoleE60D68E8",
+        "Arn"
+      ]
+    }
+  }));
+});
+
+
 test('Basic Site Setup', () => {
   const stack = new Stack();
 
@@ -220,6 +247,31 @@ test('Basic Site Setup with Error Doc set', () => {
     },
   }));
 });
+
+test('Basic Site Setup with Custom Role', () => {
+  const stack = new Stack();
+
+  // WHEN
+  const deploy = new SPADeploy(stack, 'spaDeploy');
+
+  deploy.createBasicSite({
+    indexDoc: 'index.html',
+    errorDoc: 'error.html',
+    websiteFolder: 'website',
+    role: new Role(stack, 'myRole', {roleName: 'testRole', assumedBy: new ServicePrincipal('lambda.amazonaws.com')}),
+  });
+
+  // THEN
+  expectCDK(stack).to(haveResource('AWS::Lambda::Function', {
+    Role: {
+      "Fn::GetAtt": [
+        "myRoleE60D68E8",
+        "Arn"
+      ]
+    }
+  }));
+});
+
 
 test('Basic Site Setup, Encrypted Bucket', () => {
   const stack = new Stack();
@@ -545,6 +597,36 @@ test('Create From Hosted Zone with subdomain', () => {
         SslSupportMethod: 'sni-only',
       },
     },
+  }));
+});
+
+test('Create From Hosted Zone with Custom Role', () => {
+  const app = new App();
+  const stack = new Stack(app, 'testStack', {
+    env: {
+      region: 'us-east-1',
+      account: '1234',
+    },
+  });
+  // WHEN
+  new SPADeploy(stack, 'spaDeploy', { encryptBucket: true })
+    .createSiteFromHostedZone({
+      zoneName: 'cdkspadeploy.com',
+      indexDoc: 'index.html',
+      errorDoc: 'error.html',
+      websiteFolder: 'website',
+      role: new Role(stack, 'myRole', {roleName: 'testRole', assumedBy: new ServicePrincipal('lambda.amazonaws.com')})
+    });
+
+  // THEN
+  
+  expectCDK(stack).to(haveResource('AWS::Lambda::Function', {
+    Role: {
+      "Fn::GetAtt": [
+        "myRoleE60D68E8",
+        "Arn"
+      ]
+    }
   }));
 });
 
