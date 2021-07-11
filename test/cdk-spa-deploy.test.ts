@@ -273,6 +273,32 @@ test('Basic Site Setup with Custom Role', () => {
 });
 
 
+test('Basic Site Setup with Undefined Role', () => {
+  const stack = new Stack();
+
+  // WHEN
+  const deploy = new SPADeploy(stack, 'spaDeploy');
+
+  deploy.createBasicSite({
+    indexDoc: 'index.html',
+    errorDoc: 'error.html',
+    websiteFolder: 'website',
+    role: undefined
+  });
+
+  // THEN
+  expectCDK(stack).to(haveResource('AWS::Lambda::Function', {
+    Runtime: "python3.6",
+    Role: {
+      "Fn::GetAtt": [
+        "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265",
+        "Arn"
+      ]
+    }
+  }));
+});
+
+
 test('Basic Site Setup, Encrypted Bucket', () => {
   const stack = new Stack();
 
