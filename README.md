@@ -30,7 +30,7 @@ As of version 103.0 this construct now declares peer dependencies rather than bu
 ```
 
 ```typescript
-import cdk = require('@aws-cdk/core');
+import * as cdk from '@aws-cdk/core';
 import { SPADeploy } from 'cdk-spa-deploy';
 
 export class CdkStack extends cdk.Stack {
