@@ -6,7 +6,7 @@ import {
   SSLMethod,
   SecurityPolicyProtocol,
 } from '@aws-cdk/aws-cloudfront';
-import { PolicyStatement } from '@aws-cdk/aws-iam';
+import { PolicyStatement, Role } from '@aws-cdk/aws-iam';
 import { HostedZone, ARecord, RecordTarget } from '@aws-cdk/aws-route53';
 import { DnsValidatedCertificate } from '@aws-cdk/aws-certificatemanager';
 import { HttpsRedirect } from '@aws-cdk/aws-route53-patterns';
@@ -27,6 +27,7 @@ export interface SPADeployConfig {
   readonly blockPublicAccess?:s3.BlockPublicAccess
   readonly sslMethod?: SSLMethod,
   readonly securityPolicy?: SecurityPolicyProtocol,
+  readonly role?:Role,
 }
 
 export interface HostedZoneConfig {
@@ -36,12 +37,14 @@ export interface HostedZoneConfig {
   readonly websiteFolder: string,
   readonly zoneName: string,
   readonly subdomain?: string,
+  readonly role?: Role,
 }
 
 export interface SPAGlobalConfig {
   readonly encryptBucket?:boolean,
   readonly ipFilter?:boolean,
-  readonly ipList?:string[]
+  readonly ipList?:string[],
+  readonly role?:Role,
 }
 
 export interface SPADeployment {
@@ -168,6 +171,7 @@ export class SPADeploy extends cdk.Construct {
 
       new s3deploy.BucketDeployment(this, 'BucketDeployment', {
         sources: [s3deploy.Source.asset(config.websiteFolder)],
+        role: config.role,
         destinationBucket: websiteBucket,
       });
 
@@ -203,6 +207,7 @@ export class SPADeploy extends cdk.Construct {
         // Invalidate the cache for / and index.html when we deploy so that cloudfront serves latest site
         distribution,
         distributionPaths: ['/', `/${config.indexDoc}`],
+        role: config.role,
       });
 
       new cdk.CfnOutput(this, 'cloudfront domain', {
@@ -235,6 +240,7 @@ export class SPADeploy extends cdk.Construct {
         destinationBucket: websiteBucket,
         // Invalidate the cache for / and index.html when we deploy so that cloudfront serves latest site
         distribution,
+        role: config.role,
         distributionPaths: ['/', `/${config.indexDoc}`],
       });
 
