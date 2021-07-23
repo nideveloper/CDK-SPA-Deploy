@@ -6,7 +6,7 @@ import {
   SSLMethod,
   SecurityPolicyProtocol,
 } from '@aws-cdk/aws-cloudfront';
-import { PolicyStatement, Role } from '@aws-cdk/aws-iam';
+import { PolicyStatement, Role, AnyPrincipal, Effect } from '@aws-cdk/aws-iam';
 import { HostedZone, ARecord, RecordTarget } from '@aws-cdk/aws-route53';
 import { DnsValidatedCertificate } from '@aws-cdk/aws-certificatemanager';
 import { HttpsRedirect } from '@aws-cdk/aws-route53-patterns';
@@ -108,6 +108,30 @@ export class SPADeploy extends cdk.Construct {
         });
 
         bucket.addToResourcePolicy(bucketPolicy);
+      }
+
+      //The below "reinforces" the IAM Role's attached policy, it's not required but it allows for customers using permission boundaries to write into the bucket.
+      if (config.role) {
+        bucket.addToResourcePolicy(
+            new PolicyStatement({
+              actions: [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*"
+              ],
+              effect: Effect.ALLOW,
+              resources: [bucket.arnForObjects('*'), bucket.bucketArn],
+              conditions: {
+                StringEquals: {
+                  'aws:PrincipalArn': config.role.roleArn,
+                },
+              },
+              principals: [new AnyPrincipal()]
+            })
+        );
       }
 
       return bucket;

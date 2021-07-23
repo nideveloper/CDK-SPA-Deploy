@@ -270,6 +270,34 @@ test('Basic Site Setup with Custom Role', () => {
       ]
     }
   }));
+  
+  expectCDK(stack).to(haveResourceLike('AWS::S3::BucketPolicy', {
+    PolicyDocument: {
+      Statement: [
+        {
+          Action: [
+            "s3:GetObject*",
+            "s3:GetBucket*",
+            "s3:List*",
+            "s3:DeleteObject*",
+            "s3:PutObject*",
+            "s3:Abort*"
+          ],
+          Condition: {
+            StringEquals: {
+              "aws:PrincipalArn": {
+                "Fn::GetAtt": [
+                  "myRoleE60D68E8",
+                  "Arn"
+                ]
+              }
+            }
+          },
+          Effect: 'Allow',
+          Principal: '*',
+        }],
+    },
+  }));
 });
 
 
