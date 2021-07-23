@@ -270,10 +270,15 @@ test('Basic Site Setup with Custom Role', () => {
       ]
     }
   }));
-  
+
   expectCDK(stack).to(haveResourceLike('AWS::S3::BucketPolicy', {
     PolicyDocument: {
       Statement: [
+        {
+          Action: 's3:GetObject',
+          Effect: 'Allow',
+          Principal: '*',
+        },
         {
           Action: [
             "s3:GetObject*",
