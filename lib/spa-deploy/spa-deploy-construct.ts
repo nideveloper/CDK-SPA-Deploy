@@ -138,6 +138,29 @@ export class SPADeploy extends cdk.Construct {
     }
 
     /**
+     * Helper method that returns an s3deploy.ISource, 
+     * it accepts either config.websiteFolder as a path to a local .zip file or a directory 
+     * or as an s3 url pointing to .zip file
+     * @param config 
+     * @returns s3deploy.ISource
+     */
+    private getSource(config:SPADeployConfig): s3deploy.ISource{
+      
+      const websiteBucket = this.getS3Bucket(config, false);
+      let source: s3deploy.ISource | undefined = undefined
+      
+      const isS3Url = new RegExp('s3://.*.zip$');
+      if (isS3Url.test(config.websiteFolder)){
+        let key = config.websiteFolder.split(websiteBucket.bucketName + "/")[1]
+        source = s3deploy.Source.bucket(websiteBucket, key)
+      }else{
+        source = s3deploy.Source.asset(config.websiteFolder)
+      }
+
+      return source
+    }
+
+    /**
      * Helper method to provide configuration for cloudfront
      */
     private getCFConfig(websiteBucket:s3.Bucket, config:any, accessIdentity: OriginAccessIdentity, cert?:DnsValidatedCertificate) {
@@ -192,9 +215,9 @@ export class SPADeploy extends cdk.Construct {
      */
     public createBasicSite(config:SPADeployConfig): SPADeployment {
       const websiteBucket = this.getS3Bucket(config, false);
-
+      
       new s3deploy.BucketDeployment(this, 'BucketDeployment', {
-        sources: [s3deploy.Source.asset(config.websiteFolder)],
+        sources: [this.getSource(config)],
         role: config.role,
         destinationBucket: websiteBucket,
       });
@@ -226,7 +249,7 @@ export class SPADeploy extends cdk.Construct {
       const distribution = new CloudFrontWebDistribution(this, 'cloudfrontDistribution', this.getCFConfig(websiteBucket, config, accessIdentity));
 
       new s3deploy.BucketDeployment(this, 'BucketDeployment', {
-        sources: [s3deploy.Source.asset(config.websiteFolder)],
+        sources: [this.getSource(config)],
         destinationBucket: websiteBucket,
         // Invalidate the cache for / and index.html when we deploy so that cloudfront serves latest site
         distribution,
@@ -260,7 +283,7 @@ export class SPADeploy extends cdk.Construct {
       const distribution = new CloudFrontWebDistribution(this, 'cloudfrontDistribution', this.getCFConfig(websiteBucket, config, accessIdentity, cert));
 
       new s3deploy.BucketDeployment(this, 'BucketDeployment', {
-        sources: [s3deploy.Source.asset(config.websiteFolder)],
+        sources: [this.getSource(config)],
         destinationBucket: websiteBucket,
         // Invalidate the cache for / and index.html when we deploy so that cloudfront serves latest site
         distribution,
