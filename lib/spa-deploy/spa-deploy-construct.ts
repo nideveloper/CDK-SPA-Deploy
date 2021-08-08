@@ -5,10 +5,13 @@ import {
   Behavior,
   SSLMethod,
   SecurityPolicyProtocol,
+  CloudFrontWebDistributionProps,
 } from '@aws-cdk/aws-cloudfront';
-import { PolicyStatement, Role, AnyPrincipal, Effect } from '@aws-cdk/aws-iam';
+import {
+  PolicyStatement, Role, AnyPrincipal, Effect,
+} from '@aws-cdk/aws-iam';
 import { HostedZone, ARecord, RecordTarget } from '@aws-cdk/aws-route53';
-import { DnsValidatedCertificate } from '@aws-cdk/aws-certificatemanager';
+import { DnsValidatedCertificate, Certificate, ICertificate } from '@aws-cdk/aws-certificatemanager';
 import { HttpsRedirect } from '@aws-cdk/aws-route53-patterns';
 import { CloudFrontTarget } from '@aws-cdk/aws-route53-targets';
 import cdk = require('@aws-cdk/core');
@@ -140,7 +143,7 @@ export class SPADeploy extends cdk.Construct {
     /**
      * Helper method to provide configuration for cloudfront
      */
-    private getCFConfig(websiteBucket:s3.Bucket, config:any, accessIdentity: OriginAccessIdentity, cert?:DnsValidatedCertificate) {
+    private getCFConfig(websiteBucket:s3.Bucket, config:any, accessIdentity: OriginAccessIdentity, cert?:ICertificate): CloudFrontWebDistributionProps {
       const cfConfig:any = {
         originConfigs: [
           {
@@ -164,24 +167,26 @@ export class SPADeploy extends cdk.Construct {
         }],
       };
 
-      if (typeof config.certificateARN !== 'undefined' && typeof config.cfAliases !== 'undefined') {
-        cfConfig.aliasConfiguration = {
-          acmCertRef: config.certificateARN,
-          names: config.cfAliases,
-        };
+      const aliases: string[] = []
+      if (typeof config.cfAliases !== 'undefined') {
+        aliases.push(...config.cfAliases);
       }
-      if (typeof config.sslMethod !== 'undefined') {
-        cfConfig.aliasConfiguration.sslMethod = config.sslMethod;
+      if (typeof config.zoneName !== 'undefined') {
+          aliases.push(config.subdomain ? `${config.subdomain}.${config.zoneName}` : config.zoneName);
       }
 
-      if (typeof config.securityPolicy !== 'undefined') {
-        cfConfig.aliasConfiguration.securityPolicy = config.securityPolicy;
+      if (typeof cert === 'undefined' && config.certificateARN) {
+        cert = Certificate.fromCertificateArn(this, 'Certificate', config.certificateARN);
       }
 
-      if (typeof config.zoneName !== 'undefined' && typeof cert !== 'undefined') {
+      if (typeof cert !== 'undefined') {
         cfConfig.viewerCertificate = ViewerCertificate.fromAcmCertificate(cert, {
-          aliases: [config.subdomain ? `${config.subdomain}.${config.zoneName}` : config.zoneName],
-        });
+            aliases,
+            securityPolicy: config.securityPolicy,
+            sslMethod: config.sslMethod,
+            });
+      } else {
+        cfConfig.viewerCertificate = ViewerCertificate.fromCloudFrontDefaultCertificate(...aliases)
       }
 
       return cfConfig;
