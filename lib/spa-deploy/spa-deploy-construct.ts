@@ -41,6 +41,8 @@ export interface HostedZoneConfig {
   readonly zoneName: string,
   readonly subdomain?: string,
   readonly role?: Role,
+  readonly sslMethod?: SSLMethod,
+  readonly securityPolicy?: SecurityPolicyProtocol,
 }
 
 export interface SPAGlobalConfig {
