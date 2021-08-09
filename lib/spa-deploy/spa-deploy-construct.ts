@@ -14,6 +14,7 @@ import { CloudFrontTarget } from '@aws-cdk/aws-route53-targets';
 import cdk = require('@aws-cdk/core');
 import s3deploy= require('@aws-cdk/aws-s3-deployment');
 import s3 = require('@aws-cdk/aws-s3');
+import { RemovalPolicy } from '@aws-cdk/core';
 
 export interface SPADeployConfig {
   readonly indexDoc:string,
@@ -28,9 +29,10 @@ export interface SPADeployConfig {
   readonly sslMethod?: SSLMethod,
   readonly securityPolicy?: SecurityPolicyProtocol,
   readonly role?:Role,
+  readonly bucketRemovalPolicy?: RemovalPolicy,
 }
 
-export interface HostedZoneConfig {
+export interface HostedZoneConfig extends Partial<SPADeployConfig> {
   readonly indexDoc:string,
   readonly errorDoc?:string,
   readonly cfBehaviors?: Behavior[],
@@ -90,6 +92,13 @@ export class SPADeploy extends cdk.Construct {
         if (typeof config.blockPublicAccess !== 'undefined') {
           bucketConfig.blockPublicAccess = config.blockPublicAccess;
         }
+      }
+
+      if (config.bucketRemovalPolicy) {
+        bucketConfig.removalPolicy = config.bucketRemovalPolicy;
+      }
+      if (config.bucketRemovalPolicy === RemovalPolicy.DESTROY) {
+        bucketConfig.autoDeleteObjects = true;
       }
 
       const bucket = new s3.Bucket(this, 'WebsiteBucket', bucketConfig);
