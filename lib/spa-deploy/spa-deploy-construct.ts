@@ -5,15 +5,16 @@ import {
   Behavior,
   SSLMethod,
   SecurityPolicyProtocol,
-} from '@aws-cdk/aws-cloudfront';
-import { PolicyStatement, Role, AnyPrincipal, Effect } from '@aws-cdk/aws-iam';
-import { HostedZone, ARecord, RecordTarget } from '@aws-cdk/aws-route53';
-import { DnsValidatedCertificate } from '@aws-cdk/aws-certificatemanager';
-import { HttpsRedirect } from '@aws-cdk/aws-route53-patterns';
-import { CloudFrontTarget } from '@aws-cdk/aws-route53-targets';
-import cdk = require('@aws-cdk/core');
-import s3deploy= require('@aws-cdk/aws-s3-deployment');
-import s3 = require('@aws-cdk/aws-s3');
+} from 'aws-cdk-lib/aws-cloudfront';
+import { PolicyStatement, Role, AnyPrincipal, Effect } from 'aws-cdk-lib/aws-iam';
+import { HostedZone, ARecord, RecordTarget } from 'aws-cdk-lib/aws-route53';
+import { DnsValidatedCertificate } from 'aws-cdk-lib/aws-certificatemanager';
+import { HttpsRedirect } from 'aws-cdk-lib/aws-route53-patterns';
+import { CloudFrontTarget } from 'aws-cdk-lib/aws-route53-targets';
+import { CfnOutput } from 'aws-cdk-lib';
+import s3deploy= require('aws-cdk-lib/aws-s3-deployment');
+import s3 = require('aws-cdk-lib/aws-s3');
+import { Construct } from 'constructs';
 
 export interface SPADeployConfig {
   readonly indexDoc:string,
@@ -55,10 +56,10 @@ export interface SPADeploymentWithCloudFront extends SPADeployment {
   readonly distribution: CloudFrontWebDistribution,
 }
 
-export class SPADeploy extends cdk.Construct {
+export class SPADeploy extends Construct {
     globalConfig: SPAGlobalConfig;
 
-    constructor(scope: cdk.Construct, id:string, config?:SPAGlobalConfig) {
+    constructor(scope: Construct, id:string, config?:SPAGlobalConfig) {
       super(scope, id);
 
       if (typeof config !== 'undefined') {
@@ -85,7 +86,7 @@ export class SPADeploy extends cdk.Construct {
         bucketConfig.encryption = s3.BucketEncryption.S3_MANAGED;
       }
 
-      if (this.globalConfig.ipFilter === true || isForCloudFront === true) {
+      if (this.globalConfig.ipFilter === true || isForCloudFront === true || typeof config.blockPublicAccess !== 'undefined') {
         bucketConfig.publicReadAccess = false;
         if (typeof config.blockPublicAccess !== 'undefined') {
           bucketConfig.blockPublicAccess = config.blockPublicAccess;
@@ -96,7 +97,7 @@ export class SPADeploy extends cdk.Construct {
 
       if (this.globalConfig.ipFilter === true && isForCloudFront === false) {
         if (typeof this.globalConfig.ipList === 'undefined') {
-          this.node.addError('When IP Filter is true then the IP List is required');
+          throw new Error('When IP Filter is true then the IP List is required');
         }
 
         const bucketPolicy = new PolicyStatement();
@@ -206,12 +207,12 @@ export class SPADeploy extends cdk.Construct {
 
       if (config.exportWebsiteUrlOutput === true) {
         if (typeof config.exportWebsiteUrlName === 'undefined' || config.exportWebsiteUrlName === '') {
-          this.node.addError('When Output URL as AWS Export property is true then the output name is required');
+          throw new Error('When Output URL as AWS Export property is true then the output name is required');
         }
         cfnOutputConfig.exportName = config.exportWebsiteUrlName;
       }
 
-      new cdk.CfnOutput(this, 'URL', cfnOutputConfig);
+      new CfnOutput(this, 'URL', cfnOutputConfig);
 
       return { websiteBucket };
     }
@@ -234,7 +235,7 @@ export class SPADeploy extends cdk.Construct {
         role: config.role,
       });
 
-      new cdk.CfnOutput(this, 'cloudfront domain', {
+      new CfnOutput(this, 'cloudfront domain', {
         description: 'The domain of the website',
         value: distribution.distributionDomainName,
       });
