@@ -13,6 +13,10 @@ This is an AWS CDK Construct to make deploying a single page website (Angular/Re
 npm install --save cdk-spa-deploy
 ```
 
+There is now a v1 and a v2 CDK version of this construct
+
+#### For AWS CDK V1 Usage:
+
 As of version 103.0 this construct now declares peer dependencies rather than bundling them so you can use it with any version of CDK higher than 103.0 without waiting on me to release a new version. The downside is that you will need to install the dependencies it uses for yourself, here is a list:
 ```json
 {
@@ -28,6 +32,9 @@ As of version 103.0 this construct now declares peer dependencies rather than bu
     "@aws-cdk/core": "^1.103.0"
 }
 ```
+
+#### For AWS CDK V2 usage:
+Install v2.0.0-alpha.0 and use it like below based on your chosen language, no extra steps
 
 ```typescript
 import * as cdk from '@aws-cdk/core';
