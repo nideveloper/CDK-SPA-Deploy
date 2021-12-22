@@ -851,7 +851,11 @@ test('Basic Site Setup, URL Output Enabled With Name', () => {
   const template = Template.fromStack(stack);
 
   // THEN
-  template.hasOutput(exportName, {});
+  template.hasOutput(exportName, {
+    "Export": {
+      "Name": exportName
+    }
+  });
 });
 
 test('Basic Site Setup, URL Output Enabled With No Name', () => {
@@ -881,5 +885,9 @@ test('Basic Site Setup, URL Output Not Enabled', () => {
   const template = Template.fromStack(stack);
 
   // THEN
-  expect(() => template.hasOutput(exportName, {})).toThrowError();
+  expect(() => {template.hasOutput(exportName, {
+    "Export": {
+      "Name": exportName
+    }
+  })}).toThrowError();
 });
