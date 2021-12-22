@@ -34,7 +34,7 @@ As of version 103.0 this construct now declares peer dependencies rather than bu
 ```
 
 #### For AWS CDK V2 usage:
-Install v2.0.0-alpha.0 and use it like below based on your chosen language, no extra steps
+Install v2.0.0-alpha.1 and use it like below based on your chosen language, no extra steps
 
 ```typescript
 import * as cdk from '@aws-cdk/core';
