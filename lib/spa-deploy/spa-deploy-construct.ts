@@ -212,7 +212,11 @@ export class SPADeploy extends Construct {
         cfnOutputConfig.exportName = config.exportWebsiteUrlName;
       }
 
-      new CfnOutput(this, 'URL', cfnOutputConfig);
+      let output = new CfnOutput(this, 'URL', cfnOutputConfig);
+      //set the output name to be the same as the export name
+      if(typeof config.exportWebsiteUrlName !== 'undefined' && config.exportWebsiteUrlName !== ''){
+        output.overrideLogicalId(config.exportWebsiteUrlName);
+      }
 
       return { websiteBucket };
     }

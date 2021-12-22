@@ -834,7 +834,7 @@ test('Basic Site Setup, Block Public Enabled', () => {
   }));
 });
 
-/*
+
 test('Basic Site Setup, URL Output Enabled With Name', () => {
   const stack = new Stack();
   const exportName = 'test-export-name';
@@ -850,28 +850,20 @@ test('Basic Site Setup, URL Output Enabled With Name', () => {
 
   const template = Template.fromStack(stack);
 
-  console.log(template.toJSON());
-
   // THEN
   template.hasOutput(exportName, {});
 });
 
 test('Basic Site Setup, URL Output Enabled With No Name', () => {
   const stack = new Stack();
-  const exportName = 'test-export-name';
 
   // WHEN
-  new SPADeploy(stack, 'spaDeploy', {})
+  expect(() => {new SPADeploy(stack, 'spaDeploy', {})
     .createBasicSite({
       indexDoc: 'index.html',
       websiteFolder: 'website',
       exportWebsiteUrlOutput: true,
-    });
-
-  // THEN
-  expectCDK(stack).notTo(haveOutput({
-    exportName,
-  }));
+    })}).toThrowError();
 });
 
 test('Basic Site Setup, URL Output Not Enabled', () => {
@@ -886,8 +878,8 @@ test('Basic Site Setup, URL Output Not Enabled', () => {
       exportWebsiteUrlOutput: false,
     });
 
+  const template = Template.fromStack(stack);
+
   // THEN
-  expectCDK(stack).notTo(haveOutput({
-    exportName,
-  }));
-});*/
+  expect(() => template.hasOutput(exportName, {})).toThrowError();
+});
