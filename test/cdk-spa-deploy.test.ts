@@ -518,6 +518,27 @@ test('Cloudfront With Custom Defined Behaviors', () => {
   }));
 });
 
+test('Cloudfront With Custom Distribution Paths', () => {
+  const stack = new Stack();
+  // WHEN
+  const deploy = new SPADeploy(stack, 'spaDeploy');
+
+  deploy.createSiteWithCloudfront({
+    indexDoc: 'index.html',
+    websiteFolder: 'website',
+    certificateARN: 'arn:1234',
+    cfAliases: ['www.test.com'],
+    distributionPaths: ['/images/*.png'],
+  });
+
+  const template = Template.fromStack(stack);
+
+  // THEN
+  template.hasResourceProperties('Custom::CDKBucketDeployment', {
+      DistributionPaths: ['/images/*.png']
+  });
+});
+
 test('Cloudfront With Custom Security Policy', () => {
   const stack = new Stack();
   // WHEN

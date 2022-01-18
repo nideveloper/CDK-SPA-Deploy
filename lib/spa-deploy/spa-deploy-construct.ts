@@ -23,6 +23,7 @@ export interface SPADeployConfig {
   readonly certificateARN?: string,
   readonly cfBehaviors?: Behavior[],
   readonly cfAliases?: string[],
+  readonly distributionPaths?: string[],
   readonly exportWebsiteUrlOutput?:boolean,
   readonly exportWebsiteUrlName?: string,
   readonly blockPublicAccess?:s3.BlockPublicAccess
@@ -235,7 +236,7 @@ export class SPADeploy extends Construct {
         destinationBucket: websiteBucket,
         // Invalidate the cache for / and index.html when we deploy so that cloudfront serves latest site
         distribution,
-        distributionPaths: ['/', `/${config.indexDoc}`],
+        distributionPaths: config.distributionPaths || ['/', `/${config.indexDoc}`],
         role: config.role,
       });
 
