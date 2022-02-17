@@ -36,6 +36,7 @@ export interface HostedZoneConfig {
   readonly indexDoc:string,
   readonly errorDoc?:string,
   readonly cfBehaviors?: Behavior[],
+  readonly distributionPaths?: string[],
   readonly websiteFolder: string,
   readonly zoneName: string,
   readonly subdomain?: string,
@@ -271,7 +272,7 @@ export class SPADeploy extends Construct {
         // Invalidate the cache for / and index.html when we deploy so that cloudfront serves latest site
         distribution,
         role: config.role,
-        distributionPaths: ['/', `/${config.indexDoc}`],
+        distributionPaths: config.distributionPaths || ['/', `/${config.indexDoc}`],
       });
 
       new ARecord(this, 'Alias', {

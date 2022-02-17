@@ -778,6 +778,31 @@ test('Create From Hosted Zone with Custom Role', () => {
   }));
 });
 
+test('Create From Hosted Zone with Custom Distribution Paths', () => {
+  const app = new App();
+  const stack = new Stack(app, 'testStack', {
+    env: {
+      region: 'us-east-1',
+      account: '1234',
+    },
+  });
+  // WHEN
+  new SPADeploy(stack, 'spaDeploy', { encryptBucket: true })
+    .createSiteFromHostedZone({
+      zoneName: 'cdkspadeploy.com',
+      indexDoc: 'index.html',
+      websiteFolder: 'website',
+      distributionPaths: ['/images/*.png'],
+    });
+
+  const template = Template.fromStack(stack);
+
+  // THEN  
+  template.hasResourceProperties('Custom::CDKBucketDeployment', {
+      DistributionPaths: ['/images/*.png']
+  });
+});
+
 test('Create From Hosted Zone with Error Bucket', () => {
   const app = new App();
   const stack = new Stack(app, 'testStack', {
