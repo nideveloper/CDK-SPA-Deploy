@@ -518,6 +518,27 @@ test('Cloudfront With Custom Defined Behaviors', () => {
   }));
 });
 
+test('Cloudfront With Custom Distribution Paths', () => {
+  const stack = new Stack();
+  // WHEN
+  const deploy = new SPADeploy(stack, 'spaDeploy');
+
+  deploy.createSiteWithCloudfront({
+    indexDoc: 'index.html',
+    websiteFolder: 'website',
+    certificateARN: 'arn:1234',
+    cfAliases: ['www.test.com'],
+    distributionPaths: ['/images/*.png'],
+  });
+
+  const template = Template.fromStack(stack);
+
+  // THEN
+  template.hasResourceProperties('Custom::CDKBucketDeployment', {
+      DistributionPaths: ['/images/*.png']
+  });
+});
+
 test('Cloudfront With Custom Security Policy', () => {
   const stack = new Stack();
   // WHEN
@@ -755,6 +776,31 @@ test('Create From Hosted Zone with Custom Role', () => {
       ]
     }
   }));
+});
+
+test('Create From Hosted Zone with Custom Distribution Paths', () => {
+  const app = new App();
+  const stack = new Stack(app, 'testStack', {
+    env: {
+      region: 'us-east-1',
+      account: '1234',
+    },
+  });
+  // WHEN
+  new SPADeploy(stack, 'spaDeploy', { encryptBucket: true })
+    .createSiteFromHostedZone({
+      zoneName: 'cdkspadeploy.com',
+      indexDoc: 'index.html',
+      websiteFolder: 'website',
+      distributionPaths: ['/images/*.png'],
+    });
+
+  const template = Template.fromStack(stack);
+
+  // THEN  
+  template.hasResourceProperties('Custom::CDKBucketDeployment', {
+      DistributionPaths: ['/images/*.png']
+  });
 });
 
 test('Create From Hosted Zone with Error Bucket', () => {
