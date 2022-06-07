@@ -581,6 +581,68 @@ test('Cloudfront With Custom SSL Method', () => {
   }));
 });
 
+test('Cloudfront With GeoRestriction Allowlist for GB', () => {
+  const stack = new Stack();
+  // WHEN
+  const deploy = new SPADeploy(stack, 'spaDeploy', { });
+  
+  deploy.createSiteWithCloudfront({
+    indexDoc: 'index.html',
+    websiteFolder: 'website',
+    certificateARN: 'arn:1234',
+    cfAliases: ['www.test.com'],
+    geoRestriction: {
+      restrictionType: "whitelist",
+      locations: ["GB"]
+    }
+  });
+
+  const template = Template.fromStack(stack);
+
+  // THEN
+  template.hasResourceProperties('AWS::CloudFront::Distribution', Match.objectLike({
+    DistributionConfig: {
+      Restrictions: {
+        GeoRestriction: {
+          Locations: ["GB"],
+          RestrictionType: "whitelist"
+        }
+      }
+    },
+  }));
+});
+
+test('Cloudfront With GeoRestriction Blocklist for GB', () => {
+  const stack = new Stack();
+  // WHEN
+  const deploy = new SPADeploy(stack, 'spaDeploy', { });
+  
+  deploy.createSiteWithCloudfront({
+    indexDoc: 'index.html',
+    websiteFolder: 'website',
+    certificateARN: 'arn:1234',
+    cfAliases: ['www.test.com'],
+    geoRestriction: {
+      restrictionType: "blacklist",
+      locations: ["GB"]
+    }
+  });
+
+  const template = Template.fromStack(stack);
+
+  // THEN
+  template.hasResourceProperties('AWS::CloudFront::Distribution', Match.objectLike({
+    DistributionConfig: {
+      Restrictions: {
+        GeoRestriction: {
+          Locations: ["GB"],
+          RestrictionType: "blacklist"
+        }
+      }
+    },
+  }));
+});
+
 test('Basic Site Setup, IP Filter', () => {
   const stack = new Stack();
 
