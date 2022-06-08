@@ -1,10 +1,9 @@
-import { Match, Template } from "aws-cdk-lib/assertions";
+import { Match, Template } from 'aws-cdk-lib/assertions';
 import * as cf from 'aws-cdk-lib/aws-cloudfront';
 import { Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 import { BlockPublicAccess } from 'aws-cdk-lib/aws-s3';
 import { Stack, App } from 'aws-cdk-lib/';
 import { SPADeploy } from '../lib';
-
 
 test('Cloudfront Distribution Included', () => {
   const stack = new Stack();
@@ -18,7 +17,7 @@ test('Cloudfront Distribution Included', () => {
 
   const template = Template.fromStack(stack);
   // THEN
-  template.hasResourceProperties('AWS::S3::Bucket', 
+  template.hasResourceProperties('AWS::S3::Bucket',
     Match.objectLike({
       WebsiteConfiguration: {
         IndexDocument: 'index.html',
@@ -27,7 +26,7 @@ test('Cloudfront Distribution Included', () => {
 
   template.hasResource('Custom::CDKBucketDeployment', {});
 
-  template.hasResourceProperties('AWS::CloudFront::Distribution', 
+  template.hasResourceProperties('AWS::CloudFront::Distribution',
     Match.objectLike({
       DistributionConfig: {
         CustomErrorResponses: [
@@ -53,15 +52,15 @@ test('Cloudfront Distribution Included', () => {
           CloudFrontDefaultCertificate: true,
         },
       },
-  }));
+    }));
 
-  template.hasResourceProperties('AWS::S3::BucketPolicy', 
+  template.hasResourceProperties('AWS::S3::BucketPolicy',
     Match.objectLike({
       PolicyDocument: {
         Statement: [
           Match.objectLike({
             Action: 's3:GetObject',
-            Effect: 'Allow'
+            Effect: 'Allow',
           })],
       },
     }));
@@ -80,19 +79,18 @@ test('Cloudfront Distribution Included - with non-default error-doc cfg set', ()
 
   const template = Template.fromStack(stack);
 
-
   // THEN
-  template.hasResourceProperties('AWS::S3::Bucket', 
+  template.hasResourceProperties('AWS::S3::Bucket',
     Match.objectLike({
       WebsiteConfiguration: {
         IndexDocument: 'index.html',
         ErrorDocument: 'error.html',
       },
-  }));
+    }));
 
   template.hasResource('Custom::CDKBucketDeployment', {});
 
-  template.hasResourceProperties('AWS::CloudFront::Distribution', 
+  template.hasResourceProperties('AWS::CloudFront::Distribution',
     Match.objectLike({
       DistributionConfig: {
         CustomErrorResponses: [
@@ -118,15 +116,15 @@ test('Cloudfront Distribution Included - with non-default error-doc cfg set', ()
           CloudFrontDefaultCertificate: true,
         },
       },
-  }));
+    }));
 
-  template.hasResourceProperties('AWS::S3::BucketPolicy', 
+  template.hasResourceProperties('AWS::S3::BucketPolicy',
     Match.objectLike({
       PolicyDocument: {
         Statement: [
           Match.objectLike({
             Action: 's3:GetObject',
-            Effect: 'Allow'
+            Effect: 'Allow',
           })],
       },
     }));
@@ -147,16 +145,16 @@ test('Cloudfront With Custom Cert and Aliases', () => {
   const template = Template.fromStack(stack);
 
   // THEN
-  template.hasResourceProperties('AWS::S3::Bucket', 
+  template.hasResourceProperties('AWS::S3::Bucket',
     Match.objectLike({
       WebsiteConfiguration: {
-        IndexDocument: 'index.html'
+        IndexDocument: 'index.html',
       },
-  }));
+    }));
 
   template.hasResource('Custom::CDKBucketDeployment', {});
 
-  template.hasResourceProperties('AWS::CloudFront::Distribution', 
+  template.hasResourceProperties('AWS::CloudFront::Distribution',
     Match.objectLike({
       DistributionConfig: {
         Aliases: [
@@ -170,7 +168,6 @@ test('Cloudfront With Custom Cert and Aliases', () => {
     }));
 });
 
-
 test('Cloudfront With Custom Role', () => {
   const stack = new Stack();
   // WHEN
@@ -181,23 +178,22 @@ test('Cloudfront With Custom Role', () => {
     websiteFolder: 'website',
     certificateARN: 'arn:1234',
     cfAliases: ['www.test.com'],
-    role: new Role(stack, 'myRole', {roleName: 'testRole', assumedBy: new ServicePrincipal('lambda.amazonaws.com')})
+    role: new Role(stack, 'myRole', { roleName: 'testRole', assumedBy: new ServicePrincipal('lambda.amazonaws.com') }),
   });
 
   const template = Template.fromStack(stack);
 
   // THEN
-  template.hasResourceProperties('AWS::Lambda::Function', 
+  template.hasResourceProperties('AWS::Lambda::Function',
     Match.objectLike({
       Role: {
-        "Fn::GetAtt": [
-          "myRoleE60D68E8",
-          "Arn"
-        ]
-      }
+        'Fn::GetAtt': [
+          'myRoleE60D68E8',
+          'Arn',
+        ],
+      },
     }));
 });
-
 
 test('Basic Site Setup', () => {
   const stack = new Stack();
@@ -213,16 +209,16 @@ test('Basic Site Setup', () => {
   const template = Template.fromStack(stack);
 
   // THEN
-  template.hasResourceProperties('AWS::S3::Bucket', 
+  template.hasResourceProperties('AWS::S3::Bucket',
     Match.objectLike({
       WebsiteConfiguration: {
-        IndexDocument: 'index.html'
+        IndexDocument: 'index.html',
       },
-  }));
+    }));
 
   template.hasResource('Custom::CDKBucketDeployment', {});
 
-  template.hasResourceProperties('AWS::S3::BucketPolicy', 
+  template.hasResourceProperties('AWS::S3::BucketPolicy',
     Match.objectLike({
       PolicyDocument: {
         Statement: [
@@ -230,7 +226,7 @@ test('Basic Site Setup', () => {
             Action: 's3:GetObject',
             Effect: 'Allow',
             Principal: {
-              "AWS": "*"
+              AWS: '*',
             },
           })],
       },
@@ -252,17 +248,17 @@ test('Basic Site Setup with Error Doc set', () => {
   const template = Template.fromStack(stack);
 
   // THEN
-  template.hasResourceProperties('AWS::S3::Bucket', 
+  template.hasResourceProperties('AWS::S3::Bucket',
     Match.objectLike({
       WebsiteConfiguration: {
         IndexDocument: 'index.html',
         ErrorDocument: 'error.html',
       },
-  }));
+    }));
 
   template.hasResource('Custom::CDKBucketDeployment', {});
 
-  template.hasResourceProperties('AWS::S3::BucketPolicy', 
+  template.hasResourceProperties('AWS::S3::BucketPolicy',
     Match.objectLike({
       PolicyDocument: {
         Statement: [
@@ -270,7 +266,7 @@ test('Basic Site Setup with Error Doc set', () => {
             Action: 's3:GetObject',
             Effect: 'Allow',
             Principal: {
-              "AWS": "*"
+              AWS: '*',
             },
           })],
       },
@@ -287,23 +283,23 @@ test('Basic Site Setup with Custom Role', () => {
     indexDoc: 'index.html',
     errorDoc: 'error.html',
     websiteFolder: 'website',
-    role: new Role(stack, 'myRole', {roleName: 'testRole', assumedBy: new ServicePrincipal('lambda.amazonaws.com')}),
+    role: new Role(stack, 'myRole', { roleName: 'testRole', assumedBy: new ServicePrincipal('lambda.amazonaws.com') }),
   });
 
   const template = Template.fromStack(stack);
 
   // THEN
-  template.hasResourceProperties('AWS::Lambda::Function', 
+  template.hasResourceProperties('AWS::Lambda::Function',
     Match.objectLike({
       Role: {
-        "Fn::GetAtt": [
-          "myRoleE60D68E8",
-          "Arn"
-        ]
-      }
+        'Fn::GetAtt': [
+          'myRoleE60D68E8',
+          'Arn',
+        ],
+      },
     }));
 
-    template.hasResourceProperties('AWS::S3::BucketPolicy', 
+  template.hasResourceProperties('AWS::S3::BucketPolicy',
     Match.objectLike({
       PolicyDocument: {
         Statement: [
@@ -311,37 +307,36 @@ test('Basic Site Setup with Custom Role', () => {
             Action: 's3:GetObject',
             Effect: 'Allow',
             Principal: {
-              "AWS": "*"
-            }
+              AWS: '*',
+            },
           }),
           Match.objectLike({
             Action: [
-              "s3:GetObject*",
-              "s3:GetBucket*",
-              "s3:List*",
-              "s3:DeleteObject*",
-              "s3:PutObject*",
-              "s3:Abort*"
+              's3:GetObject*',
+              's3:GetBucket*',
+              's3:List*',
+              's3:DeleteObject*',
+              's3:PutObject*',
+              's3:Abort*',
             ],
             Condition: {
               StringEquals: {
-                "aws:PrincipalArn": {
-                  "Fn::GetAtt": [
-                    "myRoleE60D68E8",
-                    "Arn"
-                  ]
-                }
-              }
+                'aws:PrincipalArn': {
+                  'Fn::GetAtt': [
+                    'myRoleE60D68E8',
+                    'Arn',
+                  ],
+                },
+              },
             },
             Effect: 'Allow',
             Principal: {
-              "AWS": "*"
-            }
+              AWS: '*',
+            },
           })],
-      }
-  }));
+      },
+    }));
 });
-
 
 test('Basic Site Setup with Undefined Role', () => {
   const stack = new Stack();
@@ -353,24 +348,23 @@ test('Basic Site Setup with Undefined Role', () => {
     indexDoc: 'index.html',
     errorDoc: 'error.html',
     websiteFolder: 'website',
-    role: undefined
+    role: undefined,
   });
 
   const template = Template.fromStack(stack);
 
   // THEN
-  template.hasResourceProperties('AWS::Lambda::Function', 
+  template.hasResourceProperties('AWS::Lambda::Function',
     Match.objectLike({
-      Runtime: "python3.7",
+      Runtime: 'python3.7',
       Role: {
-        "Fn::GetAtt": [
-          "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265",
-          "Arn"
-        ]
-      }
+        'Fn::GetAtt': [
+          'CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265',
+          'Arn',
+        ],
+      },
     }));
 });
-
 
 test('Basic Site Setup, Encrypted Bucket', () => {
   const stack = new Stack();
@@ -385,7 +379,7 @@ test('Basic Site Setup, Encrypted Bucket', () => {
   const template = Template.fromStack(stack);
 
   // THEN
-  template.hasResourceProperties('AWS::S3::Bucket', 
+  template.hasResourceProperties('AWS::S3::Bucket',
     Match.objectLike({
       BucketEncryption: {
         ServerSideEncryptionConfiguration: [
@@ -399,11 +393,11 @@ test('Basic Site Setup, Encrypted Bucket', () => {
       WebsiteConfiguration: {
         IndexDocument: 'index.html',
       },
-  }));
+    }));
 
   template.hasResource('Custom::CDKBucketDeployment', {});
 
-  template.hasResourceProperties('AWS::S3::BucketPolicy', 
+  template.hasResourceProperties('AWS::S3::BucketPolicy',
     Match.objectLike({
       PolicyDocument: {
         Statement: [
@@ -411,7 +405,7 @@ test('Basic Site Setup, Encrypted Bucket', () => {
             Action: 's3:GetObject',
             Effect: 'Allow',
             Principal: {
-              "AWS": "*"
+              AWS: '*',
             },
           })],
       },
@@ -433,7 +427,7 @@ test('Cloudfront With Encrypted Bucket', () => {
   const template = Template.fromStack(stack);
 
   // THEN
-  template.hasResourceProperties('AWS::S3::Bucket', 
+  template.hasResourceProperties('AWS::S3::Bucket',
     Match.objectLike({
       BucketEncryption: {
         ServerSideEncryptionConfiguration: [
@@ -447,7 +441,7 @@ test('Cloudfront With Encrypted Bucket', () => {
       WebsiteConfiguration: {
         IndexDocument: 'index.html',
       },
-  }));
+    }));
 
   template.hasResource('Custom::CDKBucketDeployment', {});
 
@@ -584,19 +578,19 @@ test('Cloudfront With Custom SSL Method', () => {
 type RestrictionType = 'whitelist' | 'blacklist';
 test.each(['whitelist' as RestrictionType, 'blacklist' as RestrictionType])('Cloudfront With GeoRestriction for GB', (restrictionType: RestrictionType) => {
   const stack = new Stack();
-  const gbLocation = "GB";
+  const gbLocation = 'GB';
   // WHEN
   const deploy = new SPADeploy(stack, 'spaDeploy', { });
-  
+
   deploy.createSiteWithCloudfront({
     indexDoc: 'index.html',
     websiteFolder: 'website',
     certificateARN: 'arn:1234',
     cfAliases: ['www.test.com'],
     geoRestriction: {
-      restrictionType: restrictionType,
-      locations: [gbLocation]
-    }
+      restrictionType,
+      locations: [gbLocation],
+    },
   });
 
   const template = Template.fromStack(stack);
@@ -607,9 +601,9 @@ test.each(['whitelist' as RestrictionType, 'blacklist' as RestrictionType])('Clo
       Restrictions: {
         GeoRestriction: {
           Locations: [gbLocation],
-          RestrictionType: restrictionType
-        }
-      }
+          RestrictionType: restrictionType,
+        },
+      },
     },
   }));
 });
@@ -627,7 +621,7 @@ test('Basic Site Setup, IP Filter', () => {
   const template = Template.fromStack(stack);
 
   // THEN
-  template.hasResourceProperties('AWS::S3::Bucket', 
+  template.hasResourceProperties('AWS::S3::Bucket',
     Match.objectLike({
       BucketEncryption: {
         ServerSideEncryptionConfiguration: [
@@ -641,7 +635,7 @@ test('Basic Site Setup, IP Filter', () => {
       WebsiteConfiguration: {
         IndexDocument: 'index.html',
       },
-  }));
+    }));
 
   template.hasResource('Custom::CDKBucketDeployment', {});
 
@@ -659,7 +653,7 @@ test('Basic Site Setup, IP Filter', () => {
           },
           Effect: 'Allow',
           Principal: {
-            "AWS": "*"
+            AWS: '*',
           },
         })],
     },
@@ -685,7 +679,7 @@ test('Create From Hosted Zone', () => {
   const template = Template.fromStack(stack);
 
   // THEN
-  template.hasResourceProperties('AWS::S3::Bucket', 
+  template.hasResourceProperties('AWS::S3::Bucket',
     Match.objectLike({
       BucketEncryption: {
         ServerSideEncryptionConfiguration: [
@@ -699,7 +693,7 @@ test('Create From Hosted Zone', () => {
       WebsiteConfiguration: {
         IndexDocument: 'index.html',
       },
-  }));
+    }));
 
   template.hasResource('Custom::CDKBucketDeployment', {});
 
@@ -714,13 +708,13 @@ test('Create From Hosted Zone', () => {
     },
   }));
 
-  template.hasResourceProperties('AWS::S3::BucketPolicy', 
+  template.hasResourceProperties('AWS::S3::BucketPolicy',
     Match.objectLike({
       PolicyDocument: {
         Statement: [
           Match.objectLike({
             Action: 's3:GetObject',
-            Effect: 'Allow'
+            Effect: 'Allow',
           })],
       },
     }));
@@ -773,20 +767,20 @@ test('Create From Hosted Zone with Custom Role', () => {
       indexDoc: 'index.html',
       errorDoc: 'error.html',
       websiteFolder: 'website',
-      role: new Role(stack, 'myRole', {roleName: 'testRole', assumedBy: new ServicePrincipal('lambda.amazonaws.com')})
+      role: new Role(stack, 'myRole', { roleName: 'testRole', assumedBy: new ServicePrincipal('lambda.amazonaws.com') }),
     });
 
   const template = Template.fromStack(stack);
 
   // THEN
-  
+
   template.hasResourceProperties('AWS::Lambda::Function', Match.objectLike({
     Role: {
-      "Fn::GetAtt": [
-        "myRoleE60D68E8",
-        "Arn"
-      ]
-    }
+      'Fn::GetAtt': [
+        'myRoleE60D68E8',
+        'Arn',
+      ],
+    },
   }));
 });
 
@@ -810,7 +804,7 @@ test('Create From Hosted Zone with Error Bucket', () => {
   const template = Template.fromStack(stack);
 
   // THEN
-  template.hasResourceProperties('AWS::S3::Bucket',  Match.objectLike({
+  template.hasResourceProperties('AWS::S3::Bucket', Match.objectLike({
     BucketEncryption: {
       ServerSideEncryptionConfiguration: [
         {
@@ -848,7 +842,7 @@ test('Basic Site Setup, Block Public Enabled', () => {
     .createBasicSite({
       indexDoc: 'index.html',
       websiteFolder: 'website',
-      blockPublicAccess: BlockPublicAccess.BLOCK_ALL
+      blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
     });
 
   const template = Template.fromStack(stack);
@@ -867,7 +861,6 @@ test('Basic Site Setup, Block Public Enabled', () => {
   }));
 });
 
-
 test('Basic Site Setup, URL Output Enabled With Name', () => {
   const stack = new Stack();
   const exportName = 'test-export-name';
@@ -885,9 +878,9 @@ test('Basic Site Setup, URL Output Enabled With Name', () => {
 
   // THEN
   template.hasOutput(exportName, {
-    "Export": {
-      "Name": exportName
-    }
+    Export: {
+      Name: exportName,
+    },
   });
 });
 
@@ -895,12 +888,14 @@ test('Basic Site Setup, URL Output Enabled With No Name', () => {
   const stack = new Stack();
 
   // WHEN
-  expect(() => {new SPADeploy(stack, 'spaDeploy', {})
-    .createBasicSite({
-      indexDoc: 'index.html',
-      websiteFolder: 'website',
-      exportWebsiteUrlOutput: true,
-    })}).toThrowError();
+  expect(() => {
+    new SPADeploy(stack, 'spaDeploy', {})
+      .createBasicSite({
+        indexDoc: 'index.html',
+        websiteFolder: 'website',
+        exportWebsiteUrlOutput: true,
+      });
+  }).toThrowError();
 });
 
 test('Basic Site Setup, URL Output Not Enabled', () => {
@@ -918,9 +913,11 @@ test('Basic Site Setup, URL Output Not Enabled', () => {
   const template = Template.fromStack(stack);
 
   // THEN
-  expect(() => {template.hasOutput(exportName, {
-    "Export": {
-      "Name": exportName
-    }
-  })}).toThrowError();
+  expect(() => {
+    template.hasOutput(exportName, {
+      Export: {
+        Name: exportName,
+      },
+    });
+  }).toThrowError();
 });
