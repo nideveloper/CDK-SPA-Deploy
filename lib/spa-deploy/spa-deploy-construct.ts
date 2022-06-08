@@ -5,8 +5,11 @@ import {
   Behavior,
   SSLMethod,
   SecurityPolicyProtocol,
+  GeoRestriction,
 } from 'aws-cdk-lib/aws-cloudfront';
-import { PolicyStatement, Role, AnyPrincipal, Effect } from 'aws-cdk-lib/aws-iam';
+import {
+  PolicyStatement, Role, AnyPrincipal, Effect,
+} from 'aws-cdk-lib/aws-iam';
 import { HostedZone, ARecord, RecordTarget } from 'aws-cdk-lib/aws-route53';
 import { DnsValidatedCertificate } from 'aws-cdk-lib/aws-certificatemanager';
 import { HttpsRedirect } from 'aws-cdk-lib/aws-route53-patterns';
@@ -29,6 +32,7 @@ export interface SPADeployConfig {
   readonly sslMethod?: SSLMethod,
   readonly securityPolicy?: SecurityPolicyProtocol,
   readonly role?:Role,
+  readonly geoRestriction?: GeoRestriction | undefined,
 }
 
 export interface HostedZoneConfig {
@@ -111,27 +115,27 @@ export class SPADeploy extends Construct {
         bucket.addToResourcePolicy(bucketPolicy);
       }
 
-      //The below "reinforces" the IAM Role's attached policy, it's not required but it allows for customers using permission boundaries to write into the bucket.
+      // The below "reinforces" the IAM Role's attached policy, it's not required but it allows for customers using permission boundaries to write into the bucket.
       if (config.role) {
         bucket.addToResourcePolicy(
-            new PolicyStatement({
-              actions: [
-                "s3:GetObject*",
-                "s3:GetBucket*",
-                "s3:List*",
-                "s3:DeleteObject*",
-                "s3:PutObject*",
-                "s3:Abort*"
-              ],
-              effect: Effect.ALLOW,
-              resources: [bucket.arnForObjects('*'), bucket.bucketArn],
-              conditions: {
-                StringEquals: {
-                  'aws:PrincipalArn': config.role.roleArn,
-                },
+          new PolicyStatement({
+            actions: [
+              's3:GetObject*',
+              's3:GetBucket*',
+              's3:List*',
+              's3:DeleteObject*',
+              's3:PutObject*',
+              's3:Abort*',
+            ],
+            effect: Effect.ALLOW,
+            resources: [bucket.arnForObjects('*'), bucket.bucketArn],
+            conditions: {
+              StringEquals: {
+                'aws:PrincipalArn': config.role.roleArn,
               },
-              principals: [new AnyPrincipal()]
-            })
+            },
+            principals: [new AnyPrincipal()],
+          }),
         );
       }
 
@@ -185,6 +189,10 @@ export class SPADeploy extends Construct {
         });
       }
 
+      if (typeof config.geoRestriction !== 'undefined') {
+        cfConfig.geoRestriction = config.geoRestriction;
+      }
+
       return cfConfig;
     }
 
@@ -212,9 +220,9 @@ export class SPADeploy extends Construct {
         cfnOutputConfig.exportName = config.exportWebsiteUrlName;
       }
 
-      let output = new CfnOutput(this, 'URL', cfnOutputConfig);
-      //set the output name to be the same as the export name
-      if(typeof config.exportWebsiteUrlName !== 'undefined' && config.exportWebsiteUrlName !== ''){
+      const output = new CfnOutput(this, 'URL', cfnOutputConfig);
+      // set the output name to be the same as the export name
+      if (typeof config.exportWebsiteUrlName !== 'undefined' && config.exportWebsiteUrlName !== '') {
         output.overrideLogicalId(config.exportWebsiteUrlName);
       }
 
@@ -281,10 +289,10 @@ export class SPADeploy extends Construct {
 
       if (!config.subdomain) {
         new HttpsRedirect(this, 'Redirect', {
-            zone,
-            recordNames: [`www.${config.zoneName}`],
-            targetDomain: config.zoneName,
-        });          
+          zone,
+          recordNames: [`www.${config.zoneName}`],
+          targetDomain: config.zoneName,
+        });
       }
 
       return { websiteBucket, distribution };
