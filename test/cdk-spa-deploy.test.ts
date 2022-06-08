@@ -581,8 +581,10 @@ test('Cloudfront With Custom SSL Method', () => {
   }));
 });
 
-test('Cloudfront With GeoRestriction Allowlist for GB', () => {
+type RestrictionType = 'whitelist' | 'blacklist';
+test.each(['whitelist' as RestrictionType, 'blacklist' as RestrictionType])('Cloudfront With GeoRestriction for GB', (restrictionType: RestrictionType) => {
   const stack = new Stack();
+  const gbLocation = "GB";
   // WHEN
   const deploy = new SPADeploy(stack, 'spaDeploy', { });
   
@@ -592,8 +594,8 @@ test('Cloudfront With GeoRestriction Allowlist for GB', () => {
     certificateARN: 'arn:1234',
     cfAliases: ['www.test.com'],
     geoRestriction: {
-      restrictionType: "whitelist",
-      locations: ["GB"]
+      restrictionType: restrictionType,
+      locations: [gbLocation]
     }
   });
 
@@ -604,39 +606,8 @@ test('Cloudfront With GeoRestriction Allowlist for GB', () => {
     DistributionConfig: {
       Restrictions: {
         GeoRestriction: {
-          Locations: ["GB"],
-          RestrictionType: "whitelist"
-        }
-      }
-    },
-  }));
-});
-
-test('Cloudfront With GeoRestriction Blocklist for GB', () => {
-  const stack = new Stack();
-  // WHEN
-  const deploy = new SPADeploy(stack, 'spaDeploy', { });
-  
-  deploy.createSiteWithCloudfront({
-    indexDoc: 'index.html',
-    websiteFolder: 'website',
-    certificateARN: 'arn:1234',
-    cfAliases: ['www.test.com'],
-    geoRestriction: {
-      restrictionType: "blacklist",
-      locations: ["GB"]
-    }
-  });
-
-  const template = Template.fromStack(stack);
-
-  // THEN
-  template.hasResourceProperties('AWS::CloudFront::Distribution', Match.objectLike({
-    DistributionConfig: {
-      Restrictions: {
-        GeoRestriction: {
-          Locations: ["GB"],
-          RestrictionType: "blacklist"
+          Locations: [gbLocation],
+          RestrictionType: restrictionType
         }
       }
     },
