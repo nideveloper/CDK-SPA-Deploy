@@ -4,6 +4,7 @@ import { Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 import { BlockPublicAccess } from 'aws-cdk-lib/aws-s3';
 import { Stack, App } from 'aws-cdk-lib/';
 import { SPADeploy } from '../lib';
+import { GeoRestriction } from "aws-cdk-lib/aws-cloudfront";
 
 
 test('Cloudfront Distribution Included', () => {
@@ -576,6 +577,64 @@ test('Cloudfront With Custom SSL Method', () => {
       ViewerCertificate: {
         AcmCertificateArn: 'arn:1234',
         SslSupportMethod: 'vip',
+      },
+    },
+  }));
+});
+
+test('Cloudfront With Custom Geo Restriction', () => {
+  const stack = new Stack();
+  const geoRestriction: GeoRestriction = {
+    restrictionType: 'whitelist',
+    locations: ['US'],
+  }
+  // WHEN
+  const deploy = new SPADeploy(stack, 'spaDeploy');
+
+  deploy.createSiteWithCloudfront({
+    indexDoc: 'index.html',
+    websiteFolder: 'website',
+    geoRestriction,
+  });
+
+  const template = Template.fromStack(stack);
+
+  // THEN
+  template.hasResource('Custom::CDKBucketDeployment', {});
+
+  template.hasResourceProperties('AWS::CloudFront::Distribution', Match.objectLike({
+    DistributionConfig: {
+      Restrictions: {
+        GeoRestriction: {
+          RestrictionType: geoRestriction.restrictionType,
+          Locations: geoRestriction.locations,
+        },
+      },
+    },
+  }));
+});
+
+test('Cloudfront With Custom Logging Config', () => {
+  const stack = new Stack();
+  // WHEN
+  const deploy = new SPADeploy(stack, 'spaDeploy');
+
+  deploy.createSiteWithCloudfront({
+    indexDoc: 'index.html',
+    websiteFolder: 'website',
+    loggingConfig: {},
+  });
+
+  const template = Template.fromStack(stack);
+
+  // THEN
+  template.hasResource('Custom::CDKBucketDeployment', {});
+
+  template.hasResourceProperties('AWS::CloudFront::Distribution', 
+      Match.objectLike({
+    DistributionConfig: {
+      Logging: {
+        Bucket: {},
       },
     },
   }));

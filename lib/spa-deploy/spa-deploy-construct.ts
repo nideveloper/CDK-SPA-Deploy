@@ -5,6 +5,8 @@ import {
   Behavior,
   SSLMethod,
   SecurityPolicyProtocol,
+  GeoRestriction,
+  LoggingConfiguration,
 } from 'aws-cdk-lib/aws-cloudfront';
 import { PolicyStatement, Role, AnyPrincipal, Effect } from 'aws-cdk-lib/aws-iam';
 import { HostedZone, ARecord, RecordTarget } from 'aws-cdk-lib/aws-route53';
@@ -28,7 +30,9 @@ export interface SPADeployConfig {
   readonly blockPublicAccess?:s3.BlockPublicAccess
   readonly sslMethod?: SSLMethod,
   readonly securityPolicy?: SecurityPolicyProtocol,
-  readonly role?:Role,
+  readonly role?: Role,
+  readonly geoRestriction?: GeoRestriction,
+  readonly loggingConfig?: LoggingConfiguration,
 }
 
 export interface HostedZoneConfig {
@@ -183,6 +187,14 @@ export class SPADeploy extends Construct {
         cfConfig.viewerCertificate = ViewerCertificate.fromAcmCertificate(cert, {
           aliases: [config.subdomain ? `${config.subdomain}.${config.zoneName}` : config.zoneName],
         });
+      }
+
+      if (typeof config.geoRestriction !== 'undefined') {
+        cfConfig.geoRestriction = config.geoRestriction;
+      }
+
+      if (typeof config.loggingConfig !== 'undefined') {
+        cfConfig.loggingConfig = config.loggingConfig;
       }
 
       return cfConfig;
