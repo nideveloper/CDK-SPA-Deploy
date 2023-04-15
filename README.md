@@ -13,8 +13,31 @@ This is an AWS CDK Construct to make deploying a single page website (Angular/Re
 npm install --save cdk-spa-deploy
 ```
 
+There is now a v1 and a v2 CDK version of this construct
+
+#### For AWS CDK V1 Usage:
+
+As of version 103.0 this construct now declares peer dependencies rather than bundling them so you can use it with any version of CDK higher than 103.0 without waiting on me to release a new version. The downside is that you will need to install the dependencies it uses for yourself, here is a list:
+```json
+{
+    "constructs": "^3.3.75",
+    "@aws-cdk/aws-certificatemanager": "^1.103.0",
+    "@aws-cdk/aws-cloudfront": "^1.103.0",
+    "@aws-cdk/aws-iam": "^1.103.0",
+    "@aws-cdk/aws-route53": "^1.103.0",
+    "@aws-cdk/aws-route53-patterns": "^1.103.0",
+    "@aws-cdk/aws-route53-targets": "^1.103.0",
+    "@aws-cdk/aws-s3": "^1.103.0",
+    "@aws-cdk/aws-s3-deployment": "^1.103.0",
+    "@aws-cdk/core": "^1.103.0"
+}
+```
+
+#### For AWS CDK V2 usage:
+Install v2.0.0-alpha.1 and use it like below based on your chosen language, no extra steps
+
 ```typescript
-import cdk = require('@aws-cdk/core');
+import * as cdk from '@aws-cdk/core';
 import { SPADeploy } from 'cdk-spa-deploy';
 
 export class CdkStack extends cdk.Stack {
@@ -42,6 +65,8 @@ export class CdkStack extends cdk.Stack {
 pip install cdk-spa-deploy
 ```
 
+Note As of version 103.0 this construct now declares peer dependencies rather than bundling them so you can use it with any version of CDK higher than 103.0 without waiting on me to release a new version. The downside is that you will need to install the dependencies it uses for yourself. The npm versioms are listed above.
+
 ```python
 from aws_cdk import core
 from spa_deploy import SPADeploy
@@ -66,6 +91,8 @@ class PythonStack(core.Stack):
 
 This project has now been published to nuget, more details to follow soon but you can find it [here](https://www.nuget.org/packages/CDKSPADeploy/1.80.0)
 
+Note As of version 103.0 this construct now declares peer dependencies rather than bundling them so you can use it with any version of CDK higher than 103.0 without waiting on me to release a new version. The downside is that you will need to install the dependencies it uses for yourself. The npm versioms are listed above.
+
 ```bash
 # package manager
 Install-Package CDKSPADeploy -Version 1.80.0
@@ -79,7 +106,9 @@ paket add CDKSPADeploy --version 1.80.0
 
 ### Java
 
-A version has now been published to maven
+A version has now been published to maven.
+
+Note As of version 103.0 this construct now declares peer dependencies rather than bundling them so you can use it with any version of CDK higher than 103.0 without waiting on me to release a new version. The downside is that you will need to install the dependencies it uses for yourself. The npm versioms are listed above.
 
 ```xml
 <dependency>

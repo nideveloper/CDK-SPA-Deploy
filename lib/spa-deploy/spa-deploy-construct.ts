@@ -5,15 +5,16 @@ import {
   Behavior,
   SSLMethod,
   SecurityPolicyProtocol,
-} from '@aws-cdk/aws-cloudfront';
-import { PolicyStatement } from '@aws-cdk/aws-iam';
-import { HostedZone, ARecord, RecordTarget } from '@aws-cdk/aws-route53';
-import { DnsValidatedCertificate } from '@aws-cdk/aws-certificatemanager';
-import { HttpsRedirect } from '@aws-cdk/aws-route53-patterns';
-import { CloudFrontTarget } from '@aws-cdk/aws-route53-targets';
-import cdk = require('@aws-cdk/core');
-import s3deploy= require('@aws-cdk/aws-s3-deployment');
-import s3 = require('@aws-cdk/aws-s3');
+} from 'aws-cdk-lib/aws-cloudfront';
+import { PolicyStatement, Role, AnyPrincipal, Effect } from 'aws-cdk-lib/aws-iam';
+import { HostedZone, ARecord, RecordTarget } from 'aws-cdk-lib/aws-route53';
+import { DnsValidatedCertificate } from 'aws-cdk-lib/aws-certificatemanager';
+import { HttpsRedirect } from 'aws-cdk-lib/aws-route53-patterns';
+import { CloudFrontTarget } from 'aws-cdk-lib/aws-route53-targets';
+import { CfnOutput } from 'aws-cdk-lib';
+import s3deploy= require('aws-cdk-lib/aws-s3-deployment');
+import s3 = require('aws-cdk-lib/aws-s3');
+import { Construct } from 'constructs';
 
 export interface SPADeployConfig {
   readonly indexDoc:string,
@@ -28,6 +29,7 @@ export interface SPADeployConfig {
   readonly sslMethod?: SSLMethod,
   readonly securityPolicy?: SecurityPolicyProtocol,
   readonly memoryLimit?: number
+  readonly role?:Role,
 }
 
 export interface HostedZoneConfig {
@@ -38,12 +40,14 @@ export interface HostedZoneConfig {
   readonly zoneName: string,
   readonly subdomain?: string,
   readonly memoryLimit?: number
+  readonly role?: Role,
 }
 
 export interface SPAGlobalConfig {
   readonly encryptBucket?:boolean,
   readonly ipFilter?:boolean,
-  readonly ipList?:string[]
+  readonly ipList?:string[],
+  readonly role?:Role,
 }
 
 export interface SPADeployment {
@@ -54,10 +58,10 @@ export interface SPADeploymentWithCloudFront extends SPADeployment {
   readonly distribution: CloudFrontWebDistribution,
 }
 
-export class SPADeploy extends cdk.Construct {
+export class SPADeploy extends Construct {
     globalConfig: SPAGlobalConfig;
 
-    constructor(scope: cdk.Construct, id:string, config?:SPAGlobalConfig) {
+    constructor(scope: Construct, id:string, config?:SPAGlobalConfig) {
       super(scope, id);
 
       if (typeof config !== 'undefined') {
@@ -84,7 +88,7 @@ export class SPADeploy extends cdk.Construct {
         bucketConfig.encryption = s3.BucketEncryption.S3_MANAGED;
       }
 
-      if (this.globalConfig.ipFilter === true || isForCloudFront === true) {
+      if (this.globalConfig.ipFilter === true || isForCloudFront === true || typeof config.blockPublicAccess !== 'undefined') {
         bucketConfig.publicReadAccess = false;
         if (typeof config.blockPublicAccess !== 'undefined') {
           bucketConfig.blockPublicAccess = config.blockPublicAccess;
@@ -95,7 +99,7 @@ export class SPADeploy extends cdk.Construct {
 
       if (this.globalConfig.ipFilter === true && isForCloudFront === false) {
         if (typeof this.globalConfig.ipList === 'undefined') {
-          this.node.addError('When IP Filter is true then the IP List is required');
+          throw new Error('When IP Filter is true then the IP List is required');
         }
 
         const bucketPolicy = new PolicyStatement();
@@ -107,6 +111,30 @@ export class SPADeploy extends cdk.Construct {
         });
 
         bucket.addToResourcePolicy(bucketPolicy);
+      }
+
+      //The below "reinforces" the IAM Role's attached policy, it's not required but it allows for customers using permission boundaries to write into the bucket.
+      if (config.role) {
+        bucket.addToResourcePolicy(
+            new PolicyStatement({
+              actions: [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*"
+              ],
+              effect: Effect.ALLOW,
+              resources: [bucket.arnForObjects('*'), bucket.bucketArn],
+              conditions: {
+                StringEquals: {
+                  'aws:PrincipalArn': config.role.roleArn,
+                },
+              },
+              principals: [new AnyPrincipal()]
+            })
+        );
       }
 
       return bucket;
@@ -170,6 +198,7 @@ export class SPADeploy extends cdk.Construct {
 
       new s3deploy.BucketDeployment(this, 'BucketDeployment', {
         sources: [s3deploy.Source.asset(config.websiteFolder)],
+        role: config.role,
         destinationBucket: websiteBucket,
         memoryLimit: config.memoryLimit
       });
@@ -181,12 +210,16 @@ export class SPADeploy extends cdk.Construct {
 
       if (config.exportWebsiteUrlOutput === true) {
         if (typeof config.exportWebsiteUrlName === 'undefined' || config.exportWebsiteUrlName === '') {
-          this.node.addError('When Output URL as AWS Export property is true then the output name is required');
+          throw new Error('When Output URL as AWS Export property is true then the output name is required');
         }
         cfnOutputConfig.exportName = config.exportWebsiteUrlName;
       }
 
-      new cdk.CfnOutput(this, 'URL', cfnOutputConfig);
+      let output = new CfnOutput(this, 'URL', cfnOutputConfig);
+      //set the output name to be the same as the export name
+      if(typeof config.exportWebsiteUrlName !== 'undefined' && config.exportWebsiteUrlName !== ''){
+        output.overrideLogicalId(config.exportWebsiteUrlName);
+      }
 
       return { websiteBucket };
     }
@@ -207,9 +240,10 @@ export class SPADeploy extends cdk.Construct {
         distribution,
         distributionPaths: ['/', `/${config.indexDoc}`],
         memoryLimit: config.memoryLimit
+        role: config.role,
       });
 
-      new cdk.CfnOutput(this, 'cloudfront domain', {
+      new CfnOutput(this, 'cloudfront domain', {
         description: 'The domain of the website',
         value: distribution.distributionDomainName,
       });
@@ -239,6 +273,7 @@ export class SPADeploy extends cdk.Construct {
         destinationBucket: websiteBucket,
         // Invalidate the cache for / and index.html when we deploy so that cloudfront serves latest site
         distribution,
+        role: config.role,
         distributionPaths: ['/', `/${config.indexDoc}`],
         memoryLimit: config.memoryLimit
       });
