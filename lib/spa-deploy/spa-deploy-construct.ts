@@ -28,6 +28,7 @@ export interface SPADeployConfig {
   readonly blockPublicAccess?:s3.BlockPublicAccess
   readonly sslMethod?: SSLMethod,
   readonly securityPolicy?: SecurityPolicyProtocol,
+  readonly memoryLimit?: number
   readonly role?:Role,
 }
 
@@ -38,6 +39,7 @@ export interface HostedZoneConfig {
   readonly websiteFolder: string,
   readonly zoneName: string,
   readonly subdomain?: string,
+  readonly memoryLimit?: number
   readonly role?: Role,
 }
 
@@ -198,6 +200,7 @@ export class SPADeploy extends Construct {
         sources: [s3deploy.Source.asset(config.websiteFolder)],
         role: config.role,
         destinationBucket: websiteBucket,
+        memoryLimit: config.memoryLimit
       });
 
       const cfnOutputConfig:any = {
@@ -236,6 +239,7 @@ export class SPADeploy extends Construct {
         // Invalidate the cache for / and index.html when we deploy so that cloudfront serves latest site
         distribution,
         distributionPaths: ['/', `/${config.indexDoc}`],
+        memoryLimit: config.memoryLimit
         role: config.role,
       });
 
@@ -271,6 +275,7 @@ export class SPADeploy extends Construct {
         distribution,
         role: config.role,
         distributionPaths: ['/', `/${config.indexDoc}`],
+        memoryLimit: config.memoryLimit
       });
 
       new ARecord(this, 'Alias', {
