@@ -4,7 +4,7 @@ import {
   OriginAccessIdentity,
   Behavior,
   SSLMethod,
-  SecurityPolicyProtocol,
+  SecurityPolicyProtocol, ResponseCustomHeader
 } from 'aws-cdk-lib/aws-cloudfront';
 import { PolicyStatement, Role, AnyPrincipal, Effect } from 'aws-cdk-lib/aws-iam';
 import { HostedZone, ARecord, RecordTarget } from 'aws-cdk-lib/aws-route53';
@@ -29,6 +29,7 @@ export interface SPADeployConfig {
   readonly sslMethod?: SSLMethod,
   readonly securityPolicy?: SecurityPolicyProtocol,
   readonly role?:Role,
+  readonly responseCustomHeader?: ResponseCustomHeader,
 }
 
 export interface HostedZoneConfig {
@@ -177,6 +178,10 @@ export class SPADeploy extends Construct {
 
       if (typeof config.securityPolicy !== 'undefined') {
         cfConfig.aliasConfiguration.securityPolicy = config.securityPolicy;
+      }
+
+      if (typeof config.responseCustomHeader !== 'undefined') {
+        cfConfig.aliasConfiguration.responseCustomHeader = config.responseCustomHeader;
       }
 
       if (typeof config.zoneName !== 'undefined' && typeof cert !== 'undefined') {
